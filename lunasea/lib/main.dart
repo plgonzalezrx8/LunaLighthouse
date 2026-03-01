@@ -12,7 +12,7 @@ import 'package:lunasea/system/recovery_mode/main.dart';
 import 'package:lunasea/system/window_manager/window_manager.dart';
 import 'package:lunasea/system/platform.dart';
 
-/// LunaSea Entry Point: Bootstrap & Run Application
+/// Lunarr entry point: bootstrap and run application.
 ///
 /// Runs app in guarded zone to attempt to capture fatal (crashing) errors
 Future<void> main() async {
@@ -76,7 +76,7 @@ class LunaBIOS extends StatelessWidget {
                 builder: DevicePreview.appBuilder,
                 darkTheme: theme.activeTheme(),
                 theme: theme.activeTheme(),
-                title: 'LunaSea',
+                title: 'Lunarr',
                 routeInformationProvider: router.routeInformationProvider,
                 routeInformationParser: router.routeInformationParser,
                 routerDelegate: router.routerDelegate,

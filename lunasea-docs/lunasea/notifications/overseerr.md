@@ -1,26 +1,31 @@
 # Overseerr
 
+{% hint style="warning" %}
+Hosted webhook relay setup is temporarily unavailable in phase-1 Lunarr builds. Keep this page for future phase-2 reactivation planning.
+{% endhint %}
+
+
 ## Preparation
 
 * Read through the main [Notifications](./) page
-* Copy your device-based or user-based webhook URL from LunaSea
+* Copy your device-based or user-based webhook URL from Lunarr
 
 ## Setup the Webhook
 
-In Overseerr's web GUI, head to Settings -> Notifications -> LunaSea. Ensure that the agent is enabled, then follow each section below to setup the webhook:
+In Overseerr's web GUI, head to Settings -> Notifications -> Lunarr. Ensure that the agent is enabled, then follow each section below to setup the webhook:
 
 {% tabs %}
 {% tab title="Webhook URL" %}
-Paste the full device-based or user-based URL that was copied from LunaSea.
+Paste the full device-based or user-based URL that was copied from Lunarr.
 
-Overseerr currently only supports 1 LunaSea notification agent, which means you can only setup a single user-based or device-based notification.
+Overseerr currently only supports 1 Lunarr notification agent, which means you can only setup a single user-based or device-based notification.
 {% endtab %}
 
 {% tab title="Profile Name" %}
-The profile name field should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _does_ matter.
+The profile name field should be an **exact match** to the profile that this module instance was added to within Lunarr. Capitalization and punctuation _does_ matter.
 
 {% hint style="warning" %}
-This step is only required if you are _**not**_ using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
+This step is only required if you are _**not**_ using the default Lunarr profile (`default`). Lunarr will assume the default profile when none is supplied.
 
 Correctly setting up this field is critically important to get full deep-linking support.
 {% endhint %}
@@ -44,7 +49,7 @@ Select which events should trigger a push notification. The following triggers a
 {% endtab %}
 {% endtabs %}
 
-Once setup, close LunaSea and run the webhook test in Overseerr. You should receive a new notification letting you know that LunaSea is ready to receive Overseerr notifications!
+Once setup, close Lunarr and run the webhook test in Overseerr. You should receive a new notification letting you know that Lunarr is ready to receive Overseerr notifications!
 
 ## Example
 

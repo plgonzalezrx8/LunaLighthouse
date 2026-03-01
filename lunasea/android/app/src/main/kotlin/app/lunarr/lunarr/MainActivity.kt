@@ -1,4 +1,4 @@
-package app.lunasea.lunasea
+package app.lunarr.lunarr
 
 import io.flutter.embedding.android.FlutterActivity
 

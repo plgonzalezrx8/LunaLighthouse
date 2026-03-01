@@ -1,9 +1,9 @@
 # Radarr
 
-Adding your Radarr instance to LunaSea only requires a few steps to get going!
+Adding your Radarr instance to Lunarr only requires a few steps to get going!
 
 {% hint style="warning" %}
-This documentation only covers adding Radarr to LunaSea via local network (LAN) connections, and does not cover exposing Radarr externally and connecting remotely.
+This documentation only covers adding Radarr to Lunarr via local network (LAN) connections, and does not cover exposing Radarr externally and connecting remotely.
 {% endhint %}
 
 ## Preparing Radarr
@@ -38,9 +38,9 @@ To ensure that Radarr is accessible across your local network, check the followi
 
 ### Check If You Are Using a URL Base
 
-In Radarr's web GUI, go to Settings -> General and check the value of "URL Base". If you have nothing set, you can move on. If you do have a value set, please remember the set value as it will be necessary when setting the host within LunaSea.
+In Radarr's web GUI, go to Settings -> General and check the value of "URL Base". If you have nothing set, you can move on. If you do have a value set, please remember the set value as it will be necessary when setting the host within Lunarr.
 
-## Connecting in LunaSea
+## Connecting in Lunarr
 
 ### Host
 

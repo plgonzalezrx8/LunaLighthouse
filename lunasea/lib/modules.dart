@@ -16,6 +16,7 @@ import 'package:lunasea/modules/nzbget.dart';
 import 'package:lunasea/modules/tautulli.dart';
 import 'package:lunasea/modules/dashboard/core/state.dart';
 import 'package:lunasea/api/wake_on_lan/wake_on_lan.dart';
+import 'package:lunasea/system/feature_flags.dart';
 
 part 'modules.g.dart';
 
@@ -304,7 +305,7 @@ extension LunaModuleMetadataExtension on LunaModule {
       case LunaModule.SEARCH:
         return 'Search Newznab Indexers';
       case LunaModule.SETTINGS:
-        return 'Configure LunaSea';
+        return 'Configure Lunarr';
       case LunaModule.SONARR:
         return 'Manage Television Series';
       case LunaModule.TAUTULLI:
@@ -331,7 +332,7 @@ extension LunaModuleMetadataExtension on LunaModule {
       case LunaModule.SABNZBD:
         return 'SABnzbd is a multi-platform binary newsgroup downloader. The program works in the background and simplifies the downloading verifying and extracting of files from Usenet.';
       case LunaModule.SEARCH:
-        return 'LunaSea currently supports all indexers that support the newznab protocol, including NZBHydra2.';
+        return 'Lunarr currently supports all indexers that support the newznab protocol, including NZBHydra2.';
       case LunaModule.SETTINGS:
         return null;
       case LunaModule.SONARR:
@@ -343,7 +344,7 @@ extension LunaModuleMetadataExtension on LunaModule {
       case LunaModule.WAKE_ON_LAN:
         return 'Wake on LAN is an industry standard protocol for waking computers up from a very low power mode remotely by sending a specially constructed packet to the machine.';
       case LunaModule.EXTERNAL_MODULES:
-        return 'LunaSea allows you to add links to additional modules that are not currently supported allowing you to open the module\'s web GUI without having to leave LunaSea!';
+        return 'Lunarr allows you to add links to additional modules that are not currently supported allowing you to open the module\'s web GUI without having to leave Lunarr!';
     }
   }
 }
@@ -416,6 +417,8 @@ extension LunaModuleRoutingExtension on LunaModule {
 
 extension LunaModuleWebhookExtension on LunaModule {
   bool get hasWebhooks {
+    if (!LunaFeatureFlags.cloudIntegrationsEnabled) return false;
+
     switch (this) {
       case LunaModule.LIDARR:
         return true;
@@ -433,23 +436,27 @@ extension LunaModuleWebhookExtension on LunaModule {
   }
 
   String? get webhookDocs {
+    if (!LunaFeatureFlags.cloudIntegrationsEnabled) return null;
+
     switch (this) {
       case LunaModule.LIDARR:
-        return 'https://docs.lunasea.app/lunasea/notifications/lidarr';
+        return 'https://docs.lunarr.app/lunarr/notifications/lidarr';
       case LunaModule.RADARR:
-        return 'https://docs.lunasea.app/lunasea/notifications/radarr';
+        return 'https://docs.lunarr.app/lunarr/notifications/radarr';
       case LunaModule.SONARR:
-        return 'https://docs.lunasea.app/lunasea/notifications/sonarr';
+        return 'https://docs.lunarr.app/lunarr/notifications/sonarr';
       case LunaModule.OVERSEERR:
-        return 'https://docs.lunasea.app/lunasea/notifications/overseerr';
+        return 'https://docs.lunarr.app/lunarr/notifications/overseerr';
       case LunaModule.TAUTULLI:
-        return 'https://docs.lunasea.app/lunasea/notifications/tautulli';
+        return 'https://docs.lunarr.app/lunarr/notifications/tautulli';
       default:
         return null;
     }
   }
 
   Future<void> handleWebhook(Map<String, dynamic> data) async {
+    if (!LunaFeatureFlags.cloudIntegrationsEnabled) return;
+
     switch (this) {
       case LunaModule.LIDARR:
         return LidarrWebhooks().handle(data);

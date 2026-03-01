@@ -1,6 +1,6 @@
-# LunaSea Cloud Functions
+# Lunarr Cloud Functions
 
-A collection of Cloud Functions that are associated with LunaSea.
+A collection of Cloud Functions that are associated with Lunarr.
 
 ## Controllers
 

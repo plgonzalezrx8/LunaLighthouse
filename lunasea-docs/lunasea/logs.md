@@ -1,6 +1,6 @@
 # Logs
 
-LunaSea includes an on-device logging system that helps debug crashes, issues, and support requests. LunaSea stores 4 different levels of logs: **Debug**, **Warning**, **Error**, and **Critical**.
+Lunarr includes an on-device logging system that helps debug crashes, issues, and support requests. Lunarr stores 4 different levels of logs: **Debug**, **Warning**, **Error**, and **Critical**.
 
 {% tabs %}
 {% tab title="Debug" %}
@@ -18,7 +18,7 @@ Error logs are non-crashing but critical errors that have occurred on the device
 {% endtab %}
 
 {% tab title="Critical" %}
-Critical logs are crashing errors or unhandled errors that have occurred on the device. Critical logs would occur when LunaSea fails to complete the boot process, fails to render the UI, etc.
+Critical logs are crashing errors or unhandled errors that have occurred on the device. Critical logs would occur when Lunarr fails to complete the boot process, fails to render the UI, etc.
 {% endtab %}
 {% endtabs %}
 
@@ -26,15 +26,15 @@ Critical logs are crashing errors or unhandled errors that have occurred on the 
 
 When a _handled_ error occurs, a toast notification will appear that allows you to directly view the error that just occurred.
 
-LunaSea also stores a list of the **last 100 logs** that have occurred on the device. To access the history of logs, go to Settings -> System -> Logs.
+Lunarr also stores a list of the **last 100 logs** that have occurred on the device. To access the history of logs, go to Settings -> System -> Logs.
 
 {% hint style="info" %}
-The log database size is checked on startup, so all logs that have occurred in the active session will remain in the log history until LunaSea is closed and reopened.
+The log database size is checked on startup, so all logs that have occurred in the active session will remain in the log history until Lunarr is closed and reopened.
 {% endhint %}
 
 ## Exporting Logs
 
-LunaSea offers the ability to export your logs into a JSON file, which can be easily sent to the developer to help debug the problems. The exported logs also include additional information, including the code-execution stack trace to see exactly where in the code the error occurred.
+Lunarr offers the ability to export your logs into a JSON file, which can be easily sent to the developer to help debug the problems. The exported logs also include additional information, including the code-execution stack trace to see exactly where in the code the error occurred.
 
 To export your logs, go to Settings -> System -> Logs -> "Export" to trigger an export of your logs. A system-level share menu or dialog prompt will appear with the ability to share or save the exported logs to your device.
 
@@ -46,6 +46,6 @@ Please ensure you do not publicly share your exported logs (or before sharing, m
 
 ## Clearing Logs
 
-LunaSea offers the ability to clear all recorded logs from your device. While an available option, it is not recommended to clear your logs often as LunaSea will internally ensure the log database does not grow to an obscenely large size.
+Lunarr offers the ability to clear all recorded logs from your device. While an available option, it is not recommended to clear your logs often as Lunarr will internally ensure the log database does not grow to an obscenely large size.
 
 To clear your logs, go to Settings -> System -> Logs -> "Clear" to trigger a clean of the logs database.

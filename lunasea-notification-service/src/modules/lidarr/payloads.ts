@@ -101,7 +101,7 @@ export const test = async (
 ): Promise<Notifications.Payload> => {
   return <Notifications.Payload>{
     title: title(profile, 'Connection Test'),
-    body: 'LunaSea is ready for Lidarr notifications!',
+    body: 'Lunarr is ready for Lidarr notifications!',
     data: {
       module: moduleKey,
       profile: profile,

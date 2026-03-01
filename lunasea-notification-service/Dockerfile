@@ -1,5 +1,5 @@
-FROM node:18-alpine
-LABEL org.opencontainers.image.source="https://github.com/JagandeepBrar/LunaSea-Notification-Service"
+FROM node:20-alpine
+LABEL org.opencontainers.image.source="https://github.com/pedrogonzalez/lunarr-notification-service"
 # Install packages, copy data, build project
 WORKDIR /usr/src/app
 COPY package*.json ./

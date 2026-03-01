@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Run mobile-focused validation steps used for baseline confidence and CI parity.
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+APP_DIR="$ROOT_DIR/lunasea"
+
+if [[ ! -d "$APP_DIR" ]]; then
+  echo "[mobile-build-check] Missing app directory: $APP_DIR" >&2
+  exit 1
+fi
+
+"$ROOT_DIR/scripts/doctor"
+
+pushd "$APP_DIR" >/dev/null
+
+# Keep generated artifacts deterministic before analyzing/building.
+flutter pub get
+dart run environment_config:generate
+dart ./scripts/generate_localization.dart
+dart run build_runner build --delete-conflicting-outputs
+
+# Static analysis is a required gate for mobile relaunch checks.
+flutter analyze
+
+# Build Android debug artifact to validate Gradle/package identity paths.
+flutter build apk --debug
+
+# iOS build is only attempted on macOS hosts where Xcode is available.
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  flutter build ios --debug --no-codesign
+else
+  echo "[mobile-build-check] Skipping iOS build on non-macOS host"
+fi
+
+popd >/dev/null
+
+echo "[mobile-build-check] Mobile baseline checks completed."

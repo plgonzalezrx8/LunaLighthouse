@@ -20,6 +20,8 @@ on:
         required: true
       MATCH_KEYCHAIN_PASSWORD:
         required: true
+      MATCH_GIT_URL:
+        required: true
       MATCH_PASSWORD:
         required: true
       MATCH_SSH_PRIVATE_KEY:
@@ -31,12 +33,12 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Setup Environment
-        uses: JagandeepBrar/lunasea/.github/actions/prepare_for_build@master
+        uses: ./.github/actions/prepare_for_build
         with:
           platform: ios
           match-ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
-      - name: Build LunaSea
+      - name: Build Lunarr
         working-directory: ${{ github.workspace }}/ios
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -46,6 +48,7 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
         run: bundle exec fastlane build_appstore build_number:${{ inputs.build-number }}
 
       - name: Upload Artifact

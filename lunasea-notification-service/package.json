@@ -1,8 +1,8 @@
 {
-  "name": "lunasea-notification-service",
+  "name": "lunarr-notification-service",
   "version": "1.5.5",
-  "description": "Notification service for LunaSea",
-  "repository": "https://github.com/JagandeepBrar/LunaSea-Notification-Service",
+  "description": "Notification service for Lunarr",
+  "repository": "https://github.com/pedrogonzalez/lunarr-notification-service",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon --config nodemon.json src/index.ts",
@@ -15,7 +15,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "prepare": "husky install"
   },
-  "author": "Jagandeep Brar",
+  "author": "Lunarr Maintainers",
   "license": "GPL-3.0-only",
   "dependencies": {
     "@types/basic-auth": "^1.1.4",

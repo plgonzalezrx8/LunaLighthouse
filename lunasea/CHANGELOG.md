@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [11.0.0](https://github.com/jagandeepbrar/lunasea/tree/v11.0.0) (2025-04-03)
 
-**This is the final release of LunaSea.**
+**This is the final release of Lunarr.**
 
 ### [10.2.6](https://github.com/jagandeepbrar/lunasea/compare/v10.2.5...v10.2.6) (2023-10-04)
 
@@ -240,7 +240,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **account:** ability to update account email and password ([5ea6269](https://github.com/jagandeepbrar/lunasea/commit/5ea6269bca9cc21f9a3ec34ff9840ea22384b717))
-* **firebase:** allow building LunaSea without setting up Firebase [skip ci] ([d7431b1](https://github.com/jagandeepbrar/lunasea/commit/d7431b110217ff868e662be4a34af656ca1d6515))
+* **firebase:** allow building Lunarr without setting up Firebase [skip ci] ([d7431b1](https://github.com/jagandeepbrar/lunasea/commit/d7431b110217ff868e662be4a34af656ca1d6515))
 * **firebase:** conditionally load Firebase depending on the platform ([91f556d](https://github.com/jagandeepbrar/lunasea/commit/91f556d07833c9be6a4d176d663e7889361b8ec2))
 * **linux:** initial linux support ([12fab1d](https://github.com/jagandeepbrar/lunasea/commit/12fab1d6c22104cbf18ff695b1c636cc48236126))
 * **resources:** add link to build bucket [skip ci] ([64db574](https://github.com/jagandeepbrar/lunasea/commit/64db574155182942dabbaffba5dbf43e0cca950c))
@@ -252,7 +252,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * **charts:** rollback to fl_charts@0.46.0 ([cc81ee7](https://github.com/jagandeepbrar/lunasea/commit/cc81ee7f14adc49b84556224dfef54c735c54758))
-* **database:** write to LunaSea parent folder on Linux and Windows ([6e89796](https://github.com/jagandeepbrar/lunasea/commit/6e89796a15622f82759a6f8f02a82b1494ea1f8d))
+* **database:** write to Lunarr parent folder on Linux and Windows ([6e89796](https://github.com/jagandeepbrar/lunasea/commit/6e89796a15622f82759a6f8f02a82b1494ea1f8d))
 * **desktop:** prevent flickering by waiting for window settings to apply ([5a2a9b7](https://github.com/jagandeepbrar/lunasea/commit/5a2a9b780b94d27aa2005823e1a18e225970967f))
 * **desktop:** set initial and minimum window sizes ([dd30c3a](https://github.com/jagandeepbrar/lunasea/commit/dd30c3a0a32201a6503c81685dfdbc928a4aee90))
 
@@ -293,7 +293,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **debug:** debug page for multiple UI elements ([80c5d21](https://github.com/jagandeepbrar/lunasea/commit/80c5d2118a68129690cde5acbf70a23746d30acf))
-* **http:** set User-Agent to "LunaSea/{version} {build}" ([420d11c](https://github.com/jagandeepbrar/lunasea/commit/420d11c37188fe1d56d76b51b98325b384a45cff))
+* **http:** set User-Agent to "Lunarr/{version} {build}" ([420d11c](https://github.com/jagandeepbrar/lunasea/commit/420d11c37188fe1d56d76b51b98325b384a45cff))
 * **overseerr:** integrate request list and request tiles ([b7fc3c0](https://github.com/jagandeepbrar/lunasea/commit/b7fc3c0a0fe917ca13513be74159af022c956465))
 * **overseerr:** issues (de)serialization & list integration ([db4dfda](https://github.com/jagandeepbrar/lunasea/commit/db4dfdaf9ca1976d1a6e4b0ebc451b2e0f08b19e))
 * **overseerr:** serialized movie & tv objects ([2b778dc](https://github.com/jagandeepbrar/lunasea/commit/2b778dc437559549df7404fa5266719979c3cce3))

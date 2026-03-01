@@ -1,0 +1,17 @@
+# Default ownership for the Lunarr monorepo.
+* @pedrogonzalez
+
+# Mobile application ownership (priority for relaunch).
+/lunasea/android/ @pedrogonzalez
+/lunasea/ios/ @pedrogonzalez
+/lunasea/lib/ @pedrogonzalez
+/lunasea/.github/ @pedrogonzalez
+
+# Deferred backend ownership.
+/lunasea-notification-service/ @pedrogonzalez
+/lunasea-cloud-functions/ @pedrogonzalez
+
+# Documentation ownership.
+/README.md @pedrogonzalez
+/lunasea-docs/ @pedrogonzalez
+/docs/ @pedrogonzalez

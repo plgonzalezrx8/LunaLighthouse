@@ -11,7 +11,7 @@ enum LinkedContentType {
 }
 
 enum LunaLinkedContent {
-  WEBSITE('https://www.lunasea.app');
+  WEBSITE('https://www.lunarr.app');
 
   final String url;
   const LunaLinkedContent(this.url);

@@ -15,7 +15,7 @@ class ErrorRoutePage extends StatelessWidget {
     return LunaScaffold(
       scaffoldKey: _scaffoldKey,
       appBar: LunaAppBar(
-        title: 'LunaSea',
+        title: 'Lunarr',
         scrollControllers: const [],
       ),
       body: LunaMessage.goBack(

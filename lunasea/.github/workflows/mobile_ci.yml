@@ -1,0 +1,78 @@
+name: Mobile CI
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  mobile-analyze:
+    name: mobile-analyze
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/prepare_for_build
+        with:
+          platform: test
+          skip-core: true
+
+      - name: Analyze
+        run: flutter analyze
+
+  mobile-generation-check:
+    name: mobile-generation-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/prepare_for_build
+        with:
+          platform: test
+          skip-core: true
+
+      - name: Regenerate Artifacts
+        run: |
+          dart run environment_config:generate
+          dart ./scripts/generate_localization.dart
+          dart run build_runner build --delete-conflicting-outputs
+
+      - name: Verify Generated Files Are Committed
+        shell: bash
+        run: |
+          # Fail if generated files changed after regeneration.
+          CHANGED="$(git status --porcelain)"
+          if echo "$CHANGED" | grep -Eq 'assets/localization|lib/system/environment\.dart|lib/.+\.g\.dart'; then
+            echo "Generated files are out of date. Commit generated outputs."
+            echo "$CHANGED"
+            exit 1
+          fi
+
+  mobile-build-android:
+    name: mobile-build-android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/prepare_for_build
+        with:
+          platform: test
+          skip-core: true
+
+      - name: Build Android Debug
+        run: flutter build apk --debug
+
+  mobile-build-ios:
+    name: mobile-build-ios
+    runs-on: macos-latest
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/prepare_for_build
+        with:
+          platform: test
+          skip-core: true
+
+      - name: Build iOS Debug (No Code Signing)
+        run: flutter build ios --debug --no-codesign

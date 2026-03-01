@@ -1,4 +1,5 @@
-git_url("git@github.com:JagandeepBrar/fastlane-match-storage.git")
+# Configure this per environment so signing storage is owned by Lunarr maintainers.
+git_url(ENV.fetch("MATCH_GIT_URL"))
 storage_mode("git")
-app_identifier("app.lunasea.lunasea")
+app_identifier("app.lunarr.lunarr")
 platform("macos")

@@ -8,7 +8,7 @@ import 'package:lunasea/vendor.dart';
 
 class LunaDatabase {
   static const String _DATABASE_LEGACY_PATH = 'database';
-  static const String _DATABASE_PATH = 'LunaSea/database';
+  static const String _DATABASE_PATH = 'Lunarr/database';
 
   String get path {
     if (LunaPlatform.isWindows || LunaPlatform.isLinux) return _DATABASE_PATH;

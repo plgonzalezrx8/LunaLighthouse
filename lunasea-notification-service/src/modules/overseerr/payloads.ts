@@ -207,7 +207,7 @@ export const test = async (
 ): Promise<Notifications.Payload> => {
   return <Notifications.Payload>{
     title: title(profile, 'Connection Test'),
-    body: 'LunaSea is ready for Overseerr notifications!',
+    body: 'Lunarr is ready for Overseerr notifications!',
   };
 };
 

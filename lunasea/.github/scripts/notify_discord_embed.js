@@ -1,6 +1,6 @@
 const getRelease = () => {
   const title = process.env.BUILD_TITLE;
-  let url = "https://builds.lunasea.app";
+  let url = "https://builds.lunarr.app";
   if (title) url += `/#${title}/`;
   return `[Download](${url})`;
 };
@@ -9,7 +9,7 @@ const getWeb = () => {
   const flavor = process.env.BUILD_FLAVOR;
   let url = "";
   if (flavor !== "stable") url += `${process.env.BUILD_FLAVOR}.`;
-  url += "web.lunasea.app";
+  url += "web.lunarr.app";
   return `[View Deployment](https://${url})`;
 };
 

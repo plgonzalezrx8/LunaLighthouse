@@ -1,26 +1,31 @@
 # Tautulli
 
+{% hint style="warning" %}
+Hosted webhook relay setup is temporarily unavailable in phase-1 Lunarr builds. Keep this page for future phase-2 reactivation planning.
+{% endhint %}
+
+
 ## Preparation
 
 * Read through the main [Notifications](./) page
-* Copy your device-based or user-based webhook URL from LunaSea
+* Copy your device-based or user-based webhook URL from Lunarr
 
 ## Setup the Webhook
 
-In Tautulli's web GUI, head to Settings -> Notification Agents, hit the "Add a new notification agent" button and select "LunaSea". Please follow each section below to setup the webhook:
+In Tautulli's web GUI, head to Settings -> Notification Agents, hit the "Add a new notification agent" button and select "Lunarr". Please follow each section below to setup the webhook:
 
 {% tabs %}
 {% tab title="Configuration" %}
-**LunaSea Webhook URL**
+**Lunarr Webhook URL**
 
-Paste the full device-based or user-based URL that was copied from LunaSea.
+Paste the full device-based or user-based URL that was copied from Lunarr.
 
-**LunaSea Profile**
+**Lunarr Profile**
 
-Enter in the name of the profile which should be an **exact match** to the profile that this module instance was added to within LunaSea. Capitalization and punctuation _does_ matter.
+Enter in the name of the profile which should be an **exact match** to the profile that this module instance was added to within Lunarr. Capitalization and punctuation _does_ matter.
 
 {% hint style="warning" %}
-This step is only required if you are _**not**_ using the default LunaSea profile (`default`). LunaSea will assume the default profile when none is supplied.
+This step is only required if you are _**not**_ using the default Lunarr profile (`default`). Lunarr will assume the default profile when none is supplied.
 
 Correctly setting up this field is critically important to get full deep-linking support.
 {% endhint %}
@@ -64,7 +69,7 @@ Please read the top of this tab in Tautulli about how to utilize the different m
 {% endtab %}
 {% endtabs %}
 
-Once setup, close LunaSea and run the webhook test in Tautulli. You should receive a new notification letting you know that LunaSea is ready to receive Tautulli notifications!
+Once setup, close Lunarr and run the webhook test in Tautulli. You should receive a new notification letting you know that Lunarr is ready to receive Tautulli notifications!
 
 ## Attach Images to Notifications
 

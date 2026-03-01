@@ -25,19 +25,19 @@ class SettingsSystemBackupRestoreBackupTile extends StatelessWidget {
       String name = DateFormat('y-MM-dd kk-mm-ss').format(DateTime.now());
       bool result = await LunaFileSystem().save(
         context,
-        '$name.lunasea',
+        '$name.lunarr',
         data.codeUnits,
       );
       if (result) {
         showLunaSuccessSnackBar(
-          title: 'settings.BackupToCloudSuccess'.tr(),
-          message: '$name.lunasea',
+          title: 'settings.BackupToDevice'.tr(),
+          message: '$name.lunarr',
         );
       }
     } catch (error, stack) {
       LunaLogger().error('Failed to create device backup', error, stack);
       showLunaErrorSnackBar(
-        title: 'settings.BackupToCloudFailure'.tr(),
+        title: 'settings.BackupToDevice'.tr(),
         error: error,
       );
     }

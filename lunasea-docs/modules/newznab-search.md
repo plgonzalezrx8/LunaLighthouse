@@ -1,9 +1,9 @@
 # Newznab Search
 
-LunaSea supports any indexer that supports the [Newznab API specification](https://newznab.readthedocs.io/en/latest/). Most modern indexers (including NZBHydra2) are fully compliant with this specification, and compatible with LunaSea.
+Lunarr supports any indexer that supports the [Newznab API specification](https://newznab.readthedocs.io/en/latest/). Most modern indexers (including NZBHydra2) are fully compliant with this specification, and compatible with Lunarr.
 
 {% hint style="warning" %}
-LunaSea supports infinite scrolling of search and category results, which can result in multiple API hits. It is only recommended to add indexers with high API limits to prevent quickly reaching your API limit.
+Lunarr supports infinite scrolling of search and category results, which can result in multiple API hits. It is only recommended to add indexers with high API limits to prevent quickly reaching your API limit.
 {% endhint %}
 
 ## Adding an Indexer
@@ -26,7 +26,7 @@ A list of popular indexers and their API hosts is available at the end of this p
 
 Your API key that is typically available in the dashboard of the indexer or received by email when originally signing up for the indexer.
 
-If you are unable to find your API key, consider contacting the administrators of the indexer to get help! The LunaSea developer and community users can try to help, but we cannot guarantee support if nobody has access to said indexer.
+If you are unable to find your API key, consider contacting the administrators of the indexer to get help! The Lunarr developer and community users can try to help, but we cannot guarantee support if nobody has access to said indexer.
 
 ### Custom Headers
 

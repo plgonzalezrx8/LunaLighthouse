@@ -1,14 +1,14 @@
-# LunaSea Notification Service
+# Lunarr Notification Service
 
-A TypeScript backend service that handles receiving webhooks from applications supported in [LunaSea](https://www.lunasea.app/github) and sends notifications to the respective user or device.
+A TypeScript backend service that handles receiving webhooks from applications supported in [Lunarr](https://www.lunarr.app/github) and sends notifications to the respective user or device.
 
-> Setting up an instance of your own notification service is **not** necessary to get webhook notifications in LunaSea, simply use the hosted notification service available at [https://notify.lunasea.app](https://notify.lunasea.app). Setting up your own instance _will not_ send notifications to the officially published LunaSea application.
+> Setting up an instance of your own notification service is **not** necessary to get webhook notifications in Lunarr, simply use the hosted notification service available at [https://notify.lunarr.app](https://notify.lunarr.app). Setting up your own instance _will not_ send notifications to the officially published Lunarr application.
 >
-> Setting up your own instance of the notification service is only necessary when building your own version of LunaSea, which utilizes a different Firebase project.
+> Setting up your own instance of the notification service is only necessary when building your own version of Lunarr, which utilizes a different Firebase project.
 
 ## Usage
 
-For documentation on setting up the webhooks, please look at LunaSea's documentation [available here](https://notify.lunasea.app).
+For documentation on setting up the webhooks, please look at Lunarr's documentation [available here](https://notify.lunarr.app).
 
 ## Installation (Docker)
 
@@ -24,14 +24,14 @@ docker run -d \
     -e REDIS_PORT=6379
     -p 9000:9000 \
     --restart unless-stopped \
-ghcr.io/jagandeepbrar/lunasea-notification-service:latest
+ghcr.io/pedrogonzalez/lunarr-notification-service:latest
 ```
 
 ## Development & Installation
 
-LunaSea's Notification Service requires:
+Lunarr's Notification Service requires:
 
-- Node.js v10.0.0 or higher (v14.0.0 or higher is recommended)
+- Node.js v20.0.0 or higher
 - Redis 6
 - A Firebase Project
 

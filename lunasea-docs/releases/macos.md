@@ -1,34 +1,34 @@
 # macOS
 
-LunaSea is available on macOS 10.15+.
+Lunarr is available on macOS 10.15+.
 
 {% hint style="info" %}
-If you want a stable experience, stick with stable releases. Want to test new builds of LunaSea? Read about the [build channels](https://docs.lunasea.app/getting-started/build-channels) to make the right choice!
+If you want a stable experience, stick with stable releases. Want to test new builds of Lunarr? Read about the [build channels](https://docs.lunarr.app/getting-started/build-channels) to make the right choice!
 {% endhint %}
 
 ## TestFlight
 
 _Channel(s): `Stable`, `Beta`, `Edge`_
 
-The easiest way for most users with macOS devices would be to download releases of LunaSea using the [TestFlight](https://apps.apple.com/app/testflight/id899247664) platform!
+The easiest way for most users with macOS devices would be to download releases of Lunarr using the [TestFlight](https://apps.apple.com/app/testflight/id899247664) platform!
 
 {% tabs %}
 {% tab title="Stable" %}
 1. [Download TestFlight for macOS](https://apps.apple.com/app/testflight/id899247664)
-2. Join the [TestFlight stable channel](https://www.lunasea.app/testflight/stable)
-3. Download LunaSea via the TestFlight application
+2. Join the [TestFlight stable channel](https://www.lunarr.app/testflight/stable)
+3. Download Lunarr via the TestFlight application
 {% endtab %}
 
 {% tab title="Beta" %}
 1. [Download TestFlight for macOS](https://apps.apple.com/app/testflight/id899247664)
-2. Join the [TestFlight beta channel](https://www.lunasea.app/testflight/beta)
-3. Download LunaSea via the TestFlight application
+2. Join the [TestFlight beta channel](https://www.lunarr.app/testflight/beta)
+3. Download Lunarr via the TestFlight application
 {% endtab %}
 
 {% tab title="Edge" %}
 1. [Download TestFlight for macOS](https://apps.apple.com/app/testflight/id899247664)
-2. Join the [TestFlight edge channel](https://www.lunasea.app/testflight/edge)
-3. Download LunaSea via the TestFlight application
+2. Join the [TestFlight edge channel](https://www.lunarr.app/testflight/edge)
+3. Download Lunarr via the TestFlight application
 {% endtab %}
 {% endtabs %}
 
@@ -37,7 +37,7 @@ The easiest way for most users with macOS devices would be to download releases 
 _Channel(s): `Stable`, `Beta`, `Edge`_\
 _Format(s): `.dmg`, `.zip`_
 
-All macOS releases are available in the [Build Bucket](https://builds.lunasea.app/#latest/)!
+All macOS releases are available in the [Build Bucket](https://builds.lunarr.app/#latest/)!
 
 ## Homebrew Cask
 
@@ -50,5 +50,5 @@ All stable releases are available via [Homebrew Cask](https://formulae.brew.sh/c
 _Channel(s): `Stable`_\
 _Format(s): `.dmg`, `.zip`_
 
-All stable releases are available on GitHub via the [Releases](https://github.com/JagandeepBrar/LunaSea/releases) page!
+All stable releases are available on GitHub via the [Releases](https://github.com/pedrogonzalez/Lunarr/releases) page!
 

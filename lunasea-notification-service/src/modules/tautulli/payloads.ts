@@ -308,7 +308,7 @@ export const test = async (
 ): Promise<Notifications.Payload> => {
   return <Notifications.Payload>{
     title: createTitle(profile, 'Connection Test'),
-    body: 'LunaSea is ready for Tautulli notifications!',
+    body: 'Lunarr is ready for Tautulli notifications!',
     image: !payload?.data?.poster_url ? undefined : payload?.data?.poster_url,
     data: {
       module: moduleKey,

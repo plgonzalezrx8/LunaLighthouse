@@ -1,0 +1,39 @@
+name: Release Task
+description: Track iOS/Android release and operational maintenance tasks.
+title: "[release] "
+labels:
+  - release
+  - operations
+body:
+  - type: dropdown
+    id: channel
+    attributes:
+      label: Channel
+      options:
+        - edge
+        - beta
+        - stable
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - Android
+        - iOS
+        - Both
+    validations:
+      required: true
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Required checklist
+      description: Reference the corresponding runbook and mark planned steps.
+      value: |
+        - [ ] Build and signing validation complete
+        - [ ] Release notes drafted
+        - [ ] Rollback plan ready
+        - [ ] Post-release monitoring owner assigned
+    validations:
+      required: true

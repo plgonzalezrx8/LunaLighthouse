@@ -1,46 +1,46 @@
 # Frequently Asked Questions
 
-Read about some frequently asked questions related to LunaSea, development, and getting support for LunaSea!
+Read about some frequently asked questions related to Lunarr, development, and getting support for Lunarr!
 
 ## Modules
 
 ### How Do I Install a "Module"?
 
-The software, or as used in LunaSea, _Modules_, are all pieces of software that must be installed on a home computer or server. None of the currently supported software has been developed by me, so the amount of support offered for each module is limited. LunaSea itself does not have the functionality of that software, it acts as a remote.
+The software, or as used in Lunarr, _Modules_, are all pieces of software that must be installed on a home computer or server. None of the currently supported software has been developed by me, so the amount of support offered for each module is limited. Lunarr itself does not have the functionality of that software, it acts as a remote.
 
 ### Why Isn't Feature/Module "X" Supported Yet?
 
-LunaSea is only developed by one person and while I try to put as much time into LunaSea as I can, I still do have a family, career, and I want to enjoy my personal time.
+Lunarr maintenance is community-driven with a small maintainer group, so roadmap capacity is intentionally constrained to keep quality sustainable.
 
-I also want to point out that I don't want to make LunaSea a wide ranging but no depth application. I want every application to have as full of an implementation as possible, which can mean that new modules will take time to get implemented between one another.
+I also want to point out that I don't want to make Lunarr a wide ranging but no depth application. I want every application to have as full of an implementation as possible, which can mean that new modules will take time to get implemented between one another.
 
 ### Torrent Client Support: Is It Coming?
 
-Support for torrent clients is easily the most requested new module, and I definitely see the demand. However, torrent support currently is not possible in LunaSea because of the restrictions Apple has put forward. Apple does not allow integration of P2P/torrent clients in any capacity for applications that are hosted on the App Store. This includes a P2P client that runs directly on the device and linking to a P2P client that is running on an external machine.
+Support for torrent clients is easily the most requested new module, and I definitely see the demand. However, torrent support currently is not possible in Lunarr because of the restrictions Apple has put forward. Apple does not allow integration of P2P/torrent clients in any capacity for applications that are hosted on the App Store. This includes a P2P client that runs directly on the device and linking to a P2P client that is running on an external machine.
 
 Torrent support is not completely off the table and may come in the future! But at the moment, over 90% of the active user base is using iOS-based devices and it is hard to justify building a module (that takes a lot of time) that the mass majority of the user base would not be able to use.
 
 {% hint style="info" %}
-I am actively thinking of methods to get around this limitation, if you have any ideas consider commenting on the torrent client support [feedback board request](https://feedback.lunasea.app/b/New-Modules/p/torrent-clients-support).
+I am actively thinking of methods to get around this limitation, if you have any ideas consider commenting on the torrent client support [feedback board request](https://feedback.lunarr.app/b/New-Modules/p/torrent-clients-support).
 {% endhint %}
 
 ## Development
 
-### Who Makes LunaSea?
+### Who Maintains Lunarr?
 
-Only one person, me! Hi, my name is Jagandeep, and I am a software engineer from Canada. I am currently the main and only developer on LunaSea but I encourage anyone who is interested and wants to contribute to the project to make a pull request on GitHub!
+Lunarr is maintained by the Lunarr maintainers and community contributors. Contributions are welcome through GitHub pull requests.
 
-### What is LunaSea Developed In?
+### What is Lunarr Developed In?
 
-LunaSea is developed using Google's hybrid framework, [Flutter](https://flutter.dev/), which uses [Dart](https://dart.dev/) as its core language. Using Flutter allows an indie developer like myself to build cross-platform applications more easily, as it is one single codebase that allows me to build across many platforms!
+Lunarr is developed using Google's hybrid framework, [Flutter](https://flutter.dev/), which uses [Dart](https://dart.dev/) as its core language. Using Flutter allows an indie developer like myself to build cross-platform applications more easily, as it is one single codebase that allows me to build across many platforms!
 
-### How is LunaSea Free?
+### How is Lunarr Free?
 
-LunaSea started off as (and still is) a passion project fueled by my love for data hoarding. It was open-sourced soon after it's initial launch to allow LunaSea to get into the hands of as many users as possible and to give back to the community where there is a lack of open-source, high quality mobile applications.
+Lunarr started off as (and still is) a passion project fueled by my love for data hoarding. It was open-sourced soon after it's initial launch to allow Lunarr to get into the hands of as many users as possible and to give back to the community where there is a lack of open-source, high quality mobile applications.
 
 ### Are You Ever Going To Charge Money/Insert Ads?
 
-The only possible reason that LunaSea will ever have any kind of payment model is if features are introduced that cost me recurring charges that are too large to bear. Any and all features that do not incur me a charge will be free, and even any features that would cost me money will become open-source, which offers everyone the ability to have a completely free experience in LunaSea.
+The only possible reason that Lunarr will ever have any kind of payment model is if features are introduced that cost me recurring charges that are too large to bear. Any and all features that do not incur me a charge will be free, and even any features that would cost me money will become open-source, which offers everyone the ability to have a completely free experience in Lunarr.
 
 ## Bugs & Feedback
 
@@ -48,18 +48,18 @@ The only possible reason that LunaSea will ever have any kind of payment model i
 
 I tried to make it as stable as possible, but bugs obviously will always be there. If you do run into a bug (especially a fatal/crashing bug), please also attach the logs from the application into the report - logs can be exported from the settings.
 
-* [GitHub Issues](https://www.lunasea.app/github): The best place to alert me of new issues is directly on the GitHub page. Please try to follow the template for bug reports, but again I am not overly strict and a good explanation of the issue will suffice (this may change in the future if it gets increasingly hard to manage).
-* [Discord](https://www.lunasea.app/discord)
-* [Email](https://docs.lunasea.appmailto:hello@lunasea.app/)
-* [Reddit](https://www.lunasea.app/reddit)
+* [GitHub Issues](https://www.lunarr.app/github): The best place to alert me of new issues is directly on the GitHub page. Please try to follow the template for bug reports, but again I am not overly strict and a good explanation of the issue will suffice (this may change in the future if it gets increasingly hard to manage).
+* [Discord](https://www.lunarr.app/discord)
+* [Email](mailto:hello@lunarr.app)
+* [Reddit](https://www.lunarr.app/reddit)
 
 ### How Can I Request a New Feature?
 
-I consider all feedback and actively try to integrate new features that are requested by the community, big or small! You have a few ways to request new features for LunaSea:
+I consider all feedback and actively try to integrate new features that are requested by the community, big or small! You have a few ways to request new features for Lunarr:
 
-* [Discord](https://www.lunasea.app/discord)
-* [Email](https://docs.lunasea.appmailto:hello@lunasea.app/)
-* [Reddit](https://www.lunasea.app/reddit)
+* [Discord](https://www.lunarr.app/discord)
+* [Email](mailto:hello@lunarr.app)
+* [Reddit](https://www.lunarr.app/reddit)
 
 {% hint style="info" %}
 I may not have the ability to respond to all requests directly, but please be ensured I do read everything!
@@ -69,25 +69,25 @@ I may not have the ability to respond to all requests directly, but please be en
 
 ### Why Don't The Settings Explain Much?
 
-I understand that the settings section could definitely use better documentation and linking, but this ambiguity and sparse documentation directly within LunaSea is by design.
+I understand that the settings section could definitely use better documentation and linking, but this ambiguity and sparse documentation directly within Lunarr is by design.
 
-LunaSea took quite a runaround to initially get on the App Store because of its relationship with how you acquire Linux ISOs. After successfully getting it on the App Store, I want to avoid adding anything to LunaSea that would potentially get it revoked.
+Lunarr took quite a runaround to initially get on the App Store because of its relationship with how you acquire Linux ISOs. After successfully getting it on the App Store, I want to avoid adding anything to Lunarr that would potentially get it revoked.
 
 ### "X" Won't Connect, Help!
 
 The initial setup can either be incredibly easy or make you want to pull your hair out, I get that and that's what the community is here for! Please feel free to send a message to any of the listed methods to get support where either I or an awesome user in the community will surely come to help you out:
 
-* [Discord](https://www.lunasea.app/discord)
-* [Email](https://docs.lunasea.appmailto:hello@lunasea.app/)
-* [Reddit](https://www.lunasea.app/reddit)
+* [Discord](https://www.lunarr.app/discord)
+* [Email](mailto:hello@lunarr.app)
+* [Reddit](https://www.lunarr.app/reddit)
 
 A few quick tips on common problems:
 
-* `localhost` and `0.0.0.0` are internal hostnames that means "this computer". They cannot and should not be used as the host, but is commonly used because users mainly access the service from the computer running it. In order for LunaSea to connect, you must find the local IP of your computer (most common home networking configurations have it start with `192.168.0.x` or `192.168.1.x`)
+* `localhost` and `0.0.0.0` are internal hostnames that means "this computer". They cannot and should not be used as the host, but is commonly used because users mainly access the service from the computer running it. In order for Lunarr to connect, you must find the local IP of your computer (most common home networking configurations have it start with `192.168.0.x` or `192.168.1.x`)
 * Ensure you match the right API key to the right service. I know this seems like an obvious thing, but you'd be surprised how easy it is to mix up 3-4 API keys when you're going back and forth copying and pasting!
 * For the -arr services, ensure the binding address in the advanced general settings is not set to `127.0.0.1` or `localhost`, but instead set to either `0.0.0.0`, `*`, or the local IP for the computer/server.
 * Similarly for the clients, ensure that the host is set to `0.0.0.0`, or the local IP.
-* As noted in the host prompt, you must add either `http://` or `https://` before the IP or domain. LunaSea does not make any assumptions on the protocol to use (http or https).
+* As noted in the host prompt, you must add either `http://` or `https://` before the IP or domain. Lunarr does not make any assumptions on the protocol to use (http or https).
 * Do not use `3xx` redirecting webpages. This is not supported for POST and PUT requests (sending data back to the module) and can cause many headaches, so ideally you should be pointing directly to the module on your network.
 * _(Windows Only)_: For a lot of software to correctly bind to your network, you need to ensure that you run the software as administrator. This is specifically very important for the -arrs, which will only bind to your host machine if you do not run it as administrator.
 
@@ -101,6 +101,6 @@ While this is outside of the scope of this project, I can try to point you in th
 
 ### I Want to Complain! Where Can I Complain?
 
-Sorry that LunaSea is not meeting your expectations, feel free to post criticisms or complaints to any of the social platforms or directly [email me](https://docs.lunasea.appmailto:hello@lunasea.app/). I hope that I can remedy your complaints, all I ask is that you do not be abusive or disrespectful to myself or others in the community.
+Sorry that Lunarr is not meeting your expectations. Feel free to post criticisms to any of the social platforms or [email the maintainers](mailto:hello@lunarr.app). Please keep communication respectful for maintainers and community members.
 
 I also kindly request that before you submit a 1-star App Store/Play Store review that you consider contacting me directly with your complaints. 1-star reviews can really hurt a smaller application's rating since we do not typically get lots of reviews.

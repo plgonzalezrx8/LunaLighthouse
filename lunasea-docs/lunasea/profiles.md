@@ -1,6 +1,6 @@
 # Profiles
 
-Do you have multiple instances of modules you want to add to LunaSea? Profiles are the way to do this! LunaSea allows you to have an infinite amount of profiles, each of which can contain a whole new set of configurations for modules.
+Do you have multiple instances of modules you want to add to Lunarr? Profiles are the way to do this! Lunarr allows you to have an infinite amount of profiles, each of which can contain a whole new set of configurations for modules.
 
 ## Adding, Deleting, and Renaming Profiles
 
@@ -8,7 +8,7 @@ To add, delete, or rename a profile, head to Settings -> Profiles. There are a s
 
 ## Changing Profiles
 
-There are multiple ways to switch profiles within LunaSea.
+There are multiple ways to switch profiles within Lunarr.
 
 {% hint style="warning" %}
 Switching profiles clears all state-stored data from memory, and all fetched data will be fully refreshed.

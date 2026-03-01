@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Validate local mobile toolchain against the pinned Lunarr baseline.
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+TOOLCHAIN_FILE="$ROOT_DIR/lunasea/toolchain.env"
+
+if [[ ! -f "$TOOLCHAIN_FILE" ]]; then
+  echo "[doctor] Missing toolchain contract: $TOOLCHAIN_FILE" >&2
+  exit 1
+fi
+
+# shellcheck source=/dev/null
+source "$TOOLCHAIN_FILE"
+
+FAILURES=0
+
+note_ok() {
+  echo "[ok] $1"
+}
+
+note_fail() {
+  echo "[fail] $1" >&2
+  FAILURES=$((FAILURES + 1))
+}
+
+require_cmd() {
+  local cmd="$1"
+  if command -v "$cmd" >/dev/null 2>&1; then
+    note_ok "$cmd found"
+  else
+    note_fail "$cmd not found"
+  fi
+}
+
+extract_major_from_semver() {
+  # Strip optional leading characters (for example "v20.11.0") and return major.
+  local raw="$1"
+  raw="${raw#v}"
+  echo "$raw" | awk -F. '{print $1}'
+}
+
+compare_semver_eq() {
+  local actual="$1"
+  local expected="$2"
+  [[ "$actual" == "$expected" ]]
+}
+
+require_cmd flutter
+require_cmd dart
+require_cmd java
+require_cmd node
+require_cmd ruby
+require_cmd bundle
+
+if command -v flutter >/dev/null 2>&1; then
+  flutter_line="$(flutter --version 2>/dev/null | head -n 1 || true)"
+  flutter_revision="$(echo "$flutter_line" | grep -Eo '[a-f0-9]{40}' || true)"
+  if [[ -z "$flutter_revision" ]]; then
+    note_fail "could not parse Flutter framework revision"
+  elif [[ "$flutter_revision" == "$FLUTTER_FRAMEWORK_REVISION" ]]; then
+    note_ok "Flutter revision matches pin ($flutter_revision)"
+  else
+    note_fail "Flutter revision mismatch: expected $FLUTTER_FRAMEWORK_REVISION, got $flutter_revision"
+  fi
+fi
+
+if command -v java >/dev/null 2>&1; then
+  java_version="$(java -version 2>&1 | head -n 1 | sed -E 's/.*"([0-9]+).*/\1/' || true)"
+  if [[ "$java_version" == "$JAVA_MAJOR" ]]; then
+    note_ok "Java major version is $JAVA_MAJOR"
+  else
+    note_fail "Java major mismatch: expected $JAVA_MAJOR, got ${java_version:-unknown}"
+  fi
+fi
+
+if command -v node >/dev/null 2>&1; then
+  node_major="$(extract_major_from_semver "$(node --version)")"
+  if [[ "$node_major" == "$NODE_MAJOR" ]]; then
+    note_ok "Node major version is $NODE_MAJOR"
+  else
+    note_fail "Node major mismatch: expected $NODE_MAJOR, got $node_major"
+  fi
+fi
+
+if command -v ruby >/dev/null 2>&1; then
+  ruby_version="$(ruby -e 'print RUBY_VERSION' 2>/dev/null || true)"
+  if compare_semver_eq "$ruby_version" "$RUBY_VERSION"; then
+    note_ok "Ruby version matches pin ($RUBY_VERSION)"
+  else
+    note_fail "Ruby mismatch: expected $RUBY_VERSION, got ${ruby_version:-unknown}"
+  fi
+fi
+
+if command -v bundle >/dev/null 2>&1; then
+  bundler_major="$(bundle --version | awk '{print $3}' | awk -F. '{print $1}' || true)"
+  if [[ "$bundler_major" == "$BUNDLER_MAJOR" ]]; then
+    note_ok "Bundler major version is $BUNDLER_MAJOR"
+  else
+    note_fail "Bundler major mismatch: expected $BUNDLER_MAJOR, got ${bundler_major:-unknown}"
+  fi
+fi
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  if command -v xcodebuild >/dev/null 2>&1; then
+    xcode_major="$(xcodebuild -version | head -n 1 | awk '{print $2}' | awk -F. '{print $1}' || true)"
+    if [[ -n "$xcode_major" ]] && (( xcode_major >= XCODE_MAJOR_MIN )); then
+      note_ok "Xcode major version is >= $XCODE_MAJOR_MIN"
+    else
+      note_fail "Xcode major version must be >= $XCODE_MAJOR_MIN"
+    fi
+  else
+    note_fail "xcodebuild not found (required for iOS releases)"
+  fi
+else
+  echo "[info] Xcode check skipped on non-macOS host"
+fi
+
+if (( FAILURES > 0 )); then
+  echo "[doctor] Found $FAILURES issue(s)." >&2
+  exit 1
+fi
+
+echo "[doctor] Environment matches Lunarr mobile baseline."

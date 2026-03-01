@@ -3,7 +3,8 @@ import pino from 'pino';
 export const Logger = pino({
   mixin: () => {
     return {
-      service: 'lunasea-notification-service',
+      // Keep service tag explicit so cross-service logs remain easy to filter.
+      service: 'lunarr-notification-service',
       version: process.env.npm_package_version,
     };
   },

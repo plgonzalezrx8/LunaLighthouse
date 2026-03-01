@@ -50,7 +50,7 @@ extension LunaFlavorExtension on LunaFlavor {
   }
 
   String get downloadLink {
-    String base = 'https://builds.lunasea.app/#latest';
+    String base = 'https://builds.lunarr.app/#latest';
     switch (this) {
       case LunaFlavor.EDGE:
         return '$base/${this.key}/';

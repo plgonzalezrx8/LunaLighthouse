@@ -1,0 +1,50 @@
+name: Mobile Bug
+description: Report a bug affecting Lunarr iOS or Android relaunch scope.
+title: "[mobile] "
+labels:
+  - bug
+  - mobile
+body:
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Which mobile platform is affected?
+      options:
+        - Android
+        - iOS
+        - Both
+    validations:
+      required: true
+  - type: input
+    id: app_version
+    attributes:
+      label: Lunarr version
+      description: Include version/build (for example `11.0.0+123`).
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug summary
+      description: Describe what is happening and what should happen instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Provide a minimal, numbered sequence.
+      placeholder: |
+        1. Open ...
+        2. Tap ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / screenshots
+      description: Paste relevant logs or attach screenshots.
+    validations:
+      required: false

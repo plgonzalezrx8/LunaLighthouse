@@ -58,35 +58,35 @@ If a module is not listed, you can assume that every platform has full support f
 
 If a feature is not listed, you can assume that every platform has full support for said feature!
 
-### LunaSea Cloud Account
+### Lunarr Cloud Account (Phase-1 Relaunch)
 
 |      Platform     | Supported? |
 | :---------------: | :--------: |
-|      Android      |      ✅     |
-|        iOS        |      ✅     |
+|      Android      |      ❌     |
+|        iOS        |      ❌     |
 |       Linux       |      ❌     |
-|       macOS       |      ✅     |
+|       macOS       |      ❌     |
 |      Windows      |      ❌     |
-|    Web (Hosted)   |      ✅     |
+|    Web (Hosted)   |      ❌     |
 | Web (Self-Hosted) |      ❌     |
 
-### Push Notifications
+### Push Notifications (Hosted Relay)
 
 |      Platform     | Supported? |
 | :---------------: | :--------: |
-|      Android      |      ✅     |
-|        iOS        |      ✅     |
+|      Android      |      ❌     |
+|        iOS        |      ❌     |
 |       Linux       |      ❌     |
-|       macOS       |      ✅     |
+|       macOS       |      ❌     |
 |      Windows      |      ❌     |
-|    Web (Hosted)   |      ✅     |
+|    Web (Hosted)   |      ❌     |
 | Web (Self-Hosted) |      ❌     |
 
 ## Web-Specific Restrictions
 
 ### **HTTPS Requirement**
 
-LunaSea's web instances are hosted on [Netlify](https://www.netlify.com/) and use [Let's Encrypt](https://letsencrypt.org/) TLS certificates to ensure that an encrypted connection is utilized when loading the LunaSea web application package.
+Lunarr's web instances are hosted on [Netlify](https://www.netlify.com/) and use [Let's Encrypt](https://letsencrypt.org/) TLS certificates to ensure that an encrypted connection is utilized when loading the Lunarr web application package.
 
 One limitation this incurs is that most modern web browsers no longer support [mixed content](https://developer.mozilla.org/en-US/docs/Web/Security/Mixed\_content), so it is required when using these browsers to utilize a reverse proxy (or something similar) to expose a secure (`HTTPS`) connection to your instances even when hosted on the same machine.
 
@@ -96,4 +96,4 @@ One limitation this incurs is that most modern web browsers no longer support [m
 
 ### Wake on LAN Support
 
-Wake on LAN support will **never** be supported when using LunaSea on the web, because the Wake on LAN protocol relies on the [User Datagram Protocol (UDP)](https://en.wikipedia.org/wiki/User\_Datagram\_Protocol). UDP connections are not supported in the web browser because of underlying security constraints, and so it will not be possible to utilize wake on LAN now or at any point in the future when using LunaSea on the web.
+Wake on LAN support will **never** be supported when using Lunarr on the web, because the Wake on LAN protocol relies on the [User Datagram Protocol (UDP)](https://en.wikipedia.org/wiki/User\_Datagram\_Protocol). UDP connections are not supported in the web browser because of underlying security constraints, and so it will not be possible to utilize wake on LAN now or at any point in the future when using Lunarr on the web.

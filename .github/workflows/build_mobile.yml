@@ -1,0 +1,160 @@
+name: Build Mobile
+run-name: "Build Mobile Release: ${{ inputs.flavor || github.sha }}"
+
+on:
+  workflow_dispatch:
+    inputs:
+      flavor:
+        description: Build Flavor
+        required: true
+        default: edge
+        type: choice
+        options:
+          - edge
+          - beta
+          - stable
+
+permissions:
+  contents: read
+
+env:
+  APP_DIR: lunasea
+
+jobs:
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-latest
+    outputs:
+      build-number: ${{ steps.build-number.outputs.value }}
+      build-flavor: ${{ steps.build-flavor.outputs.value }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Number
+        id: build-number
+        shell: bash
+        run: |
+          COUNT=$(git rev-list HEAD --count)
+          echo "value=$((1000000000 + COUNT))" >> "$GITHUB_OUTPUT"
+
+      - name: Build Flavor
+        id: build-flavor
+        shell: bash
+        run: |
+          echo "value=${{ inputs.flavor }}" >> "$GITHUB_OUTPUT"
+
+  build-android:
+    name: Build Android
+    needs: [prepare]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.6
+          bundler-cache: false
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Prepare Android Signing Files
+        shell: bash
+        run: |
+          echo "${{ secrets.KEY_JKS }}" | base64 --decode > "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.jks"
+          echo "${{ secrets.KEY_PROPERTIES }}" | base64 --decode > "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.properties"
+
+      - name: Fetch Dependencies
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}
+        run: flutter pub get
+
+      - name: Install Android Fastlane Dependencies
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/android
+        run: bundle install
+
+      - name: Build Android Artifacts
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/android
+        run: |
+          bundle exec fastlane build_aab build_number:${{ needs.prepare.outputs.build-number }}
+          bundle exec fastlane build_apk build_number:${{ needs.prepare.outputs.build-number }}
+
+      - name: Upload Android Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: lunarr-android-${{ needs.prepare.outputs.build-flavor }}
+          path: |
+            ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunarr-android.aab
+            ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunarr-android.apk
+
+  build-ios:
+    name: Build iOS
+    needs: [prepare]
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.6
+          bundler-cache: false
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Setup Match SSH Key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
+
+      - name: Fetch Dependencies
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}
+        run: flutter pub get
+
+      - name: Install iOS Fastlane Dependencies
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
+        run: bundle install
+
+      - name: Build iOS Artifact
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          FASTLANE_USER: ${{ secrets.APPLE_ID }}
+          IOS_CODESIGNING_IDENTITY: ${{ secrets.IOS_CODESIGNING_IDENTITY }}
+          MATCH_GIT_URL: ${{ secrets.MATCH_GIT_URL }}
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+          MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: bundle exec fastlane build_appstore build_number:${{ needs.prepare.outputs.build-number }}
+
+      - name: Upload iOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lunarr-ios-${{ needs.prepare.outputs.build-flavor }}
+          path: ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunarr-ios.ipa

@@ -6,7 +6,7 @@ const logger = Logger.child({ module: 'express' });
 const server = express();
 
 const docs = async (request: express.Request, response: express.Response): Promise<void> => {
-  response.redirect(301, 'https://docs.lunasea.app/lunasea/notifications');
+  response.redirect(301, 'https://docs.lunarr.app/lunasea/notifications');
 };
 
 const health = async (request: express.Request, response: express.Response): Promise<void> => {

@@ -1,8 +1,8 @@
 # Build Channels
 
-LunaSea offers four different build channels, each of which supply signed and notarized copies of LunaSea.
+Lunarr offers three active build channels in phase 1.
 
-All releases for every build channel can be downloaded from the [build bucket](https://builds.lunasea.app/), and all stable releases for all platforms are also available on [GitHub](https://github.com/JagandeepBrar/LunaSea/releases).
+All releases for every build channel can be downloaded from the [build bucket](https://builds.lunarr.app/), and stable release artifacts are available on [GitHub](https://github.com/pedrogonzalez/Lunarr/releases).
 
 ## Stable
 
@@ -14,11 +14,10 @@ This channel is focused around _early previews and testing of work-in-progress f
 
 ## Edge
 
-This channel's purpose is to _ensure that every commit made to master is building across all platforms_ and allows for easier access to a build for each commit. This is not intended to be used by the average user, but is for community developers or users who need to test a recently added fix that has not yet reached the beta channel.
+This channel's purpose is to _ensure that every commit made to the active branch is building for mobile relaunch scope_ and allows easier access to each candidate build. This is not intended to be used by the average user, but is for maintainers and technical testers validating recent fixes.
 
-There are no restrictions on features in these builds (barring a very specific subset used for debugging/testing) so it gives full access to everything that is work in progress.
+These builds can include unfinished work and experimental fixes.
 
 {% hint style="warning" %}
-**Do not expect a fully stable experience if you use these builds**, as it is entirely possible that a single build could cause problems including but not limited to database corruption. If you are running these builds, please ensure you have either a cloud or offline backup available for easy restoration.
+**Do not expect a fully stable experience if you use these builds**, as it is entirely possible that a single build could cause severe regressions. If you are running these builds, ensure you keep an offline backup for easy restoration.
 {% endhint %}
-

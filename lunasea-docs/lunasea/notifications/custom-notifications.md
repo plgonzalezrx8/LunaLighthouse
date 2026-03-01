@@ -1,5 +1,10 @@
 # Custom Notifications
 
+{% hint style="warning" %}
+Hosted webhook relay setup is temporarily unavailable in phase-1 Lunarr builds. Keep this page for future phase-2 reactivation planning.
+{% endhint %}
+
+
 ## Preparation
 
 {% hint style="warning" %}
@@ -7,7 +12,7 @@ Custom notifications are considered an advanced feature, and requires basic know
 {% endhint %}
 
 * Read through the main [Notifications](./) page
-* Copy any module's device-based or user-based webhook URL from LunaSea
+* Copy any module's device-based or user-based webhook URL from Lunarr
 
 You will need to slightly modify the webhook URL you have copied from any of the modules. Simply replace the name of the module within the webhook URL to `custom` and you're good to go!
 
@@ -17,9 +22,9 @@ Alternatively, you can copy the content of the URL after the last slash (after `
 
 Custom notifications are supported by both device-based and user-based notifications, with full endpoint details below:
 
-{% swagger baseUrl="https://notify.lunasea.app" path="/v1/custom/device/:device_id" method="post" summary="Device-Based" %}
+{% swagger baseUrl="https://notify.lunarr.app" path="/v1/custom/device/:device_id" method="post" summary="Device-Based" %}
 {% swagger-description %}
-Send a custom notification using a device token to a single device running LunaSea.
+Send a custom notification using a device token to a single device running Lunarr.
 {% endswagger-description %}
 
 {% swagger-parameter name="device_id" type="string" in="path" required="true" %}
@@ -59,9 +64,9 @@ URL to an image that will be attached to the notification.
 {% endswagger-response %}
 {% endswagger %}
 
-{% swagger baseUrl="https://notify.lunasea.app" path="/v1/custom/user/:user_id" method="post" summary="User-Based" %}
+{% swagger baseUrl="https://notify.lunarr.app" path="/v1/custom/user/:user_id" method="post" summary="User-Based" %}
 {% swagger-description %}
-Send a custom notification using a user token to all devices signed into that LunaSea account.
+Send a custom notification using a user token to all devices signed into that Lunarr account.
 {% endswagger-description %}
 
 {% swagger-parameter name="user_id" type="string" in="path" required="true" %}

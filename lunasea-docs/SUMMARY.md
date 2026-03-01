@@ -1,6 +1,6 @@
 # Table of contents
 
-* [LunaSea](README.md)
+* [Lunarr](README.md)
 
 ## Getting Started
 
@@ -9,7 +9,7 @@
 * [Frequently Asked Questions](getting-started/frequently-asked-questions.md)
 * [Platform Restrictions](getting-started/platform-restrictions.md)
 
-## LunaSea
+## Lunarr
 
 * [Cloud Account](lunasea/cloud-account.md)
 * [Local Backup & Restore](lunasea/local-backup-and-restore.md)

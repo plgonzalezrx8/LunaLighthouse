@@ -22,12 +22,12 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
 
   Future<void> _restore(BuildContext context) async {
     try {
-      LunaFile? file = await LunaFileSystem().read(context, ['lunasea']);
+      LunaFile? file = await LunaFileSystem().read(context, ['lunarr']);
       if (file != null) await _decryptBackup(context, file);
     } catch (error, stack) {
       LunaLogger().error('Failed to restore device backup', error, stack);
       showLunaErrorSnackBar(
-        title: 'settings.RestoreFromCloudFailure'.tr(),
+        title: 'settings.RestoreFromDevice'.tr(),
         error: error,
       );
     }
@@ -41,12 +41,12 @@ class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
     try {
       await LunaConfig().import(context, encrypted);
       showLunaSuccessSnackBar(
-        title: 'settings.RestoreFromCloudSuccess'.tr(),
-        message: 'settings.RestoreFromCloudSuccessMessage'.tr(),
+        title: 'settings.RestoreFromDevice'.tr(),
+        message: 'settings.ConfigurationDescription'.tr(),
       );
     } catch (_) {
       showLunaErrorSnackBar(
-        title: 'settings.RestoreFromCloudFailure'.tr(),
+        title: 'settings.RestoreFromDevice'.tr(),
         message: 'lunasea.IncorrectEncryptionKey'.tr(),
         showButton: true,
         buttonText: 'lunasea.Retry'.tr(),

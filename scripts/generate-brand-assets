@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Regenerate platform icon and splash artifacts from Lunarr source assets.
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+APP_DIR="$ROOT_DIR/lunasea"
+
+if [[ ! -d "$APP_DIR" ]]; then
+  echo "[generate-brand-assets] Missing app directory: $APP_DIR" >&2
+  exit 1
+fi
+
+pushd "$APP_DIR" >/dev/null
+
+flutter pub get
+
+# Generate iOS/Android launcher icon outputs from pubspec flutter_icons config.
+dart run flutter_launcher_icons
+
+# Generate splash screen outputs from pubspec flutter_native_splash config.
+dart run flutter_native_splash:create
+
+popd >/dev/null
+
+echo "[generate-brand-assets] Brand assets regenerated."

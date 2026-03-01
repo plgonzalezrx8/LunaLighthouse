@@ -1,7 +1,7 @@
 default_platform(:mac)
 
 platform :mac do
-  desc "Create the LunaSea Keychain"
+  desc "Create the Lunarr Keychain"
   lane :keychain_create do
     create_keychain(
       name: ENV["MATCH_KEYCHAIN_NAME"],
@@ -13,7 +13,7 @@ platform :mac do
     )
   end
 
-  desc "Delete the LunaSea Keychain"
+  desc "Delete the Lunarr Keychain"
   lane :keychain_delete do
     delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
   end
@@ -74,20 +74,20 @@ platform :mac do
       export_method: "developer-id",
       export_options: {
         provisioningProfiles: {
-          "app.lunasea.lunasea" => "match Direct app.lunasea.lunasea macos",
+          "app.lunarr.lunarr" => "match Direct app.lunarr.lunarr macos",
         }
       }
     )
 
     notarize(
-      package: "LunaSea.app",
+      package: "Lunarr.app",
       use_notarytool: true,
     )
     sh("mkdir", "-p", "../../output")
-    sh("mv", "../LunaSea.app", "../../output/LunaSea.app")
+    sh("mv", "../Lunarr.app", "../../output/Lunarr.app")
     Dir.chdir("../../output") do
-      sh("zip", "-r", "-y", "lunasea-macos-amd64.zip", "LunaSea.app")
-      sh("rm", "-rf", "LunaSea.app")
+      sh("zip", "-r", "-y", "lunarr-macos-amd64.zip", "Lunarr.app")
+      sh("rm", "-rf", "Lunarr.app")
     end
 
     keychain_delete
@@ -111,12 +111,12 @@ platform :mac do
       export_method: "app-store",
       export_options: {
         provisioningProfiles: {
-          "app.lunasea.lunasea" => "match AppStore app.lunasea.lunasea macos"
+          "app.lunarr.lunarr" => "match AppStore app.lunarr.lunarr macos"
         }
       },
     )
     sh("mkdir", "-p", "../../output")
-    sh("mv", "../LunaSea.pkg", "../../output/lunasea-macos-amd64.pkg")
+    sh("mv", "../Lunarr.pkg", "../../output/lunarr-macos-amd64.pkg")
 
     keychain_delete
   end
@@ -139,20 +139,20 @@ platform :mac do
       export_method: "developer-id",
       export_options: {
         provisioningProfiles: {
-          "app.lunasea.lunasea" => "match Direct app.lunasea.lunasea macos",
+          "app.lunarr.lunarr" => "match Direct app.lunarr.lunarr macos",
         }
       }
     )
     
     Dir.chdir("../") do
-      sh("create-dmg", "LunaSea.app", "--overwrite")
+      sh("create-dmg", "Lunarr.app", "--overwrite")
     end
     notarize(
-      package: "LunaSea #{options[:build_version]}.dmg",
-      bundle_id: "app.lunasea.lunasea.DiskImage",
+      package: "Lunarr #{options[:build_version]}.dmg",
+      bundle_id: "app.lunarr.lunarr.DiskImage",
       use_notarytool: true,
     )
-    sh("mv", "../LunaSea #{options[:build_version]}.dmg", "../../output/lunasea-macos-amd64.dmg")
+    sh("mv", "../Lunarr #{options[:build_version]}.dmg", "../../output/lunarr-macos-amd64.dmg")
 
     keychain_delete
   end

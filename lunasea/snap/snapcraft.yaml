@@ -1,4 +1,4 @@
-name: lunasea
+name: lunarr
 version: 11.0.0
 confinement: strict
 base: core22
@@ -6,26 +6,26 @@ base: core22
 summary: summary
 description: description
 slots:
-  dbus-lunasea:
+  dbus-lunarr:
     interface: dbus
     bus: session
-    name: app.lunasea.lunasea
+    name: app.lunarr.lunarr
 apps:
-  lunasea:
-    command: lunasea
+  lunarr:
+    command: lunarr
     extensions:
     - gnome
     plugs:
     - home
     - network
     slots:
-    - dbus-lunasea
+    - dbus-lunarr
 parts:
   zenity:
     plugin: nil
     stage-packages:
     - zenity
-  lunasea:
+  lunarr:
     source: .
     plugin: flutter
     flutter-target: lib/main.dart

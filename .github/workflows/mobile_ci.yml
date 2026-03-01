@@ -1,0 +1,156 @@
+name: Mobile CI
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: read
+
+env:
+  APP_DIR: lunasea
+
+jobs:
+  mobile-analyze:
+    name: mobile-analyze
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.6
+          bundler-cache: false
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Fetch Dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze
+
+  mobile-generation-check:
+    name: mobile-generation-check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.6
+          bundler-cache: false
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Fetch Dependencies
+        run: flutter pub get
+
+      - name: Regenerate Build Artifacts
+        run: |
+          dart run environment_config:generate
+          dart ./scripts/generate_localization.dart
+          dart run build_runner build --delete-conflicting-outputs
+
+      - name: Verify Generated Files Are Committed
+        shell: bash
+        run: |
+          # Keep generation deterministic by failing if expected generated files changed.
+          CHANGED="$(git status --porcelain -- assets/localization lib/system/environment.dart lib)"
+          if echo "$CHANGED" | grep -E 'assets/localization|lib/system/environment\.dart|\.g\.dart' >/dev/null; then
+            echo "Generated files are out of date. Commit regenerated outputs."
+            echo "$CHANGED"
+            exit 1
+          fi
+
+  mobile-build-android:
+    name: mobile-build-android
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Fetch Dependencies
+        run: flutter pub get
+
+      - name: Build Android Debug
+        run: flutter build apk --debug
+
+  mobile-build-ios:
+    name: mobile-build-ios
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Fetch Dependencies
+        run: flutter pub get
+
+      - name: Build iOS Debug (No Code Signing)
+        run: flutter build ios --debug --no-codesign

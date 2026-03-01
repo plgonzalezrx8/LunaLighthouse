@@ -1,0 +1,66 @@
+name: Frozen Non-Mobile CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  non-mobile-linux:
+    name: non-mobile-linux
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/prepare_for_build
+        with:
+          platform: test
+          skip-core: true
+
+      - name: Build Linux (Best Effort)
+        run: flutter build linux --debug
+
+  non-mobile-web:
+    name: non-mobile-web
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/prepare_for_build
+        with:
+          platform: test
+          skip-core: true
+
+      - name: Build Web (Best Effort)
+        run: flutter build web --debug
+
+  non-mobile-windows:
+    name: non-mobile-windows
+    runs-on: windows-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Fetch Dependencies
+        run: flutter pub get
+
+      - name: Build Windows (Best Effort)
+        run: flutter build windows --debug
+
+  non-mobile-macos:
+    name: non-mobile-macos
+    runs-on: macos-latest
+    continue-on-error: true
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/prepare_for_build
+        with:
+          platform: test
+          skip-core: true
+
+      - name: Build macOS (Best Effort)
+        run: flutter build macos --debug
