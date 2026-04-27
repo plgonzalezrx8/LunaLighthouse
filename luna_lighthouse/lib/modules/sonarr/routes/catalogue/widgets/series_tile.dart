@@ -45,8 +45,6 @@ class _State extends State<SonarrSeriesTile> {
             return _buildBlockTile();
           case _SonarrSeriesTileType.GRID:
             return _buildGridTile();
-          default:
-            throw Exception('Invalid _SonarrSeriesTileType');
         }
       },
     );

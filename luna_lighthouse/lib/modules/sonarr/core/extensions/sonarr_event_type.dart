@@ -85,7 +85,6 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
         return 'sonarr.SeriesFolderImported'.tr();
     }
-    return null;
   }
 
   List<LunaTableContent> lunaTableContent({
@@ -106,7 +105,6 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
       case SonarrEventType.GRABBED:
         return _grabbedTableContent(history, showSourceTitle);
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
-      default:
         return _defaultTableContent(history, showSourceTitle);
     }
   }

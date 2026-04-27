@@ -28,8 +28,6 @@ extension SonarrTrackedDownloadStatusExtension on SonarrTrackedDownloadStatus {
         return 'warning';
       case SonarrTrackedDownloadStatus.ERROR:
         return 'error';
-      default:
-        return null;
     }
   }
 }

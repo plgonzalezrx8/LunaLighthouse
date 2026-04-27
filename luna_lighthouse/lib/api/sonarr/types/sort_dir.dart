@@ -14,8 +14,6 @@ extension SonarrSortDirectionExtension on SonarrSortDirection {
         return 'ascending';
       case SonarrSortDirection.DESCENDING:
         return 'descending';
-      default:
-        return null;
     }
   }
 }

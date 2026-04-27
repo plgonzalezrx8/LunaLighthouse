@@ -39,7 +39,6 @@ class SonarrHistoryTile extends StatelessWidget {
         return _hasEpisodeInfo();
       case SonarrHistoryTileType.SEASON:
       case SonarrHistoryTileType.EPISODE:
-      default:
         return false;
     }
   }

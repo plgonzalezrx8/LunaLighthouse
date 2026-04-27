@@ -51,8 +51,6 @@ extension SonarrEventTypeExtension on SonarrEventType {
         return 'grabbed';
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
         return 'seriesFolderImported';
-      default:
-        return null;
     }
   }
 
@@ -72,8 +70,6 @@ extension SonarrEventTypeExtension on SonarrEventType {
         return 'Grabbed';
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
         return 'Series Folder Imported';
-      default:
-        return null;
     }
   }
 }

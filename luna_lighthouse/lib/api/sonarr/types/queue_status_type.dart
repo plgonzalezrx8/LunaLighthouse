@@ -53,8 +53,6 @@ extension SonarrQueueStatusExtension on SonarrQueueStatus {
         return 'failed';
       case SonarrQueueStatus.WARNING:
         return 'warning';
-      default:
-        return null;
     }
   }
 }

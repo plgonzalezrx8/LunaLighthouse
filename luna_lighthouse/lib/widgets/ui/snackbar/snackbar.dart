@@ -17,8 +17,6 @@ extension LunaSnackbarTypeExtension on LunaSnackbarType {
         return LunaColours.red;
       case LunaSnackbarType.INFO:
         return LunaColours.blue;
-      default:
-        return LunaColours.purple;
     }
   }
 
@@ -30,8 +28,6 @@ extension LunaSnackbarTypeExtension on LunaSnackbarType {
         return Icons.error_outline_rounded;
       case LunaSnackbarType.INFO:
         return Icons.info_outline_rounded;
-      default:
-        return Icons.help_outline_rounded;
     }
   }
 }

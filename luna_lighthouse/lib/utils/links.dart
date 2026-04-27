@@ -81,8 +81,6 @@ enum LunaLinkedContent {
         return '$baseImage/w185$id';
       case LinkedContentType.IMAGE_BACKDROP:
         return '$baseImage/w300$id';
-      default:
-        throw UnsupportedError('$type content type is not supported');
     }
   }
 

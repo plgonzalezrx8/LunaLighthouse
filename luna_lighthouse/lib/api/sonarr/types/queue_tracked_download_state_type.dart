@@ -33,8 +33,6 @@ extension SonarrTrackedDownloadStateExtension on SonarrTrackedDownloadState {
         return 'importing';
       case SonarrTrackedDownloadState.FAILED_PENDING:
         return 'failedPending';
-      default:
-        return null;
     }
   }
 }

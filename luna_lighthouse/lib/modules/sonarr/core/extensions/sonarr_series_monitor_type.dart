@@ -1,4 +1,3 @@
-import 'package:luna_lighthouse/core.dart';
 import 'package:luna_lighthouse/modules/sonarr.dart';
 
 extension LunaSonarrSeriesMonitorTypeExtension on SonarrSeriesMonitorType {
@@ -20,8 +19,6 @@ extension LunaSonarrSeriesMonitorTypeExtension on SonarrSeriesMonitorType {
         return 'Only Latest Season';
       case SonarrSeriesMonitorType.NONE:
         return 'None';
-      default:
-        return 'luna_lighthouse.Unknown'.tr();
     }
   }
 }

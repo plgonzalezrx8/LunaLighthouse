@@ -45,8 +45,6 @@ class _State extends State<RadarrCatalogueTile> {
             return _buildBlockTile();
           case _RadarrCatalogueTileType.GRID:
             return _buildGridTile();
-          default:
-            throw Exception('Invalid _RadarrCatalogueTileType');
         }
       },
     );

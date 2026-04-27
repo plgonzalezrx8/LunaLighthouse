@@ -26,8 +26,6 @@ extension SonarrWantedMissingSortKeyExtension on SonarrWantedMissingSortKey {
         return 'airDateUtc';
       case SonarrWantedMissingSortKey.SERIES_TITLE:
         return 'series.title';
-      default:
-        return null;
     }
   }
 }

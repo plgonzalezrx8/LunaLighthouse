@@ -210,14 +210,14 @@ class _State extends State<CalendarView> {
 
     int counter = 0;
     for (dynamic event in events) {
-      switch (event.runtimeType) {
-        case CalendarLidarrData:
-          if (!(event as CalendarLidarrData).hasAllFiles) counter++;
+      switch (event) {
+        case CalendarLidarrData _:
+          if (!event.hasAllFiles) counter++;
           break;
-        case CalendarRadarrData:
-          if (!(event as CalendarRadarrData).hasFile) counter++;
+        case CalendarRadarrData _:
+          if (!event.hasFile) counter++;
           break;
-        case CalendarSonarrData:
+        case CalendarSonarrData _:
           CalendarSonarrData _event = event;
           DateTime? _airTime = _event.airTimeObject?.toLocal();
           bool _isAired = _airTime?.isBefore(DateTime.now()) ?? false;

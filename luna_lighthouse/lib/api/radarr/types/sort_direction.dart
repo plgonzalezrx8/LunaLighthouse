@@ -26,8 +26,6 @@ extension RadarrSortDirectionExtension on RadarrSortDirection {
         return 'ascending';
       case RadarrSortDirection.DESCENDING:
         return 'descending';
-      default:
-        return null;
     }
   }
 }

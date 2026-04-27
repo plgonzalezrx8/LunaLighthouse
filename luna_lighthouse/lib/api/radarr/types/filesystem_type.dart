@@ -26,8 +26,6 @@ extension RadarrFileSystemTypeExtension on RadarrFileSystemType {
         return 'folder';
       case RadarrFileSystemType.FILE:
         return 'file';
-      default:
-        return null;
     }
   }
 
@@ -37,8 +35,6 @@ extension RadarrFileSystemTypeExtension on RadarrFileSystemType {
         return 'Folder';
       case RadarrFileSystemType.FILE:
         return 'File';
-      default:
-        return null;
     }
   }
 }

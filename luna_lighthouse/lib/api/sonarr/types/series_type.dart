@@ -28,8 +28,6 @@ extension SonarrSeriesTypeExtension on SonarrSeriesType {
         return 'daily';
       case SonarrSeriesType.ANIME:
         return 'anime';
-      default:
-        return null;
     }
   }
 }

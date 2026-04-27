@@ -168,8 +168,6 @@ class _State extends State<SonarrCatalogueRoute>
             return _blockView(_filtered, qualities);
           case LunaListViewOption.GRID_VIEW:
             return _gridView(_filtered, qualities);
-          default:
-            throw Exception('Invalid moviesViewType');
         }
       },
     );

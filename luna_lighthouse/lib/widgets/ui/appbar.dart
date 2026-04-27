@@ -207,8 +207,6 @@ class _State extends State<LunaAppBar> {
       case _AppBarType.DROPDOWN:
         child = _dropdown(context);
         break;
-      default:
-        throw Exception('Unknown AppBar type.');
     }
     return GestureDetector(
       child: child,

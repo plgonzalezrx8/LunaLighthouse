@@ -36,8 +36,6 @@ extension RadarrHistorySortKeyExtension on RadarrHistorySortKey {
         return 'languages';
       case RadarrHistorySortKey.QUALITY:
         return 'quality';
-      default:
-        return null;
     }
   }
 }

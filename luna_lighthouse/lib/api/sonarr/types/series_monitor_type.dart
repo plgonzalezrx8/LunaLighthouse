@@ -53,8 +53,6 @@ extension SonarrSeriesMonitorTypeExtension on SonarrSeriesMonitorType {
         return 'latestSeason';
       case SonarrSeriesMonitorType.NONE:
         return 'none';
-      default:
-        return null;
     }
   }
 }

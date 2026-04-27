@@ -56,8 +56,6 @@ extension SonarrMonitorStatusExtension on SonarrMonitorStatus {
         return 'lastseason';
       case SonarrMonitorStatus.NONE:
         return 'none';
-      default:
-        return null;
     }
   }
 

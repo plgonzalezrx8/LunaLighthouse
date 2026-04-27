@@ -28,12 +28,12 @@ class ContentBlock extends StatelessWidget {
   }
 
   Map getHeaders() {
-    switch (data.runtimeType) {
-      case CalendarLidarrData:
+    switch (data) {
+      case CalendarLidarrData _:
         return LunaProfile.current.lidarrHeaders;
-      case CalendarRadarrData:
+      case CalendarRadarrData _:
         return LunaProfile.current.radarrHeaders;
-      case CalendarSonarrData:
+      case CalendarSonarrData _:
         return LunaProfile.current.sonarrHeaders;
       default:
         return const {};

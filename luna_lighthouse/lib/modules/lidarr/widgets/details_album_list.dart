@@ -65,7 +65,6 @@ class _State extends State<LidarrDetailsAlbumList>
               case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
-              default:
                 return const LunaLoader();
             }
           },

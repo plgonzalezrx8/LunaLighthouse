@@ -76,7 +76,6 @@ class _State extends State<ArtistAlbumReleasesRoute>
             case ConnectionState.none:
             case ConnectionState.waiting:
             case ConnectionState.active:
-            default:
               return const LunaLoader();
           }
         },

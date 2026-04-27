@@ -161,8 +161,6 @@ class _State extends State<RadarrCatalogueRoute>
             return _blockView(_filtered, qualityProfiles);
           case LunaListViewOption.GRID_VIEW:
             return _gridView(_filtered, qualityProfiles);
-          default:
-            throw Exception('Invalid moviesViewType');
         }
       },
     );

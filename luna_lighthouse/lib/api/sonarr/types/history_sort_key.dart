@@ -26,8 +26,6 @@ extension SonarrHistorySortKeyExtension on SonarrHistorySortKey {
         return 'date';
       case SonarrHistorySortKey.SERIES_TITLE:
         return 'series.title';
-      default:
-        return null;
     }
   }
 }
