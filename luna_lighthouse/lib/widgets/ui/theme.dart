@@ -16,7 +16,8 @@ class LunaTheme {
   }
 
   static bool get isAMOLEDTheme => LunaLighthouseDatabase.THEME_AMOLED.read();
-  static bool get useBorders => LunaLighthouseDatabase.THEME_AMOLED_BORDER.read();
+  static bool get useBorders =>
+      LunaLighthouseDatabase.THEME_AMOLED_BORDER.read();
 
   /// Midnight theme (Default)
   ThemeData _midnightTheme() {
@@ -96,9 +97,10 @@ class LunaTheme {
       systemNavigationBarColor: LunaLighthouseDatabase.THEME_AMOLED.read()
           ? Colors.black
           : LunaColours.secondary,
-      systemNavigationBarDividerColor: LunaLighthouseDatabase.THEME_AMOLED.read()
-          ? Colors.black
-          : LunaColours.secondary,
+      systemNavigationBarDividerColor:
+          LunaLighthouseDatabase.THEME_AMOLED.read()
+              ? Colors.black
+              : LunaColours.secondary,
       statusBarColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.light,
       statusBarIconBrightness: Brightness.light,
@@ -130,7 +132,7 @@ class LunaTheme {
   TextButtonThemeData get _sharedTextButtonThemeData {
     return TextButtonThemeData(
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all<Color>(
+        overlayColor: WidgetStateProperty.all<Color>(
           LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
         ),
       ),

@@ -1,4 +1,4 @@
-part of tautulli_types;
+part of '../types.dart';
 
 /// Enumerator to handle all section types used in Tautulli.
 enum TautulliSectionType {

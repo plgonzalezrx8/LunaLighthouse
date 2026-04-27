@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/sonarr.dart';
 
 class ConfigurationSonarrDefaultPagesRoute extends StatefulWidget {
   const ConfigurationSonarrDefaultPagesRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationSonarrDefaultPagesRoute> createState() => _State();

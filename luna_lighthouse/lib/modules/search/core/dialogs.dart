@@ -66,10 +66,11 @@ class SearchDialogs {
                           profile,
                           style: TextStyle(
                             fontSize: LunaUI.FONT_SIZE_H3,
-                            color: LunaLighthouseDatabase.ENABLED_PROFILE.read() ==
-                                    profile
-                                ? LunaColours.accent
-                                : Colors.white,
+                            color:
+                                LunaLighthouseDatabase.ENABLED_PROFILE.read() ==
+                                        profile
+                                    ? LunaColours.accent
+                                    : Colors.white,
                           ),
                         ),
                       )

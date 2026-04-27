@@ -19,9 +19,9 @@ class CalendarView extends StatefulWidget {
   final Map<DateTime, List<CalendarData>> events;
 
   const CalendarView({
-    Key? key,
+    super.key,
     required this.events,
-  }) : super(key: key);
+  });
 
   @override
   State<CalendarView> createState() => _State();

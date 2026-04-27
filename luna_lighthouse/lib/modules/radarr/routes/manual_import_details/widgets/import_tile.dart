@@ -7,9 +7,9 @@ class RadarrManualImportDetailsTile extends StatelessWidget {
   final RadarrManualImport manualImport;
 
   const RadarrManualImportDetailsTile({
-    Key? key,
+    super.key,
     required this.manualImport,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

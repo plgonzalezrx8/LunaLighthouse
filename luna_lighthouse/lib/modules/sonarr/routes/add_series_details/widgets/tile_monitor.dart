@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsMonitorTile extends StatelessWidget {
   const SonarrSeriesAddDetailsMonitorTile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

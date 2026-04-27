@@ -1,5 +1,5 @@
 /// Library containing all utility functions for Radarr data.
-library radarr_utilities;
+library;
 
 import 'package:luna_lighthouse/api/radarr/types.dart';
 

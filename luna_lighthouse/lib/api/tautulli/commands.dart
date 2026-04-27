@@ -1,10 +1,11 @@
 /// Library containing all logic and accessors to make calls to Tautulli's API.
-library tautulli_commands;
+library;
 
 import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
-import 'package:luna_lighthouse/api/tautulli/types.dart';
 import 'package:luna_lighthouse/api/tautulli/models.dart';
+import 'package:luna_lighthouse/api/tautulli/types.dart';
 
 // Activity
 part 'commands/activity.dart';

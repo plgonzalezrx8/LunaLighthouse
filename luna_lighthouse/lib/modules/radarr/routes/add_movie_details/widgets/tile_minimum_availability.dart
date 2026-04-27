@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/radarr.dart';
 
 class RadarrAddMovieDetailsMinimumAvailabilityTile extends StatelessWidget {
   const RadarrAddMovieDetailsMinimumAvailabilityTile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

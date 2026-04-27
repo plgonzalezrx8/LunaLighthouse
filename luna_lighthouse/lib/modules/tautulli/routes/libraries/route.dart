@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/tautulli.dart';
 
 class LibrariesRoute extends StatefulWidget {
   const LibrariesRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<LibrariesRoute> createState() => _State();

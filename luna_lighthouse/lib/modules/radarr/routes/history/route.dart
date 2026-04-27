@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/modules/radarr.dart';
 
 class HistoryRoute extends StatefulWidget {
   const HistoryRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<HistoryRoute> createState() => _State();

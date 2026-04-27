@@ -180,7 +180,8 @@ class RadarrBottomModalSheets {
                   snapshot.error,
                   snapshot.stackTrace,
                 );
-              return LunaMessage(text: 'luna_lighthouse.AnErrorHasOccurred'.tr());
+              return LunaMessage(
+                  text: 'luna_lighthouse.AnErrorHasOccurred'.tr());
             }
             if (snapshot.hasData) {
               if ((snapshot.data?.length ?? 0) == 0)

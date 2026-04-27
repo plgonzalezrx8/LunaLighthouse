@@ -1,4 +1,4 @@
-part of radarr_commands;
+part of '../../commands.dart';
 
 Future<RadarrCommand> _commandBackup(Dio client) async {
   Response response = await client.post('command', data: {

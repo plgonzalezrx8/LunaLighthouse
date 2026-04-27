@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/sonarr.dart';
 
 class SonarrSeasonDetailsHistoryPage extends StatefulWidget {
   const SonarrSeasonDetailsHistoryPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => _State();

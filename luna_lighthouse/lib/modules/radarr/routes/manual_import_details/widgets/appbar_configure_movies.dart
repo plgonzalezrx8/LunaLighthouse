@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/modules/radarr.dart';
 class RadarrManualImportDetailsConfigureMoviesSearchBar extends StatefulWidget
     implements PreferredSizeWidget {
   const RadarrManualImportDetailsConfigureMoviesSearchBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Size get preferredSize =>

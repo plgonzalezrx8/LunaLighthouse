@@ -1,4 +1,4 @@
-part of tautulli_types;
+part of '../types.dart';
 
 /// Enumerator to handle all image hosting services available in Tautulli.
 enum TautulliImageHostService {

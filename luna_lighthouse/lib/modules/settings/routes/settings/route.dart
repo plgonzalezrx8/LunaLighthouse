@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/router/routes/settings.dart';
 
 class SettingsRoute extends StatefulWidget {
   const SettingsRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SettingsRoute> createState() => _State();

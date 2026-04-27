@@ -7,8 +7,8 @@ import 'package:luna_lighthouse/types/list_view_option.dart';
 
 class SonarrCatalogueRoute extends StatefulWidget {
   const SonarrCatalogueRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SonarrCatalogueRoute> createState() => _State();

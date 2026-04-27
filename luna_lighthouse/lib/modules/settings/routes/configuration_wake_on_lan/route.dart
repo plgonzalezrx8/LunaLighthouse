@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/settings.dart';
 
 class ConfigurationWakeOnLANRoute extends StatefulWidget {
   const ConfigurationWakeOnLANRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationWakeOnLANRoute> createState() => _State();
@@ -64,8 +64,9 @@ class _State extends State<ConfigurationWakeOnLANRoute>
       title: 'settings.BroadcastAddress'.tr(),
       body: [
         TextSpan(
-          text:
-              broadcastAddress == '' ? 'luna_lighthouse.NotSet'.tr() : broadcastAddress,
+          text: broadcastAddress == ''
+              ? 'luna_lighthouse.NotSet'.tr()
+              : broadcastAddress,
         ),
       ],
       trailing: const LunaIconButton.arrow(),
@@ -88,7 +89,9 @@ class _State extends State<ConfigurationWakeOnLANRoute>
     return LunaBlock(
       title: 'settings.MACAddress'.tr(),
       body: [
-        TextSpan(text: macAddress == '' ? 'luna_lighthouse.NotSet'.tr() : macAddress),
+        TextSpan(
+            text:
+                macAddress == '' ? 'luna_lighthouse.NotSet'.tr() : macAddress),
       ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {

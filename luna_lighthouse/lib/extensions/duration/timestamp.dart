@@ -49,6 +49,8 @@ extension DurationAsTimestampExtension on Duration? {
       }
     }
 
-    return words.isEmpty ? 'luna_lighthouse.UnderAMinute'.tr() : words.join(' ');
+    return words.isEmpty
+        ? 'luna_lighthouse.UnderAMinute'.tr()
+        : words.join(' ');
   }
 }

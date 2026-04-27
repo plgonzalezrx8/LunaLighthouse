@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/router/routes/settings.dart';
 
 class ConfigurationSABnzbdRoute extends StatefulWidget {
   const ConfigurationSABnzbdRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationSABnzbdRoute> createState() => _State();

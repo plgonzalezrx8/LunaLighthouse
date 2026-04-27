@@ -7,8 +7,8 @@ import 'package:luna_lighthouse/system/filesystem/filesystem.dart';
 
 class SettingsSystemBackupRestoreRestoreTile extends StatelessWidget {
   const SettingsSystemBackupRestoreRestoreTile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

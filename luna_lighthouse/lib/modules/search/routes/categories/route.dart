@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/router/routes/search.dart';
 
 class CategoriesRoute extends StatefulWidget {
   const CategoriesRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CategoriesRoute> createState() => _State();

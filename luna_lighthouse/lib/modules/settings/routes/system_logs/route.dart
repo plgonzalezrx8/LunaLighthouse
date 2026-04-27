@@ -8,8 +8,8 @@ import 'package:luna_lighthouse/types/log_type.dart';
 
 class SystemLogsRoute extends StatefulWidget {
   const SystemLogsRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SystemLogsRoute> createState() => _State();

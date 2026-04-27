@@ -1,4 +1,4 @@
-part of tautulli_types;
+part of '../types.dart';
 
 /// Enumerator to handle all transcode decisions used in Tautulli.
 enum TautulliTranscodeDecision {

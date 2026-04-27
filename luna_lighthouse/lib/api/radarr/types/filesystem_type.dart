@@ -1,4 +1,4 @@
-part of radarr_types;
+part of '../types.dart';
 
 /// Enumerator to handle all fileystem types used in Radarr.
 enum RadarrFileSystemType {

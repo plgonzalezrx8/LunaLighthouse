@@ -17,7 +17,8 @@ class LunaConfig {
       _setExternalModules(config[LunaBox.externalModules.key]);
       for (final table in LunaTable.values) table.import(config[table.key]);
 
-      if (!LunaProfile.list.contains(LunaLighthouseDatabase.ENABLED_PROFILE.read())) {
+      if (!LunaProfile.list
+          .contains(LunaLighthouseDatabase.ENABLED_PROFILE.read())) {
         LunaLighthouseDatabase.ENABLED_PROFILE.update(LunaProfile.list[0]);
       }
     } catch (error, stack) {

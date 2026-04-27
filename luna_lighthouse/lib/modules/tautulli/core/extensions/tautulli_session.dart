@@ -74,7 +74,8 @@ extension TautulliSessionContainerExtension on TautulliSession {
 
 extension TautulliSessionSubtitleExtension on TautulliSession {
   String get _language {
-    if (subtitleLanguage?.isEmpty ?? true) return 'luna_lighthouse.Unknown'.tr();
+    if (subtitleLanguage?.isEmpty ?? true)
+      return 'luna_lighthouse.Unknown'.tr();
     return subtitleLanguage!.toTitleCase();
   }
 
@@ -138,12 +139,14 @@ extension TautulliSessionVideoExtension on TautulliSession {
   }
 
   String get _streamCodec {
-    if (streamVideoCodec?.isEmpty ?? true) return 'luna_lighthouse.Unknown'.tr();
+    if (streamVideoCodec?.isEmpty ?? true)
+      return 'luna_lighthouse.Unknown'.tr();
     return streamVideoCodec!.toUpperCase();
   }
 
   String get _fullResolution {
-    if (videoFullResolution?.isEmpty ?? true) return 'luna_lighthouse.Unknown'.tr();
+    if (videoFullResolution?.isEmpty ?? true)
+      return 'luna_lighthouse.Unknown'.tr();
     return videoFullResolution!;
   }
 

@@ -3,8 +3,8 @@ import 'package:luna_lighthouse/core.dart';
 
 class ConfigurationDrawerRoute extends StatefulWidget {
   const ConfigurationDrawerRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationDrawerRoute> createState() => _State();
@@ -46,7 +46,8 @@ class _State extends State<ConfigurationDrawerRoute>
           body: [
             TextSpan(text: 'settings.AutomaticallyManageOrderDescription'.tr()),
           ],
-          trailing: LunaLighthouseDatabase.DRAWER_AUTOMATIC_MANAGE.listenableBuilder(
+          trailing:
+              LunaLighthouseDatabase.DRAWER_AUTOMATIC_MANAGE.listenableBuilder(
             builder: (context, _) => LunaSwitch(
               value: LunaLighthouseDatabase.DRAWER_AUTOMATIC_MANAGE.read(),
               onChanged: LunaLighthouseDatabase.DRAWER_AUTOMATIC_MANAGE.update,

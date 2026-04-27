@@ -1,4 +1,4 @@
-part of sonarr_commands;
+part of '../controllers.dart';
 
 class SonarrControllerCommand {
   final Dio _client;

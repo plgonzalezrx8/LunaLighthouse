@@ -42,7 +42,7 @@ class LunaBlock extends StatelessWidget {
   final Map? backgroundHeaders;
 
   const LunaBlock({
-    Key? key,
+    super.key,
     this.skeletonEnabled = false,
     this.skeletonPoster = true,
     this.skeletonSubtitles = 2,
@@ -66,7 +66,7 @@ class LunaBlock extends StatelessWidget {
     this.onLongPress,
     this.leading,
     this.trailing,
-  }) : super(key: key);
+  });
 
   static double calculateItemExtent(
     int subtitleLines, {
@@ -166,7 +166,8 @@ class LunaBlock extends StatelessWidget {
   Widget _fadeInBackground(BuildContext context, double _height) {
     if (backgroundUrl == null) return const SizedBox();
 
-    final _percent = LunaLighthouseDatabase.THEME_IMAGE_BACKGROUND_OPACITY.read();
+    final _percent =
+        LunaLighthouseDatabase.THEME_IMAGE_BACKGROUND_OPACITY.read();
     if (_percent == 0) return const SizedBox(height: 0, width: 0);
 
     double _opacity = _percent / 100;

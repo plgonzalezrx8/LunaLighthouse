@@ -1,4 +1,4 @@
-part of sonarr_commands;
+part of '../../controllers.dart';
 
 Future<List<SonarrEpisodeFile>> _commandGetSeriesEpisodeFiles(
   Dio client, {

@@ -14,7 +14,7 @@ class LunaActionBarCard extends StatelessWidget {
   final void Function(bool?)? checkboxOnChanged;
 
   const LunaActionBarCard({
-    Key? key,
+    super.key,
     required this.title,
     this.subtitle,
     this.onTap,
@@ -24,7 +24,7 @@ class LunaActionBarCard extends StatelessWidget {
     this.icon = LunaIcons.ARROW_RIGHT,
     this.checkboxState,
     this.checkboxOnChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

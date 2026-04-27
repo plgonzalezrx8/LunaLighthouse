@@ -1,4 +1,4 @@
-part of radarr_types;
+part of '../types.dart';
 
 /// Enumerator to handle all health check types used in Radarr.
 enum RadarrHealthCheckType {

@@ -9,10 +9,10 @@ class TautulliActivityTile extends StatelessWidget {
   final bool disableOnTap;
 
   const TautulliActivityTile({
-    Key? key,
+    super.key,
     required this.session,
     this.disableOnTap = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

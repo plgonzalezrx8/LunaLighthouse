@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/tautulli.dart';
 
 class LogsNotificationsRoute extends StatefulWidget {
   const LogsNotificationsRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => _State();

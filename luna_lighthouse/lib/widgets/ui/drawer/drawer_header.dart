@@ -5,9 +5,9 @@ class LunaDrawerHeader extends StatelessWidget {
   final String page;
 
   const LunaDrawerHeader({
-    Key? key,
+    super.key,
     required this.page,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

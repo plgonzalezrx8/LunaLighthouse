@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/search.dart';
 
 class SearchRoute extends StatefulWidget {
   const SearchRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SearchRoute> createState() => _State();

@@ -9,9 +9,9 @@ class TautulliUserDetailsIPAddresses extends StatefulWidget {
   final TautulliTableUser user;
 
   const TautulliUserDetailsIPAddresses({
-    Key? key,
+    super.key,
     required this.user,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => _State();
@@ -94,7 +94,9 @@ class _State extends State<TautulliUserDetailsIPAddresses>
       body: [
         TextSpan(
           children: [
-            TextSpan(text: record.lastSeen?.asAge() ?? 'luna_lighthouse.Unknown'.tr()),
+            TextSpan(
+                text:
+                    record.lastSeen?.asAge() ?? 'luna_lighthouse.Unknown'.tr()),
             TextSpan(text: LunaUI.TEXT_BULLET.pad()),
             TextSpan(text: _count == 1 ? '1 Play' : '$_count Plays'),
           ],

@@ -10,8 +10,8 @@ import 'package:luna_lighthouse/modules/dashboard/routes/dashboard/widgets/navig
 
 class ModulesPage extends StatefulWidget {
   const ModulesPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => _State();

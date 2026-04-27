@@ -83,6 +83,7 @@ extension LunaRadarrEventType on RadarrEventType {
         return 'radarr.MovieImported'
             .tr(args: [record.quality?.quality?.name ?? LunaUI.TEXT_EMDASH]);
     }
+    return null;
   }
 
   List<LunaTableContent> lunaTableContent(

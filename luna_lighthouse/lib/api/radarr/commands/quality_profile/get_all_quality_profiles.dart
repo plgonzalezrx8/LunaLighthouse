@@ -1,4 +1,4 @@
-part of radarr_commands;
+part of '../../commands.dart';
 
 Future<List<RadarrQualityProfile>> _commandGetAllQualityProfiles(
     Dio client) async {

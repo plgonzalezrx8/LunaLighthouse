@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/tautulli.dart';
 
 class TautulliActivityRoute extends StatefulWidget {
   const TautulliActivityRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<TautulliActivityRoute> createState() => _State();

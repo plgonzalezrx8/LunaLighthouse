@@ -6,8 +6,8 @@ import 'package:luna_lighthouse/router/routes/settings.dart';
 
 class ConfigurationTautulliConnectionDetailsRoute extends StatefulWidget {
   const ConfigurationTautulliConnectionDetailsRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationTautulliConnectionDetailsRoute> createState() => _State();
@@ -59,7 +59,9 @@ class _State extends State<ConfigurationTautulliConnectionDetailsRoute>
     String host = LunaProfile.current.tautulliHost;
     return LunaBlock(
       title: 'settings.Host'.tr(),
-      body: [TextSpan(text: host.isEmpty ? 'luna_lighthouse.NotSet'.tr() : host)],
+      body: [
+        TextSpan(text: host.isEmpty ? 'luna_lighthouse.NotSet'.tr() : host)
+      ],
       trailing: const LunaIconButton.arrow(),
       onTap: () async {
         Tuple2<bool, String> _values = await SettingsDialogs().editHost(

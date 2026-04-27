@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/tautulli.dart';
 
 class GraphsRoute extends StatefulWidget {
   const GraphsRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<GraphsRoute> createState() => _State();

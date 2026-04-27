@@ -7,8 +7,8 @@ import 'package:luna_lighthouse/modules/dashboard/routes/dashboard/widgets/navig
 
 class ConfigurationDashboardDefaultPagesRoute extends StatefulWidget {
   const ConfigurationDashboardDefaultPagesRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationDashboardDefaultPagesRoute> createState() => _State();

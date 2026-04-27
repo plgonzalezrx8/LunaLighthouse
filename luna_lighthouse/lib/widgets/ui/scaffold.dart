@@ -40,7 +40,8 @@ class LunaScaffold extends StatelessWidget {
   Widget get android {
     return WillPopScope(
       onWillPop: () async {
-        if (!LunaLighthouseDatabase.ANDROID_BACK_OPENS_DRAWER.read()) return true;
+        if (!LunaLighthouseDatabase.ANDROID_BACK_OPENS_DRAWER.read())
+          return true;
 
         final state = scaffoldKey.currentState;
         if (state?.hasDrawer ?? false) {
