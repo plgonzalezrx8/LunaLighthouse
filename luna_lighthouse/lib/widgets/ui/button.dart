@@ -45,10 +45,10 @@ class LunaButton extends Card {
             },
           ),
           color: backgroundColor != null
-              ? backgroundColor.withOpacity(LunaUI.OPACITY_DIMMED)
+              ? backgroundColor.withValues(alpha: LunaUI.OPACITY_DIMMED)
               : Theme.of(LunaState.context)
                   .canvasColor
-                  .withOpacity(LunaUI.OPACITY_DIMMED),
+                  .withValues(alpha: LunaUI.OPACITY_DIMMED),
           shape:
               backgroundColor != null ? LunaShapeBorder() : LunaUI.shapeBorder,
           elevation: LunaUI.ELEVATION,

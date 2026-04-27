@@ -71,7 +71,7 @@ class LunaMessage extends StatelessWidget {
     );
   }
 
-  /// Return a pre-structured "<module> Is Not Enabled" message, with a "Return to Dashboard" button shown.
+  /// Return a pre-structured "module is not enabled" message, with a "Return to Dashboard" button shown.
   factory LunaMessage.moduleNotEnabled({
     Key? key,
     required BuildContext context,

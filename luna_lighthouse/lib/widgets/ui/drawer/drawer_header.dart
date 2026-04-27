@@ -35,7 +35,7 @@ class LunaDrawerHeader extends StatelessWidget {
           image: DecorationImage(
             image: const AssetImage(LunaAssets.brandingLogo),
             colorFilter: ColorFilter.mode(
-              LunaColours.primary.withOpacity(0.15),
+              LunaColours.primary.withValues(alpha: 0.15),
               BlendMode.dstATop,
             ),
             fit: BoxFit.cover,

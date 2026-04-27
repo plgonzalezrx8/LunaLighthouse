@@ -102,16 +102,16 @@ class TautulliActivityTile extends StatelessWidget {
         children: [
           LunaLinearPercentIndicator(
             percent: session.lunaTranscodeProgress,
-            progressColor: LunaColours.accent.withOpacity(
-              LunaUI.OPACITY_SPLASH,
+            progressColor: LunaColours.accent.withValues(
+              alpha: LunaUI.OPACITY_SPLASH,
             ),
             backgroundColor: Colors.transparent,
           ),
           LunaLinearPercentIndicator(
             percent: session.lunaProgressPercent,
             progressColor: LunaColours.accent,
-            backgroundColor: LunaColours.grey.withOpacity(
-              LunaUI.OPACITY_SPLASH,
+            backgroundColor: LunaColours.grey.withValues(
+              alpha: LunaUI.OPACITY_SPLASH,
             ),
           ),
         ],

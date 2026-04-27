@@ -150,13 +150,13 @@ class _State extends State<CalendarView> {
                   isTodayHighlighted: true,
                   outsideDaysVisible: false,
                   selectedDecoration: BoxDecoration(
-                    color:
-                        LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
+                    color: LunaColours.accent
+                        .withValues(alpha: LunaUI.OPACITY_SPLASH),
                     shape: BoxShape.circle,
                   ),
                   todayDecoration: BoxDecoration(
                     color: LunaColours.primary
-                        .withOpacity(LunaUI.OPACITY_DISABLED),
+                        .withValues(alpha: LunaUI.OPACITY_DISABLED),
                     shape: BoxShape.circle,
                   ),
                   weekendTextStyle: dayStyle,

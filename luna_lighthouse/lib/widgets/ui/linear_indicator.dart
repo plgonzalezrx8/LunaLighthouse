@@ -28,8 +28,8 @@ class LunaLinearPercentIndicator extends StatelessWidget {
         lineHeight: 4.0,
         progressColor: progressColor,
         barRadius: const Radius.circular(LunaUI.BORDER_RADIUS),
-        backgroundColor:
-            backgroundColor ?? progressColor.withOpacity(LunaUI.OPACITY_SPLASH),
+        backgroundColor: backgroundColor ??
+            progressColor.withValues(alpha: LunaUI.OPACITY_SPLASH),
       ),
     );
   }

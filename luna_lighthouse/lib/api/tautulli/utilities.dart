@@ -102,7 +102,7 @@ class TautulliUtilities {
     }
   }
 
-  /// Ensures that the passed in value results in a List<String>.
+  /// Ensures that the passed in value results in a `List<String>`.
   /// Can handle lists, integers, doubles, strings, or booleans. Any other types will return null.
   ///
   /// - list => runs [ensureStringFromJson] on each element and returns the list
@@ -123,7 +123,7 @@ class TautulliUtilities {
     return null;
   }
 
-  /// Ensures that the passed in value results in a List<int>.
+  /// Ensures that the passed in value results in a `List<int>`.
   /// Can handle lists, integers, doubles, strings, or booleans. Any other types will return null.
   ///
   /// - list => runs [ensureStringFromJson] on each element and returns the list

@@ -38,6 +38,7 @@ class LunaScaffold extends StatelessWidget {
   }
 
   Widget get android {
+    // ignore: deprecated_member_use -- Preserve existing Android drawer back-button behavior; migrate with behavior tests.
     return WillPopScope(
       onWillPop: () async {
         if (!LunaLighthouseDatabase.ANDROID_BACK_OPENS_DRAWER.read())
