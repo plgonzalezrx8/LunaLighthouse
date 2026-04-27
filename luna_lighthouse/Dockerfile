@@ -17,5 +17,5 @@ RUN flutter build web
 
 # Runtime
 FROM --platform=$TARGETPLATFORM nginx:alpine
-LABEL org.opencontainers.image.source="https://github.com/pedrogonzalez/LunaLighthouse"
+LABEL org.opencontainers.image.source="https://github.com/plgonzalezrx8/LunaLighthouse"
 COPY --from=build /lunalighthouse/build/web /usr/share/nginx/html

@@ -54,13 +54,11 @@ class LunaIcons {
   // Brands - Simple Icons
   static const IconData BANDSINTOWN = SimpleIcons.bandsintown;
   static const IconData DISCOGS = SimpleIcons.discogs;
-  static const IconData DISCORD = SimpleIcons.discord;
   static const IconData GITHUB = SimpleIcons.github;
   static const IconData IMDB = SimpleIcons.imdb;
   static const IconData LASTFM = SimpleIcons.lastdotfm;
   static const IconData LETTERBOXD = SimpleIcons.letterboxd;
   static const IconData PLEX = SimpleIcons.plex;
-  static const IconData REDDIT = SimpleIcons.reddit;
   static const IconData THEMOVIEDATABASE = SimpleIcons.themoviedatabase;
   static const IconData TRAKT = SimpleIcons.trakt;
   static const IconData YOUTUBE = SimpleIcons.youtube;

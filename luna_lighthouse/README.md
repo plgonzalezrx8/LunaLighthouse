@@ -33,4 +33,4 @@ Phase-1 relaunch is mobile-first (iOS/Android).
 
 - [Website](https://www.lunalighthouse.app)
 - [Documentation](https://docs.lunalighthouse.app)
-- [Discussions](https://github.com/pedrogonzalez/LunaLighthouse/discussions)
+- [Discussions](https://github.com/plgonzalezrx8/LunaLighthouse/discussions)

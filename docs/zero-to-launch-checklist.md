@@ -18,7 +18,7 @@ This checklist is the executable version of the 14-day launch plan. It assumes t
 ## Day 1 — Local Toolchain Baseline
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse
+cd /path/to/LunaLighthouse
 
 brew install --cask temurin
 brew install nvm rbenv cocoapods jq
@@ -54,7 +54,7 @@ Manual: install full Xcode from App Store, open once, accept license.
 ## Day 3 — Android Signing + Local Release Build
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/luna_lighthouse/android
+cd /path/to/LunaLighthouse/luna_lighthouse/android
 
 keytool -genkeypair \
   -v \
@@ -85,7 +85,7 @@ Manual: create Play Console app record for `app.lunalighthouse.lunalighthouse`.
 # Replace <ORG> before running
 gh repo create <ORG>/lunalighthouse-match --private
 
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/luna_lighthouse/ios
+cd /path/to/LunaLighthouse/luna_lighthouse/ios
 bundle install
 
 export MATCH_GIT_URL=git@github.com:<ORG>/lunalighthouse-match.git
@@ -114,7 +114,7 @@ Manual:
 Get Android cert fingerprint:
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/luna_lighthouse/android
+cd /path/to/LunaLighthouse/luna_lighthouse/android
 keytool -list -v -keystore key.jks -alias lunalighthouse | rg SHA256
 ```
 
@@ -133,7 +133,7 @@ Manual:
 ## Day 6 — Final Brand Asset Generation
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse
+cd /path/to/LunaLighthouse
 
 # Put final source files into brand-assets/v2-launch first.
 ./scripts/generate-brand-assets
@@ -147,7 +147,7 @@ Manual: capture final app-store screenshots/graphics.
 Encode Android signing files:
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/luna_lighthouse/android
+cd /path/to/LunaLighthouse/luna_lighthouse/android
 base64 -i key.jks > /tmp/KEY_JKS.b64
 base64 -i key.properties > /tmp/KEY_PROPERTIES.b64
 ```
@@ -155,7 +155,7 @@ base64 -i key.properties > /tmp/KEY_PROPERTIES.b64
 Set secrets (replace placeholders):
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse
+cd /path/to/LunaLighthouse
 
 gh secret set KEY_JKS < /tmp/KEY_JKS.b64
 gh secret set KEY_PROPERTIES < /tmp/KEY_PROPERTIES.b64
@@ -190,7 +190,7 @@ gh api \
 ## Day 8 — CI Dry Runs
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse
+cd /path/to/LunaLighthouse
 
 gh workflow run "Mobile CI"
 gh workflow run "Build Mobile" -f flavor=edge
@@ -202,7 +202,7 @@ gh run watch
 ## Day 9 — Internal QA + Internal Store Uploads
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse
+cd /path/to/LunaLighthouse
 ./scripts/mobile-build-check
 ```
 
@@ -221,7 +221,7 @@ Manual:
 ## Day 11–12 — Fixes + Release Candidate
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse
+cd /path/to/LunaLighthouse
 
 # Repeat per fix
 git checkout -b codex/revive-lunalighthouse/hotfix-<topic>

@@ -58,7 +58,7 @@ These are external systems required to launch and operate LunaLighthouse.
 | --- | --- |
 | Crash reporting (Sentry or equivalent) | Detect launch regressions quickly |
 | Status page provider | Incident communication |
-| Community channel ownership (Discord/Discussions) | Support and feedback flow |
+| Community support channel ownership | Support and feedback flow |
 
 ## 3) Domain and DNS Configuration Requirements
 

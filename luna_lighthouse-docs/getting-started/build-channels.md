@@ -2,7 +2,7 @@
 
 LunaLighthouse offers three active build channels in phase 1.
 
-All releases for every build channel can be downloaded from the [build bucket](https://builds.lunalighthouse.app/), and stable release artifacts are available on [GitHub](https://github.com/pedrogonzalez/LunaLighthouse/releases).
+All releases for every build channel can be downloaded from the [build bucket](https://builds.lunalighthouse.app/), and stable release artifacts are available on [GitHub](https://github.com/plgonzalezrx8/LunaLighthouse/releases).
 
 ## Stable
 
@@ -10,7 +10,7 @@ This is the store version and will remain the most stable version. No in-progres
 
 ## Beta
 
-This channel is focused around _early previews and testing of work-in-progress features_. This channel is intended to allow users to give feedback to the developer on features that are actively being worked on.
+This channel is focused around _early previews and testing of work-in-progress features_. It allows testers to give maintainers feedback on active work before it reaches stable releases.
 
 ## Edge
 

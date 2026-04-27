@@ -6,10 +6,10 @@ This document defines day-to-day ownership for the LunaLighthouse monorepo reviv
 
 | Area | Owner | Backup | Scope |
 | --- | --- | --- | --- |
-| Mobile app (Flutter/iOS/Android) | @pedrogonzalez | Unassigned | `luna_lighthouse/` runtime, releases, signing setup |
-| Documentation/runbooks | @pedrogonzalez | Unassigned | `docs/`, `luna_lighthouse-docs/`, release notes |
-| Notification relay (deferred) | @pedrogonzalez | Unassigned | `luna_lighthouse-notification-service/` |
-| Cloud functions (deferred) | @pedrogonzalez | Unassigned | `luna_lighthouse-cloud-functions/` |
+| Mobile app (Flutter/iOS/Android) | @plgonzalezrx8 | Unassigned | `luna_lighthouse/` runtime, releases, signing setup |
+| Documentation/runbooks | @plgonzalezrx8 | Unassigned | `docs/`, `luna_lighthouse-docs/`, release notes |
+| Notification relay (deferred) | @plgonzalezrx8 | Unassigned | `luna_lighthouse-notification-service/` |
+| Cloud functions (deferred) | @plgonzalezrx8 | Unassigned | `luna_lighthouse-cloud-functions/` |
 
 ## Maintenance Expectations
 

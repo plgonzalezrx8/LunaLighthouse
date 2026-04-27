@@ -1,5 +1,5 @@
 FROM node:20-alpine
-LABEL org.opencontainers.image.source="https://github.com/pedrogonzalez/lunalighthouse-notification-service"
+LABEL org.opencontainers.image.source="https://github.com/plgonzalezrx8/lunalighthouse-notification-service"
 # Install packages, copy data, build project
 WORKDIR /usr/src/app
 COPY package*.json ./

@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: LunaLighthouse Community Support
-    url: https://www.lunalighthouse.app/discord
-    about: Ask setup and troubleshooting questions with community maintainers.
   - name: LunaLighthouse Discussions
-    url: https://github.com/pedrogonzalez/LunaLighthouse/discussions
-    about: Propose ideas and discuss roadmap changes.
+    url: https://github.com/plgonzalezrx8/LunaLighthouse/discussions
+    about: Ask setup questions, discuss roadmap ideas, and get community support.
+  - name: LunaLighthouse Support Email
+    url: mailto:hello@lunalighthouse.app
+    about: Contact the LunaLighthouse maintainers for support-sensitive issues.

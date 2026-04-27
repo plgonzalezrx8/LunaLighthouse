@@ -44,5 +44,5 @@ All Linux releases are available in the [Build Bucket](https://builds.lunalighth
 _Channel(s): `Stable`_\
 _Format(s): `.snap`, `.deb`, `.tar.gz`_
 
-All stable releases are available on GitHub via the [Releases](https://github.com/pedrogonzalez/LunaLighthouse/releases) page!
+All stable releases are available on GitHub via the [Releases](https://github.com/plgonzalezrx8/LunaLighthouse/releases) page!
 

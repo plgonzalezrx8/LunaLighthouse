@@ -2,7 +2,7 @@
   "name": "lunalighthouse-notification-service",
   "version": "1.5.5",
   "description": "Notification service for LunaLighthouse",
-  "repository": "https://github.com/pedrogonzalez/lunalighthouse-notification-service",
+  "repository": "https://github.com/plgonzalezrx8/lunalighthouse-notification-service",
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon --config nodemon.json src/index.ts",

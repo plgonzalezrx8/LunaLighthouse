@@ -26,7 +26,7 @@ A list of popular indexers and their API hosts is available at the end of this p
 
 Your API key that is typically available in the dashboard of the indexer or received by email when originally signing up for the indexer.
 
-If you are unable to find your API key, consider contacting the administrators of the indexer to get help! The LunaLighthouse developer and community users can try to help, but we cannot guarantee support if nobody has access to said indexer.
+If you are unable to find your API key, consider contacting the administrators of the indexer to get help! The LunaLighthouse maintainers and community users can try to help, but support cannot be guaranteed if nobody has access to that indexer.
 
 ### Custom Headers
 
@@ -51,5 +51,5 @@ Custom headers allows users to attach custom request headers to each API call th
 {% hint style="info" %}
 _**Want to add additional indexers?**_
 
-Contact me through GitHub, Discord, or Reddit!
+Open a GitHub issue or discussion with the indexer name, public API URL, and any non-sensitive setup details.
 {% endhint %}

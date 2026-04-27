@@ -1,17 +1,17 @@
 # Default ownership for the LunaLighthouse monorepo.
-* @pedrogonzalez
+* @plgonzalezrx8
 
 # Mobile application ownership (priority for relaunch).
-/luna_lighthouse/android/ @pedrogonzalez
-/luna_lighthouse/ios/ @pedrogonzalez
-/luna_lighthouse/lib/ @pedrogonzalez
-/luna_lighthouse/.github/ @pedrogonzalez
+/luna_lighthouse/android/ @plgonzalezrx8
+/luna_lighthouse/ios/ @plgonzalezrx8
+/luna_lighthouse/lib/ @plgonzalezrx8
+/luna_lighthouse/.github/ @plgonzalezrx8
 
 # Deferred backend ownership.
-/luna_lighthouse-notification-service/ @pedrogonzalez
-/luna_lighthouse-cloud-functions/ @pedrogonzalez
+/luna_lighthouse-notification-service/ @plgonzalezrx8
+/luna_lighthouse-cloud-functions/ @plgonzalezrx8
 
 # Documentation ownership.
-/README.md @pedrogonzalez
-/luna_lighthouse-docs/ @pedrogonzalez
-/docs/ @pedrogonzalez
+/README.md @plgonzalezrx8
+/luna_lighthouse-docs/ @plgonzalezrx8
+/docs/ @plgonzalezrx8
