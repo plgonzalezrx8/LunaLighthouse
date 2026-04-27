@@ -1,13 +1,13 @@
-# <img width="40px" src="./lunasea/assets/images/branding_logo.png" alt="Lunarr"></img>&nbsp;&nbsp;Lunarr
+# <img width="40px" src="./luna_lighthouse/assets/images/branding_logo.png" alt="LunaLighthouse"></img>&nbsp;&nbsp;LunaLighthouse
 
-Lunarr is an actively maintained, mobile-first self-hosted controller project.
+LunaLighthouse is an actively maintained, mobile-first self-hosted controller project.
 
 ## Repository Layout
 
-- `lunasea/`: Flutter application (iOS/Android relaunch priority)
-- `lunasea-docs/`: end-user documentation
-- `lunasea-notification-service/`: hosted notification relay (phase-2 re-enable)
-- `lunasea-cloud-functions/`: cloud support services (phase-2 re-enable)
+- `luna_lighthouse/`: Flutter application (iOS/Android relaunch priority)
+- `luna_lighthouse-docs/`: end-user documentation
+- `luna_lighthouse-notification-service/`: hosted notification relay (phase-2 re-enable)
+- `luna_lighthouse-cloud-functions/`: cloud support services (phase-2 re-enable)
 - `docs/`: maintainer governance, runbooks, and operational checklists
 
 ## Phase-1 Relaunch Scope

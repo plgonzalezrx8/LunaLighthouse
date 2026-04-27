@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Bootstrap deterministic dependencies for Lunarr mobile development.
+# Bootstrap deterministic dependencies for LunaLighthouse mobile development.
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_DIR="$ROOT_DIR/lunasea"
+APP_DIR="$ROOT_DIR/luna_lighthouse"
 
 if [[ ! -d "$APP_DIR" ]]; then
   echo "[bootstrap] Missing app directory: $APP_DIR" >&2
@@ -34,4 +34,4 @@ fi
 
 popd >/dev/null
 
-echo "[bootstrap] Lunarr mobile dependencies are ready."
+echo "[bootstrap] LunaLighthouse mobile dependencies are ready."

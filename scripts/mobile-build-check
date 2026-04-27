@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Run mobile-focused validation steps used for baseline confidence and CI parity.
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_DIR="$ROOT_DIR/lunasea"
+APP_DIR="$ROOT_DIR/luna_lighthouse"
 
 if [[ ! -d "$APP_DIR" ]]; then
   echo "[mobile-build-check] Missing app directory: $APP_DIR" >&2

@@ -18,7 +18,7 @@ permissions:
   contents: read
 
 env:
-  APP_DIR: lunasea
+  APP_DIR: luna_lighthouse
 
 jobs:
   prepare:
@@ -97,10 +97,10 @@ jobs:
       - name: Upload Android Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: lunarr-android-${{ needs.prepare.outputs.build-flavor }}
+          name: lunalighthouse-android-${{ needs.prepare.outputs.build-flavor }}
           path: |
-            ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunarr-android.aab
-            ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunarr-android.apk
+            ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunalighthouse-android.aab
+            ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunalighthouse-android.apk
 
   build-ios:
     name: Build iOS
@@ -156,5 +156,5 @@ jobs:
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: lunarr-ios-${{ needs.prepare.outputs.build-flavor }}
-          path: ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunarr-ios.ipa
+          name: lunalighthouse-ios-${{ needs.prepare.outputs.build-flavor }}
+          path: ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunalighthouse-ios.ipa

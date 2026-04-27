@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ln -sf '/usr/share/lunalighthouse/lunalighthouse' '/usr/bin/lunalighthouse'

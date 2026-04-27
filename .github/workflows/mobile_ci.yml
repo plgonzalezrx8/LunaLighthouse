@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 env:
-  APP_DIR: lunasea
+  APP_DIR: luna_lighthouse
 
 jobs:
   mobile-analyze:

@@ -1,4 +1,4 @@
-# Lunarr Maintainer Docs
+# LunaLighthouse Maintainer Docs
 
 This folder contains operational documentation for the mobile-first relaunch.
 

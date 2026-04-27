@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-Use the pinned toolchain contract in `lunasea/toolchain.env`.
+Use the pinned toolchain contract in `luna_lighthouse/toolchain.env`.
 
 ## First-Time Setup
 

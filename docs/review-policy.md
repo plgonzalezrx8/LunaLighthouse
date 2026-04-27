@@ -3,7 +3,7 @@
 ## Branch Strategy
 
 - `main`: protected release branch.
-- `codex/revive-lunarr/*`: implementation branches for rebrand and mobile recovery work.
+- `codex/revive-lunalighthouse/*`: implementation branches for rebrand and mobile recovery work.
 - `hotfix/*`: emergency production fixes, merged back into `main` immediately.
 
 ## Required Checks (Mobile-First)

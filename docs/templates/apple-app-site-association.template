@@ -1,12 +1,12 @@
 {
   "webcredentials": {
-    "apps": ["<APPLE_TEAM_ID>.app.lunarr.lunarr"]
+    "apps": ["<APPLE_TEAM_ID>.app.lunalighthouse.lunalighthouse"]
   },
   "applinks": {
     "apps": [],
     "details": [
       {
-        "appID": "<APPLE_TEAM_ID>.app.lunarr.lunarr",
+        "appID": "<APPLE_TEAM_ID>.app.lunalighthouse.lunalighthouse",
         "paths": ["*"]
       }
     ]

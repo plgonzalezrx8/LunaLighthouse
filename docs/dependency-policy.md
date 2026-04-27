@@ -4,7 +4,7 @@
 
 - Weekly: security patch review for mobile dependencies.
 - Bi-weekly: routine dependency updates (Flutter/Dart/Node/Ruby ecosystem).
-- Monthly: toolchain baseline review in `lunasea/toolchain.env`.
+- Monthly: toolchain baseline review in `luna_lighthouse/toolchain.env`.
 
 ## Rules
 

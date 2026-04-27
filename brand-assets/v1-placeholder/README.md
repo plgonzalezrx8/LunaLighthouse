@@ -6,8 +6,8 @@ This pack is the temporary placeholder asset set for relaunch development and CI
 
 - iOS app icon set (`Assets.xcassets/AppIcon.appiconset`)
 - Android adaptive icon layers (`mipmap-*` via Flutter launcher tools)
-- Flutter web/desktop icon variants (`lunasea/assets/icon/icon_*.png`)
-- Splash image (`lunasea/assets/images/branding_full.png`)
+- Flutter web/desktop icon variants (`luna_lighthouse/assets/icon/icon_*.png`)
+- Splash image (`luna_lighthouse/assets/images/branding_full.png`)
 
 ## Notes
 

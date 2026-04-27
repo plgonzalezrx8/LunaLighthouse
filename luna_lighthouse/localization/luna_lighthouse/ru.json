@@ -1,0 +1,15 @@
+{
+    "luna_lighthouse.AnErrorHasOccurred": "Произошла ошибка",
+    "luna_lighthouse.Cancel": "Отмена",
+    "luna_lighthouse.ChangeProfiles": "Изменить профили",
+    "luna_lighthouse.ComingSoon": "Скоро будет",
+    "luna_lighthouse.Dashboard": "Панель управления",
+    "luna_lighthouse.GoBack": "Назад",
+    "luna_lighthouse.ModuleIsNotEnabled": "{} Не включено",
+    "luna_lighthouse.Refresh": "Обновить",
+    "luna_lighthouse.ReturnToDashboard": "Вернуться в панель управления",
+    "luna_lighthouse.SearchTextBar": "Поиск…",
+    "luna_lighthouse.Settings": "Настройки",
+    "luna_lighthouse.TryAgain": "Попробуйте снова",
+    "luna_lighthouse.Unknown": "Неизвестно"
+}

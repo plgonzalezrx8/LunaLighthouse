@@ -1,5 +1,0 @@
-# Configure this per environment so signing storage is owned by Lunarr maintainers.
-git_url(ENV.fetch("MATCH_GIT_URL"))
-storage_mode("git")
-app_identifier("app.lunarr.lunarr")
-platform("macos")

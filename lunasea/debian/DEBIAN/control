@@ -1,6 +1,0 @@
-Package:Lunarr
-Architecture:amd64
-Essential:no
-Priority:optional
-Maintainer:Lunarr Support <hello@lunarr.app>
-Description:Self-hosted software controller built using Flutter

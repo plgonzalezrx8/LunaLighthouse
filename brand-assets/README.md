@@ -1,4 +1,4 @@
-# Lunarr Brand Assets
+# LunaLighthouse Brand Assets
 
 This folder stores versioned brand source assets used to generate platform icons/splash assets.
 
@@ -20,5 +20,5 @@ This folder stores versioned brand source assets used to generate platform icons
 
 ## Integration
 
-Generated app assets are built from `lunasea/assets/icon/*` and `lunasea/assets/images/*`.
+Generated app assets are built from `luna_lighthouse/assets/icon/*` and `luna_lighthouse/assets/images/*`.
 Run `scripts/generate-brand-assets` after updating source files.

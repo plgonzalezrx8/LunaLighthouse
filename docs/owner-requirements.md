@@ -1,6 +1,6 @@
-# Lunarr Owner Requirements (Everything Needed From You)
+# LunaLighthouse Owner Requirements (Everything Needed From You)
 
-This document is the single source of truth for what the project owner must provide to ship and maintain Lunarr in phase 1.
+This document is the single source of truth for what the project owner must provide to ship and maintain LunaLighthouse in phase 1.
 
 ## How To Use This Document
 
@@ -20,7 +20,7 @@ You must own and control the following identities and governance surfaces.
 | GitHub repository admin | You (or your org admin group) | Repo URL + admin screenshot |
 | Primary maintainer identity | You | GitHub username |
 | `main` branch protection authority | You | Branch protection JSON or screenshot |
-| Domain registrar account for `lunarr.app` | You/org | Registrar account + billing owner |
+| Domain registrar account for `lunalighthouse.app` | You/org | Registrar account + billing owner |
 | DNS provider account | You/org | DNS provider account + MFA enabled |
 
 ### Required repository governance configuration
@@ -36,7 +36,7 @@ You must own and control the following identities and governance surfaces.
 
 ## 2) Accounts You Must Create and Maintain
 
-These are external systems required to launch and operate Lunarr.
+These are external systems required to launch and operate LunaLighthouse.
 
 ### Launch-critical accounts
 
@@ -46,10 +46,10 @@ These are external systems required to launch and operate Lunarr.
 | App Store Connect | iOS/TestFlight app management | Linked to Apple Developer team |
 | Google Play Console | Android release management | Developer account |
 | GitHub | Source control, CI, secrets | Admin rights on repo |
-| Artifact Hosting (S3/R2/GCS) | `builds.lunarr.app` binaries | Bucket + HTTPS delivery |
-| Website Hosting | `www.lunarr.app` | HTTPS static/site hosting |
-| Docs Hosting | `docs.lunarr.app` | HTTPS docs host |
-| Email provider | `hello@lunarr.app` support mailbox | Deliverability + MFA |
+| Artifact Hosting (S3/R2/GCS) | `builds.lunalighthouse.app` binaries | Bucket + HTTPS delivery |
+| Website Hosting | `www.lunalighthouse.app` | HTTPS static/site hosting |
+| Docs Hosting | `docs.lunalighthouse.app` | HTTPS docs host |
+| Email provider | `hello@lunalighthouse.app` support mailbox | Deliverability + MFA |
 | Secret Manager | Secure storage of keys/certs | 1Password/Bitwarden/etc |
 
 ### Strongly recommended operational accounts
@@ -62,16 +62,16 @@ These are external systems required to launch and operate Lunarr.
 
 ## 3) Domain and DNS Configuration Requirements
 
-You already have `lunarr.app`. You still must provision and maintain these hosts.
+You already have `lunalighthouse.app`. You still must provision and maintain these hosts.
 
 ### Required subdomains
 
 | Host | Purpose | Required In Phase 1 |
 | --- | --- | --- |
-| `www.lunarr.app` | Website + `.well-known` files | Yes |
-| `docs.lunarr.app` | Documentation | Yes |
-| `builds.lunarr.app` | Release artifact distribution | Yes |
-| `notify.lunarr.app` | Reserved for phase-2 webhook host | Yes (can be placeholder page) |
+| `www.lunalighthouse.app` | Website + `.well-known` files | Yes |
+| `docs.lunalighthouse.app` | Documentation | Yes |
+| `builds.lunalighthouse.app` | Release artifact distribution | Yes |
+| `notify.lunalighthouse.app` | Reserved for phase-2 webhook host | Yes (can be placeholder page) |
 
 ### Required DNS records
 
@@ -80,12 +80,12 @@ You already have `lunarr.app`. You still must provision and maintain these hosts
 - Certificate auto-renew enabled.
 - Expiry alerting configured (email or monitoring integration).
 
-### Required `.well-known` files on `www.lunarr.app`
+### Required `.well-known` files on `www.lunalighthouse.app`
 
 Deploy exactly these endpoints:
 
-1. `https://www.lunarr.app/.well-known/assetlinks.json`
-2. `https://www.lunarr.app/.well-known/apple-app-site-association`
+1. `https://www.lunalighthouse.app/.well-known/assetlinks.json`
+2. `https://www.lunalighthouse.app/.well-known/apple-app-site-association`
 
 Use templates in:
 
@@ -115,10 +115,10 @@ You must create, protect, rotate, and document all signing assets.
 | Asset | Source | Storage Requirement |
 | --- | --- | --- |
 | Apple Distribution certificate | Apple Developer/Match | Managed in Match repo |
-| Provisioning profiles (`app.lunarr.lunarr`) | Apple Developer/Match | Managed in Match repo |
+| Provisioning profiles (`app.lunalighthouse.lunalighthouse`) | Apple Developer/Match | Managed in Match repo |
 | Match encryption password | Owner-defined | Secret manager |
 | Match SSH private key | Owner-generated | Secret manager |
-| Match Git repo (`lunarr-match`) | Owner GitHub org | Private repo + restricted access |
+| Match Git repo (`lunalighthouse-match`) | Owner GitHub org | Private repo + restricted access |
 
 ### Signing backup and recovery requirements
 
@@ -167,10 +167,10 @@ You must provide and maintain store-ready assets and metadata.
 
 ### Required App Store Connect assets
 
-- App name: `Lunarr`
-- Bundle ID: `app.lunarr.lunarr`
-- Privacy policy URL (under `lunarr.app`)
-- Support URL (under `lunarr.app`)
+- App name: `LunaLighthouse`
+- Bundle ID: `app.lunalighthouse.lunalighthouse`
+- Privacy policy URL (under `lunalighthouse.app`)
+- Support URL (under `lunalighthouse.app`)
 - Age/content declarations
 - Export compliance declarations
 - Required screenshot sets for current Apple device class requirements
@@ -178,8 +178,8 @@ You must provide and maintain store-ready assets and metadata.
 
 ### Required Google Play assets
 
-- App name: `Lunarr`
-- Package: `app.lunarr.lunarr`
+- App name: `LunaLighthouse`
+- Package: `app.lunalighthouse.lunalighthouse`
 - Privacy policy URL
 - App category/content rating
 - Data safety form
@@ -192,8 +192,8 @@ Phase 1 focuses on mobile runtime only. You still own deferred surfaces.
 
 ### Required now (phase 1)
 
-- `builds.lunarr.app` artifact hosting path available.
-- `notify.lunarr.app` resolves and is owned (placeholder acceptable).
+- `builds.lunalighthouse.app` artifact hosting path available.
+- `notify.lunalighthouse.app` resolves and is owned (placeholder acceptable).
 - Cloud/webhook feature remains disabled in app behavior and docs.
 
 ### Required later (phase 2, plan ahead now)
@@ -211,7 +211,7 @@ You must maintain at least one macOS signing machine and CI compatibility.
 - Java 17
 - Node 20
 - Ruby 2.7.6 + Bundler 2
-- Flutter pinned revision in `lunasea/toolchain.env`
+- Flutter pinned revision in `luna_lighthouse/toolchain.env`
 - Full Xcode installation (with accepted license)
 
 ### Required commands you must be able to run
@@ -287,4 +287,4 @@ Use this table as your authoritative done-tracker.
 
 ---
 
-If any item above is incomplete, you do not yet fully control Lunarr operations end-to-end.
+If any item above is incomplete, you do not yet fully control LunaLighthouse operations end-to-end.

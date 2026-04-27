@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Validate local mobile toolchain against the pinned Lunarr baseline.
+# Validate local mobile toolchain against the pinned LunaLighthouse baseline.
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-TOOLCHAIN_FILE="$ROOT_DIR/lunasea/toolchain.env"
+TOOLCHAIN_FILE="$ROOT_DIR/luna_lighthouse/toolchain.env"
 
 if [[ ! -f "$TOOLCHAIN_FILE" ]]; then
   echo "[doctor] Missing toolchain contract: $TOOLCHAIN_FILE" >&2
@@ -54,8 +54,15 @@ require_cmd ruby
 require_cmd bundle
 
 if command -v flutter >/dev/null 2>&1; then
-  flutter_line="$(flutter --version 2>/dev/null | head -n 1 || true)"
-  flutter_revision="$(echo "$flutter_line" | grep -Eo '[a-f0-9]{40}' || true)"
+  flutter_revision="$(flutter --version --machine 2>/dev/null \
+    | python3 -c 'import json,sys; print(json.load(sys.stdin).get("frameworkRevision", ""))' 2>/dev/null \
+    || true)"
+  if [[ -z "$flutter_revision" ]]; then
+    flutter_root="$(dirname "$(dirname "$(command -v flutter)")")"
+    if [[ -d "$flutter_root/.git" ]]; then
+      flutter_revision="$(git -C "$flutter_root" rev-parse HEAD 2>/dev/null || true)"
+    fi
+  fi
   if [[ -z "$flutter_revision" ]]; then
     note_fail "could not parse Flutter framework revision"
   elif [[ "$flutter_revision" == "$FLUTTER_FRAMEWORK_REVISION" ]]; then
@@ -121,4 +128,4 @@ if (( FAILURES > 0 )); then
   exit 1
 fi
 
-echo "[doctor] Environment matches Lunarr mobile baseline."
+echo "[doctor] Environment matches LunaLighthouse mobile baseline."

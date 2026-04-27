@@ -2,7 +2,7 @@
 
 ## Current Phase Boundary
 
-Lunarr phase-1 relaunch is mobile-first:
+LunaLighthouse phase-1 relaunch is mobile-first:
 
 - Active runtime scope: Flutter app for iOS/Android.
 - Deferred runtime scope: hosted cloud account features and webhook relay dependency paths.
@@ -10,10 +10,10 @@ Lunarr phase-1 relaunch is mobile-first:
 
 ## Repository Topology
 
-- `lunasea/`: primary Flutter application and mobile CI/CD workflows.
-- `lunasea-docs/`: user documentation content.
-- `lunasea-notification-service/`: webhook relay service (rebrand-ready, not relaunch-critical).
-- `lunasea-cloud-functions/`: cloud function support services (rebrand-ready, deferred runtime).
+- `luna_lighthouse/`: primary Flutter application and mobile CI/CD workflows.
+- `luna_lighthouse-docs/`: user documentation content.
+- `luna_lighthouse-notification-service/`: webhook relay service (rebrand-ready, not relaunch-critical).
+- `luna_lighthouse-cloud-functions/`: cloud function support services (rebrand-ready, deferred runtime).
 
 ## Data and Control Flow (Phase 1)
 

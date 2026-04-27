@@ -1,0 +1,5 @@
+# Configure this per environment so signing storage is owned by LunaLighthouse maintainers.
+git_url(ENV.fetch("MATCH_GIT_URL"))
+storage_mode("git")
+app_identifier(["app.lunalighthouse.lunalighthouse"])
+platform("ios")

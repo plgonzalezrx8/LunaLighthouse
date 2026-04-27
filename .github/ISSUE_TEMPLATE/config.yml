@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Lunarr Community Support
-    url: https://www.lunarr.app/discord
+  - name: LunaLighthouse Community Support
+    url: https://www.lunalighthouse.app/discord
     about: Ask setup and troubleshooting questions with community maintainers.
-  - name: Lunarr Discussions
-    url: https://github.com/pedrogonzalez/Lunarr/discussions
+  - name: LunaLighthouse Discussions
+    url: https://github.com/pedrogonzalez/LunaLighthouse/discussions
     about: Propose ideas and discuss roadmap changes.

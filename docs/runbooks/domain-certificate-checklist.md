@@ -2,14 +2,14 @@
 
 ## Required Domains
 
-- `www.lunarr.app`
-- `docs.lunarr.app`
-- `builds.lunarr.app`
-- `notify.lunarr.app`
+- `www.lunalighthouse.app`
+- `docs.lunalighthouse.app`
+- `builds.lunalighthouse.app`
+- `notify.lunalighthouse.app`
 
 ## Ownership Checks
 
-- [ ] Registrar account is controlled by Lunarr maintainer org.
+- [ ] Registrar account is controlled by LunaLighthouse maintainer org.
 - [ ] DNS provider account ownership is documented.
 - [ ] Recovery email and MFA ownership are documented.
 
@@ -21,10 +21,10 @@
 
 ## Service Mapping
 
-- [ ] `www.lunarr.app` -> primary web presence.
-- [ ] `docs.lunarr.app` -> documentation hosting.
-- [ ] `builds.lunarr.app` -> release artifact index/bucket.
-- [ ] `notify.lunarr.app` -> webhook relay host (deferred in phase 1).
+- [ ] `www.lunalighthouse.app` -> primary web presence.
+- [ ] `docs.lunalighthouse.app` -> documentation hosting.
+- [ ] `builds.lunalighthouse.app` -> release artifact index/bucket.
+- [ ] `notify.lunalighthouse.app` -> webhook relay host (deferred in phase 1).
 
 ## Validation Cadence
 

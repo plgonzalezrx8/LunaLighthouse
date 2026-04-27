@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "app.lunarr.lunarr",
+      "package_name": "app.lunalighthouse.lunalighthouse",
       "sha256_cert_fingerprints": ["<ANDROID_SHA256_FINGERPRINT>"]
     }
   }

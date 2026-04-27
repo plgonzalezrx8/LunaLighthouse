@@ -1,0 +1,31 @@
+name: lunalighthouse
+version: 11.0.0
+confinement: strict
+base: core22
+# Required but managed manually via Snapcraft dashboard
+summary: summary
+description: description
+slots:
+  dbus-lunalighthouse:
+    interface: dbus
+    bus: session
+    name: app.lunalighthouse.lunalighthouse
+apps:
+  lunalighthouse:
+    command: lunalighthouse
+    extensions:
+    - gnome
+    plugs:
+    - home
+    - network
+    slots:
+    - dbus-lunalighthouse
+parts:
+  zenity:
+    plugin: nil
+    stage-packages:
+    - zenity
+  lunalighthouse:
+    source: .
+    plugin: flutter
+    flutter-target: lib/main.dart

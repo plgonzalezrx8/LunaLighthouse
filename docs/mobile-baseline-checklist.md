@@ -6,7 +6,7 @@ Use this checklist before opening relaunch and release PRs.
 
 - [ ] `scripts/doctor` passes on the build host.
 - [ ] `scripts/bootstrap` completes without dependency errors.
-- [ ] Flutter toolchain matches `lunasea/toolchain.env`.
+- [ ] Flutter toolchain matches `luna_lighthouse/toolchain.env`.
 
 ## Generation and Analysis
 
@@ -25,7 +25,7 @@ Use this checklist before opening relaunch and release PRs.
 
 ## Relaunch Scope Compliance
 
-- [ ] No user-visible `LunaSea` strings in core mobile flows.
-- [ ] No `*.lunasea.app` production URLs in runtime paths.
+- [ ] No user-visible `LunaLighthouse` strings in core mobile flows.
+- [ ] No `*.luna_lighthouse.app` production URLs in runtime paths.
 - [ ] Cloud/webhook flows are disabled or marked unavailable.
-- [ ] Local backup/restore works using Lunarr backup extension.
+- [ ] Local backup/restore works using LunaLighthouse backup extension.

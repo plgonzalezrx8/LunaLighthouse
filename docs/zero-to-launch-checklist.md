@@ -1,18 +1,18 @@
-# Lunarr Zero-to-Launch Checklist (Monorepo-First)
+# LunaLighthouse Zero-to-Launch Checklist (Monorepo-First)
 
 This checklist is the executable version of the 14-day launch plan. It assumes this repository is your launch control plane.
 
 ## Required Accounts and Services (Create Before Day 7)
 
 - Apple Developer Program account (active team membership)
-- App Store Connect app for `app.lunarr.lunarr`
-- Google Play Console app for `app.lunarr.lunarr`
+- App Store Connect app for `app.lunalighthouse.lunalighthouse`
+- Google Play Console app for `app.lunalighthouse.lunalighthouse`
 - GitHub repo admin access
-- DNS/TLS control for `lunarr.app`
-- Artifact hosting for `builds.lunarr.app` (S3/R2/GCS + HTTPS)
-- Docs hosting for `docs.lunarr.app`
-- Website hosting for `www.lunarr.app`
-- Support mailbox (`hello@lunarr.app`)
+- DNS/TLS control for `lunalighthouse.app`
+- Artifact hosting for `builds.lunalighthouse.app` (S3/R2/GCS + HTTPS)
+- Docs hosting for `docs.lunalighthouse.app`
+- Website hosting for `www.lunalighthouse.app`
+- Support mailbox (`hello@lunalighthouse.app`)
 - Secret manager vault (for signing keys and API credentials)
 
 ## Day 1 — Local Toolchain Baseline
@@ -35,7 +35,7 @@ gem install bundler -v "~>2.0"
 
 mkdir -p ~/.sdk
 git clone https://github.com/flutter/flutter.git ~/.sdk/flutter
-git -C ~/.sdk/flutter checkout ffccd96b62ee8cec7740dab303538c5fc26ac543
+git -C ~/.sdk/flutter checkout ea121f8859e4b13e47a8f845e4586164519588bc
 echo 'export PATH="$HOME/.sdk/flutter/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 
@@ -54,12 +54,12 @@ Manual: install full Xcode from App Store, open once, accept license.
 ## Day 3 — Android Signing + Local Release Build
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/lunasea/android
+cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/luna_lighthouse/android
 
 keytool -genkeypair \
   -v \
   -keystore key.jks \
-  -alias lunarr \
+  -alias lunalighthouse \
   -keyalg RSA \
   -keysize 4096 \
   -validity 3650
@@ -67,7 +67,7 @@ keytool -genkeypair \
 cat > key.properties <<'EOF2'
 storePassword=<STORE_PASSWORD>
 keyPassword=<KEY_PASSWORD>
-keyAlias=lunarr
+keyAlias=lunalighthouse
 storeFile=key.jks
 EOF2
 
@@ -76,27 +76,27 @@ bundle exec fastlane build_aab build_number:1000000001
 bundle exec fastlane build_apk build_number:1000000001
 ```
 
-Manual: create Play Console app record for `app.lunarr.lunarr`.
+Manual: create Play Console app record for `app.lunalighthouse.lunalighthouse`.
 
 ## Day 4 — iOS Signing + Match Setup + Local IPA
 
 ```bash
 # Create signing storage repo
 # Replace <ORG> before running
-gh repo create <ORG>/lunarr-match --private
+gh repo create <ORG>/lunalighthouse-match --private
 
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/lunasea/ios
+cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/luna_lighthouse/ios
 bundle install
 
-export MATCH_GIT_URL=git@github.com:<ORG>/lunarr-match.git
-export MATCH_KEYCHAIN_NAME=lunarr-signing
+export MATCH_GIT_URL=git@github.com:<ORG>/lunalighthouse-match.git
+export MATCH_KEYCHAIN_NAME=lunalighthouse-signing
 export MATCH_KEYCHAIN_PASSWORD=<KEYCHAIN_PASSWORD>
 export MATCH_PASSWORD=<MATCH_ENCRYPTION_PASSWORD>
 export FASTLANE_USER=<APPLE_ID_EMAIL>
 
-ssh-keygen -t ed25519 -f ~/.ssh/lunarr_match -C "lunarr-match"
+ssh-keygen -t ed25519 -f ~/.ssh/lunalighthouse_match -C "lunalighthouse-match"
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/lunarr_match
+ssh-add ~/.ssh/lunalighthouse_match
 
 bundle exec fastlane keychain_create
 bundle exec fastlane keychain_setup
@@ -106,16 +106,16 @@ bundle exec fastlane build_appstore build_number:1000000001
 ```
 
 Manual:
-- Add `~/.ssh/lunarr_match.pub` as write-enabled deploy key on `<ORG>/lunarr-match`.
-- Create App Store Connect app record for bundle ID `app.lunarr.lunarr`.
+- Add `~/.ssh/lunalighthouse_match.pub` as write-enabled deploy key on `<ORG>/lunalighthouse-match`.
+- Create App Store Connect app record for bundle ID `app.lunalighthouse.lunalighthouse`.
 
 ## Day 5 — Domains + Well-Known Files
 
 Get Android cert fingerprint:
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/lunasea/android
-keytool -list -v -keystore key.jks -alias lunarr | rg SHA256
+cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/luna_lighthouse/android
+keytool -list -v -keystore key.jks -alias lunalighthouse | rg SHA256
 ```
 
 Prepare `.well-known` files using templates:
@@ -127,8 +127,8 @@ Manual:
 - Configure DNS for `www`, `docs`, `builds`, `notify`.
 - Enable TLS + expiry monitoring.
 - Deploy files to:
-  - `https://www.lunarr.app/.well-known/assetlinks.json`
-  - `https://www.lunarr.app/.well-known/apple-app-site-association`
+  - `https://www.lunalighthouse.app/.well-known/assetlinks.json`
+  - `https://www.lunalighthouse.app/.well-known/apple-app-site-association`
 
 ## Day 6 — Final Brand Asset Generation
 
@@ -147,7 +147,7 @@ Manual: capture final app-store screenshots/graphics.
 Encode Android signing files:
 
 ```bash
-cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/lunasea/android
+cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse/luna_lighthouse/android
 base64 -i key.jks > /tmp/KEY_JKS.b64
 base64 -i key.properties > /tmp/KEY_PROPERTIES.b64
 ```
@@ -163,11 +163,11 @@ gh secret set APPLE_ID --body "<APPLE_ID_EMAIL>"
 gh secret set APPLE_ITC_TEAM_ID --body "<APPLE_ITC_TEAM_ID>"
 gh secret set APPLE_TEAM_ID --body "<APPLE_TEAM_ID>"
 gh secret set IOS_CODESIGNING_IDENTITY --body "Apple Distribution: <TEAM NAME> (<TEAM_ID>)"
-gh secret set MATCH_KEYCHAIN_NAME --body "lunarr-signing"
+gh secret set MATCH_KEYCHAIN_NAME --body "lunalighthouse-signing"
 gh secret set MATCH_KEYCHAIN_PASSWORD --body "<KEYCHAIN_PASSWORD>"
 gh secret set MATCH_PASSWORD --body "<MATCH_ENCRYPTION_PASSWORD>"
-gh secret set MATCH_GIT_URL --body "git@github.com:<ORG>/lunarr-match.git"
-gh secret set MATCH_SSH_PRIVATE_KEY < ~/.ssh/lunarr_match
+gh secret set MATCH_GIT_URL --body "git@github.com:<ORG>/lunalighthouse-match.git"
+gh secret set MATCH_SSH_PRIVATE_KEY < ~/.ssh/lunalighthouse_match
 ```
 
 Protect `main`:
@@ -224,7 +224,7 @@ Manual:
 cd /Users/pedrogonzalez/CascadeProjects/LunaLighthouse
 
 # Repeat per fix
-git checkout -b codex/revive-lunarr/hotfix-<topic>
+git checkout -b codex/revive-lunalighthouse/hotfix-<topic>
 # implement fix
 git add .
 git commit -m "fix(mobile): <summary>"

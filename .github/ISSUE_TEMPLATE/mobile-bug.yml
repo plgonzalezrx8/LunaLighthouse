@@ -1,5 +1,5 @@
 name: Mobile Bug
-description: Report a bug affecting Lunarr iOS or Android relaunch scope.
+description: Report a bug affecting LunaLighthouse iOS or Android relaunch scope.
 title: "[mobile] "
 labels:
   - bug
@@ -19,7 +19,7 @@ body:
   - type: input
     id: app_version
     attributes:
-      label: Lunarr version
+      label: LunaLighthouse version
       description: Include version/build (for example `11.0.0+123`).
     validations:
       required: true

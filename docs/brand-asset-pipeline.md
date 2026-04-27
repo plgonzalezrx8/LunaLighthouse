@@ -8,7 +8,7 @@
 ## Generation Workflow
 
 1. Update source files in a new versioned pack.
-2. Export required icon/splash inputs into `lunasea/assets/icon/` and `lunasea/assets/images/`.
+2. Export required icon/splash inputs into `luna_lighthouse/assets/icon/` and `luna_lighthouse/assets/images/`.
 3. Run `scripts/generate-brand-assets`.
 4. Verify regenerated assets on Android and iOS simulator/device.
 

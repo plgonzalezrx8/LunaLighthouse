@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Regenerate platform icon and splash artifacts from Lunarr source assets.
+# Regenerate platform icon and splash artifacts from LunaLighthouse source assets.
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP_DIR="$ROOT_DIR/lunasea"
+APP_DIR="$ROOT_DIR/luna_lighthouse"
 
 if [[ ! -d "$APP_DIR" ]]; then
   echo "[generate-brand-assets] Missing app directory: $APP_DIR" >&2

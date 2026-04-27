@@ -1,14 +1,14 @@
 # Governance Baseline (Phase 0)
 
-This file records the operational decisions for the Lunarr mobile relaunch.
+This file records the operational decisions for the LunaLighthouse mobile relaunch.
 
 ## Program Decisions
 
-- Product name: `Lunarr`
-- Mobile identifier namespace: `app.lunarr.lunarr`
+- Product name: `LunaLighthouse`
+- Mobile identifier namespace: `app.lunalighthouse.lunalighthouse`
 - Mobile strategy: iOS and Android first
 - Deferred features for relaunch: cloud account and hosted webhooks
-- Domain strategy: `*.lunarr.app`
+- Domain strategy: `*.lunalighthouse.app`
 
 ## Release Channels
 

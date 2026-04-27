@@ -13,8 +13,8 @@
 - [ ] iOS build path validated (or not available in this environment)
 
 ## Risk Check
-- [ ] No new LunaSea public-facing strings introduced
-- [ ] No `*.lunasea.app` production URLs introduced
+- [ ] No new LunaLighthouse public-facing strings introduced
+- [ ] No `*.luna_lighthouse.app` production URLs introduced
 - [ ] Cloud/webhook deferred behavior preserved (phase-1 gate)
 
 ## Reviewer Notes
