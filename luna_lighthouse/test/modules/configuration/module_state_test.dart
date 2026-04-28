@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:luna_lighthouse/database/box.dart';
 import 'package:luna_lighthouse/database/models/profile.dart';
 import 'package:luna_lighthouse/database/table.dart';
+import 'package:luna_lighthouse/database/tables/luna_lighthouse.dart';
 import 'package:luna_lighthouse/modules/radarr.dart';
 import 'package:luna_lighthouse/modules/sonarr.dart';
 import 'package:luna_lighthouse/modules/tautulli.dart';
@@ -67,4 +68,5 @@ void main() {
 
 Future<void> _saveProfile(LunaProfile profile) async {
   await LunaBox.profiles.update(LunaProfile.DEFAULT_PROFILE, profile);
+  LunaLighthouseDatabase.ENABLED_PROFILE.update(LunaProfile.DEFAULT_PROFILE);
 }
