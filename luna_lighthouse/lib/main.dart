@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:device_preview/device_preview.dart';
 import 'package:luna_lighthouse/core.dart';
@@ -18,13 +19,16 @@ import 'package:luna_lighthouse/system/platform.dart';
 Future<void> main() async {
   runZonedGuarded(
     () async {
-      WidgetsFlutterBinding.ensureInitialized();
+      final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+      FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
       try {
         await bootstrap();
         runApp(const LunaBIOS());
       } catch (error) {
         runApp(const LunaRecoveryMode());
+      } finally {
+        FlutterNativeSplash.remove();
       }
     },
     (error, stack) => LunaLogger().critical(error, stack),
