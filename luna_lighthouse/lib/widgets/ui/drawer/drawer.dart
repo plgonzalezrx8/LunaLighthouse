@@ -6,9 +6,9 @@ class LunaDrawer extends StatelessWidget {
   final String page;
 
   const LunaDrawer({
-    Key? key,
+    super.key,
     required this.page,
-  }) : super(key: key);
+  });
 
   static List<LunaModule> moduleAlphabeticalList() {
     return LunaModule.active
@@ -39,7 +39,8 @@ class LunaDrawer extends StatelessWidget {
         builder: (context, _) => Drawer(
           elevation: LunaUI.ELEVATION,
           backgroundColor: Theme.of(context).primaryColor,
-          child: LunaLighthouseDatabase.DRAWER_AUTOMATIC_MANAGE.listenableBuilder(
+          child:
+              LunaLighthouseDatabase.DRAWER_AUTOMATIC_MANAGE.listenableBuilder(
             builder: (context, _) => Column(
               children: [
                 LunaDrawerHeader(page: page),

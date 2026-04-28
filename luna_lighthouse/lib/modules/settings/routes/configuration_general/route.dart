@@ -8,8 +8,8 @@ import 'package:luna_lighthouse/system/platform.dart';
 
 class ConfigurationGeneralRoute extends StatefulWidget {
   const ConfigurationGeneralRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State createState() => _State();
@@ -152,7 +152,9 @@ class _State extends State<ConfigurationGeneralRoute>
         title: 'settings.BackgroundImageOpacity'.tr(),
         body: [
           TextSpan(
-            text: _db.read() == 0 ? 'luna_lighthouse.Disabled'.tr() : '${_db.read()}%',
+            text: _db.read() == 0
+                ? 'luna_lighthouse.Disabled'.tr()
+                : '${_db.read()}%',
           ),
         ],
         trailing: const LunaIconButton.arrow(),

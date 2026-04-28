@@ -25,7 +25,7 @@ LunaLighthouse is purely a remote control application, it does not offer any fun
 
 ## Releases
 
-All releases for every build channel can be downloaded from the [build bucket](https://builds.lunalighthouse.app/), and stable release artifacts are available on [GitHub](https://github.com/pedrogonzalez/LunaLighthouse/releases).
+All releases for every build channel can be downloaded from the [build bucket](https://builds.lunalighthouse.app/), and stable release artifacts are available on [GitHub](https://github.com/plgonzalezrx8/LunaLighthouse/releases).
 
 * [Android](releases/android.md)
 * [iOS](releases/ios.md)
@@ -38,4 +38,4 @@ Interested in using prerelease build channels of LunaLighthouse? Learn the diffe
 
 ## License
 
-See [LICENSE.md](https://github.com/pedrogonzalez/LunaLighthouse/blob/master/LICENSE.md) for more information.
+See [LICENSE.md](https://github.com/plgonzalezrx8/LunaLighthouse/blob/master/LICENSE.md) for more information.

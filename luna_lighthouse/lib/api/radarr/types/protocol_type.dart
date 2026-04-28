@@ -1,4 +1,4 @@
-part of radarr_types;
+part of '../types.dart';
 
 /// Enumerator to handle all protocol options used in Radarr.
 enum RadarrProtocol {
@@ -26,8 +26,6 @@ extension RadarrProtocolExtension on RadarrProtocol {
         return 'usenet';
       case RadarrProtocol.TORRENT:
         return 'torrent';
-      default:
-        return null;
     }
   }
 
@@ -37,8 +35,6 @@ extension RadarrProtocolExtension on RadarrProtocol {
         return 'Usenet';
       case RadarrProtocol.TORRENT:
         return 'Torrent';
-      default:
-        return null;
     }
   }
 }

@@ -32,5 +32,5 @@ jobs:
           push: true
           context: .
           tags: |
-            ghcr.io/jagandeepbrar/luna_lighthouse-notification-service:latest
-            ghcr.io/jagandeepbrar/luna_lighthouse-notification-service:${{ steps.package.outputs.current-version}}
+            ghcr.io/plgonzalezrx8/lunalighthouse-notification-service:latest
+            ghcr.io/plgonzalezrx8/lunalighthouse-notification-service:${{ steps.package.outputs.current-version }}

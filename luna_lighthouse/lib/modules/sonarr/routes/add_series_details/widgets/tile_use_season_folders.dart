@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsUseSeasonFoldersTile extends StatelessWidget {
   const SonarrSeriesAddDetailsUseSeasonFoldersTile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/radarr.dart';
 
 class RadarrAddMovieDetailsTagsTile extends StatelessWidget {
   const RadarrAddMovieDetailsTagsTile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

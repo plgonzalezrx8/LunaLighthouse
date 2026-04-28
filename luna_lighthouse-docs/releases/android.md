@@ -45,4 +45,4 @@ All Android releases are available in the [Build Bucket](https://builds.lunaligh
 _Channel(s): `Stable`_\
 _Format(s): `.apk`_
 
-All stable releases are available on GitHub via the [Releases](https://github.com/pedrogonzalez/LunaLighthouse/releases) page!
+All stable releases are available on GitHub via the [Releases](https://github.com/plgonzalezrx8/LunaLighthouse/releases) page!

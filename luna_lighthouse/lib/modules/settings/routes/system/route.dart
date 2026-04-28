@@ -10,8 +10,8 @@ import 'package:luna_lighthouse/system/cache/image/image_cache.dart';
 
 class SystemRoute extends StatefulWidget {
   const SystemRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SystemRoute> createState() => _State();

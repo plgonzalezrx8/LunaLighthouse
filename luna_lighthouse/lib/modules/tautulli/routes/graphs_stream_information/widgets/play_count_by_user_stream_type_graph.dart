@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/modules/tautulli.dart';
 
 class TautulliGraphsPlayCountByUserStreamTypeGraph extends StatelessWidget {
   const TautulliGraphsPlayCountByUserStreamTypeGraph({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) =>

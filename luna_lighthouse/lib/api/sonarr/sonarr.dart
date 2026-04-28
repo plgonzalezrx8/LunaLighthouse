@@ -1,4 +1,4 @@
-library sonarr;
+library;
 
 import 'package:dio/dio.dart';
 import 'package:luna_lighthouse/api/sonarr/controllers.dart';

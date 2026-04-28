@@ -7,8 +7,8 @@ import 'package:luna_lighthouse/utils/profile_tools.dart';
 
 class ConfigurationRoute extends StatefulWidget {
   const ConfigurationRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationRoute> createState() => _State();
@@ -42,7 +42,8 @@ class _State extends State<ConfigurationRoute> with LunaScrollControllerMixin {
           icon: Icons.switch_account_rounded,
           onPressed: () async {
             final dialogs = SettingsDialogs();
-            final enabledProfile = LunaLighthouseDatabase.ENABLED_PROFILE.read();
+            final enabledProfile =
+                LunaLighthouseDatabase.ENABLED_PROFILE.read();
             final profiles = LunaProfile.list;
             profiles.removeWhere((p) => p == enabledProfile);
 

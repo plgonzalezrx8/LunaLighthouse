@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/sonarr.dart';
 
 class SonarrSeriesAddDetailsLanguageProfileTile extends StatelessWidget {
   const SonarrSeriesAddDetailsLanguageProfileTile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -32,7 +32,7 @@ class LunaGridBlock extends StatelessWidget {
   final Function? onLongPress;
 
   const LunaGridBlock({
-    Key? key,
+    super.key,
     this.disabled = false,
     required this.title,
     required this.subtitle,
@@ -46,7 +46,7 @@ class LunaGridBlock extends StatelessWidget {
     this.posterIsSquare = false,
     this.onTap,
     this.onLongPress,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,8 @@ class LunaGridBlock extends StatelessWidget {
   Widget _fadeInBackground(BuildContext context) {
     if (backgroundUrl == null) return const SizedBox();
 
-    final _percent = LunaLighthouseDatabase.THEME_IMAGE_BACKGROUND_OPACITY.read();
+    final _percent =
+        LunaLighthouseDatabase.THEME_IMAGE_BACKGROUND_OPACITY.read();
     if (_percent == 0) return const SizedBox(height: 0, width: 0);
 
     double _opacity = _percent / 100;

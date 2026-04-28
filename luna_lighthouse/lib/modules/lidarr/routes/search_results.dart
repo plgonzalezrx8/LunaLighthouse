@@ -7,9 +7,9 @@ class ArtistAlbumReleasesRoute extends StatefulWidget {
   final int albumId;
 
   const ArtistAlbumReleasesRoute({
-    Key? key,
+    super.key,
     required this.albumId,
-  }) : super(key: key);
+  });
 
   @override
   State<ArtistAlbumReleasesRoute> createState() => _State();
@@ -76,7 +76,6 @@ class _State extends State<ArtistAlbumReleasesRoute>
             case ConnectionState.none:
             case ConnectionState.waiting:
             case ConnectionState.active:
-            default:
               return const LunaLoader();
           }
         },

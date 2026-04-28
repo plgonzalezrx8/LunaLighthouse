@@ -1,5 +1,5 @@
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html';
+import 'dart:js_interop';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:luna_lighthouse/system/filesystem/file.dart';
@@ -7,6 +7,7 @@ import 'package:luna_lighthouse/system/filesystem/filesystem.dart';
 import 'package:luna_lighthouse/system/logger.dart';
 import 'package:luna_lighthouse/vendor.dart';
 import 'package:luna_lighthouse/widgets/ui.dart';
+import 'package:web/web.dart' as web;
 
 bool isPlatformSupported() => true;
 LunaFileSystem getFileSystem() {
@@ -21,10 +22,19 @@ class _Web implements LunaFileSystem {
   @override
   Future<bool> save(BuildContext context, String name, List<int> data) async {
     try {
-      final blob = Blob([utf8.decode(data)]);
-      final anchor = AnchorElement(href: Url.createObjectUrlFromBlob(blob));
-      anchor.setAttribute('download', name);
+      final blob = web.Blob(
+        <web.BlobPart>[Uint8List.fromList(data).toJS].toJS,
+        web.BlobPropertyBag(type: 'application/octet-stream'),
+      );
+      final url = web.URL.createObjectURL(blob);
+      final anchor = web.HTMLAnchorElement()
+        ..href = url
+        ..download = name;
+
+      web.document.body?.appendChild(anchor);
       anchor.click();
+      anchor.remove();
+      web.URL.revokeObjectURL(url);
       return true;
     } catch (error, stack) {
       LunaLogger().error('Failed to save to filesystem', error, stack);

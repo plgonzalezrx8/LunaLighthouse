@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/router/routes/search.dart';
 
 class SearchSubcategoryAllTile extends StatelessWidget {
   const SearchSubcategoryAllTile({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,9 @@ class SearchSubcategoryAllTile extends StatelessWidget {
       selector: (_, state) => state.activeCategory,
       builder: (context, category, _) => LunaBlock(
         title: 'search.AllSubcategories'.tr(),
-        body: [TextSpan(text: category?.name ?? 'luna_lighthouse.Unknown'.tr())],
+        body: [
+          TextSpan(text: category?.name ?? 'luna_lighthouse.Unknown'.tr())
+        ],
         trailing: LunaIconButton(
             icon: context.read<SearchState>().activeCategory?.icon,
             color: LunaColours().byListIndex(0)),

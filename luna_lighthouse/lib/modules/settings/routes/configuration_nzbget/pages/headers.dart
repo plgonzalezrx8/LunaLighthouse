@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/settings.dart';
 
 class ConfigurationNZBGetConnectionDetailsHeadersRoute extends StatelessWidget {
   const ConfigurationNZBGetConnectionDetailsHeadersRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

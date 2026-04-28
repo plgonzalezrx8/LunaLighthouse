@@ -70,7 +70,9 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
         return 'sonarr.EpisodeFileDeleted'.tr();
       case SonarrEventType.DOWNLOAD_FOLDER_IMPORTED:
         return 'sonarr.EpisodeImported'.tr(
-          args: [record.quality?.quality?.name ?? 'luna_lighthouse.Unknown'.tr()],
+          args: [
+            record.quality?.quality?.name ?? 'luna_lighthouse.Unknown'.tr()
+          ],
         );
       case SonarrEventType.DOWNLOAD_FAILED:
         return 'sonarr.DownloadFailed'.tr();
@@ -103,7 +105,6 @@ extension SonarrEventTypeLunaExtension on SonarrEventType {
       case SonarrEventType.GRABBED:
         return _grabbedTableContent(history, showSourceTitle);
       case SonarrEventType.SERIES_FOLDER_IMPORTED:
-      default:
         return _defaultTableContent(history, showSourceTitle);
     }
   }

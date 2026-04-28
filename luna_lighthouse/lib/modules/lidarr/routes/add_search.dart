@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/lidarr.dart';
 
 class AddArtistRoute extends StatefulWidget {
   const AddArtistRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<AddArtistRoute> createState() => _State();

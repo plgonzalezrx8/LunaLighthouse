@@ -35,19 +35,19 @@ All web releases of LunaLighthouse are also available in officially hosted Docke
 {% tabs %}
 {% tab title="Stable" %}
 ```
-docker run -p 80:80 ghcr.io/pedrogonzalez/lunalighthouse:stable
+docker run -p 80:80 ghcr.io/plgonzalezrx8/lunalighthouse:stable
 ```
 {% endtab %}
 
 {% tab title="Beta" %}
 ```
-docker run -p 80:80 ghcr.io/pedrogonzalez/lunalighthouse:beta
+docker run -p 80:80 ghcr.io/plgonzalezrx8/lunalighthouse:beta
 ```
 {% endtab %}
 
 {% tab title="Edge" %}
 ```
-docker run -p 80:80 ghcr.io/pedrogonzalez/lunalighthouse:edge
+docker run -p 80:80 ghcr.io/plgonzalezrx8/lunalighthouse:edge
 ```
 {% endtab %}
 {% endtabs %}
@@ -64,4 +64,4 @@ All web releases are available in the [Build Bucket](https://builds.lunalighthou
 _Channel(s): `Stable`_\
 _Format(s): `.zip`_
 
-All stable releases are available on GitHub via the [Releases](https://github.com/pedrogonzalez/LunaLighthouse/releases) page!
+All stable releases are available on GitHub via the [Releases](https://github.com/plgonzalezrx8/LunaLighthouse/releases) page!

@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/modules/sabnzbd.dart';
 
 class StatisticsRoute extends StatefulWidget {
   const StatisticsRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<StatisticsRoute> createState() => _State();
@@ -64,7 +64,6 @@ class _State extends State<StatisticsRoute> with LunaScrollControllerMixin {
               case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
-              default:
                 return const LunaLoader();
             }
           },

@@ -17,18 +17,18 @@ class RadarrCatalogueTile extends StatefulWidget {
   final _RadarrCatalogueTileType type;
 
   const RadarrCatalogueTile({
-    Key? key,
+    super.key,
     required this.movie,
     required this.profile,
     this.type = _RadarrCatalogueTileType.TILE,
-  }) : super(key: key);
+  });
 
   const RadarrCatalogueTile.grid({
-    Key? key,
+    super.key,
     required this.movie,
     required this.profile,
     this.type = _RadarrCatalogueTileType.GRID,
-  }) : super(key: key);
+  });
 
   @override
   State<RadarrCatalogueTile> createState() => _State();
@@ -45,8 +45,6 @@ class _State extends State<RadarrCatalogueTile> {
             return _buildBlockTile();
           case _RadarrCatalogueTileType.GRID:
             return _buildGridTile();
-          default:
-            throw Exception('Invalid _RadarrCatalogueTileType');
         }
       },
     );

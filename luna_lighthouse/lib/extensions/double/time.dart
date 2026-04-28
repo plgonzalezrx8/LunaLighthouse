@@ -13,7 +13,8 @@ extension DoubleAsTimeExtension on double? {
     }
 
     if (minutes <= 120) {
-      return 'luna_lighthouse.MinutesAgo'.tr(args: [minutes.round().toString()]);
+      return 'luna_lighthouse.MinutesAgo'
+          .tr(args: [minutes.round().toString()]);
     }
 
     if (hours <= 48) {

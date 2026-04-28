@@ -16,7 +16,8 @@ class LunaTheme {
   }
 
   static bool get isAMOLEDTheme => LunaLighthouseDatabase.THEME_AMOLED.read();
-  static bool get useBorders => LunaLighthouseDatabase.THEME_AMOLED_BORDER.read();
+  static bool get useBorders =>
+      LunaLighthouseDatabase.THEME_AMOLED_BORDER.read();
 
   /// Midnight theme (Default)
   ThemeData _midnightTheme() {
@@ -25,10 +26,12 @@ class LunaTheme {
       brightness: Brightness.dark,
       canvasColor: LunaColours.primary,
       primaryColor: LunaColours.secondary,
-      highlightColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
+      highlightColor:
+          LunaColours.accent.withValues(alpha: LunaUI.OPACITY_SPLASH / 2),
       cardColor: LunaColours.secondary,
-      hoverColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
-      splashColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
+      hoverColor:
+          LunaColours.accent.withValues(alpha: LunaUI.OPACITY_SPLASH / 2),
+      splashColor: LunaColours.accent.withValues(alpha: LunaUI.OPACITY_SPLASH),
       dialogTheme: DialogThemeData(
         backgroundColor: LunaColours.secondary,
       ),
@@ -60,10 +63,12 @@ class LunaTheme {
       brightness: Brightness.dark,
       canvasColor: Colors.black,
       primaryColor: Colors.black,
-      highlightColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
+      highlightColor:
+          LunaColours.accent.withValues(alpha: LunaUI.OPACITY_SPLASH / 2),
       cardColor: Colors.black,
-      hoverColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH / 2),
-      splashColor: LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
+      hoverColor:
+          LunaColours.accent.withValues(alpha: LunaUI.OPACITY_SPLASH / 2),
+      splashColor: LunaColours.accent.withValues(alpha: LunaUI.OPACITY_SPLASH),
       dialogTheme: DialogThemeData(
         backgroundColor: Colors.black,
       ),
@@ -96,9 +101,10 @@ class LunaTheme {
       systemNavigationBarColor: LunaLighthouseDatabase.THEME_AMOLED.read()
           ? Colors.black
           : LunaColours.secondary,
-      systemNavigationBarDividerColor: LunaLighthouseDatabase.THEME_AMOLED.read()
-          ? Colors.black
-          : LunaColours.secondary,
+      systemNavigationBarDividerColor:
+          LunaLighthouseDatabase.THEME_AMOLED.read()
+              ? Colors.black
+              : LunaColours.secondary,
       statusBarColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.light,
       statusBarIconBrightness: Brightness.light,
@@ -130,8 +136,8 @@ class LunaTheme {
   TextButtonThemeData get _sharedTextButtonThemeData {
     return TextButtonThemeData(
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all<Color>(
-          LunaColours.accent.withOpacity(LunaUI.OPACITY_SPLASH),
+        overlayColor: WidgetStateProperty.all<Color>(
+          LunaColours.accent.withValues(alpha: LunaUI.OPACITY_SPLASH),
         ),
       ),
     );

@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/modules/radarr.dart';
 
 class RadarrAddMovieDiscoverPage extends StatefulWidget {
   const RadarrAddMovieDiscoverPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => _State();

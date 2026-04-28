@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/router/routes/radarr.dart';
 
 class RadarrAppBarAddMoviesAction extends StatelessWidget {
   const RadarrAppBarAddMoviesAction({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

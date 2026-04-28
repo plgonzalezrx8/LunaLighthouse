@@ -24,7 +24,7 @@ docker run -d \
     -e REDIS_PORT=6379
     -p 9000:9000 \
     --restart unless-stopped \
-ghcr.io/pedrogonzalez/lunalighthouse-notification-service:latest
+ghcr.io/plgonzalezrx8/lunalighthouse-notification-service:latest
 ```
 
 ## Development & Installation

@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/router/routes/settings.dart';
 
 class ConfigurationSonarrRoute extends StatefulWidget {
   const ConfigurationSonarrRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationSonarrRoute> createState() => _State();

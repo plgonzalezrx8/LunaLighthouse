@@ -1,4 +1,4 @@
-part of tautulli_types;
+part of '../types.dart';
 
 /// Enumerator to handle all Plex log types available in Tautulli.
 enum TautulliPlexLogType {

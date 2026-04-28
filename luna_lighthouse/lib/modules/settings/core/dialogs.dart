@@ -1229,7 +1229,9 @@ class SettingsDialogs {
     int _opacity = 0;
     final _formKey = GlobalKey<FormState>();
     final _textController = TextEditingController()
-      ..text = LunaLighthouseDatabase.THEME_IMAGE_BACKGROUND_OPACITY.read().toString();
+      ..text = LunaLighthouseDatabase.THEME_IMAGE_BACKGROUND_OPACITY
+          .read()
+          .toString();
 
     void _setValues(bool flag) {
       if (_formKey.currentState!.validate()) {

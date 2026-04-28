@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/radarr.dart';
 
 class ManualImportRoute extends StatefulWidget {
   const ManualImportRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ManualImportRoute> createState() => _State();

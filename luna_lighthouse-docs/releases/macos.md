@@ -50,5 +50,5 @@ All stable releases are available via [Homebrew Cask](https://formulae.brew.sh/c
 _Channel(s): `Stable`_\
 _Format(s): `.dmg`, `.zip`_
 
-All stable releases are available on GitHub via the [Releases](https://github.com/pedrogonzalez/LunaLighthouse/releases) page!
+All stable releases are available on GitHub via the [Releases](https://github.com/plgonzalezrx8/LunaLighthouse/releases) page!
 

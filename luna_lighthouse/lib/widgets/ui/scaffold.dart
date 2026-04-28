@@ -3,7 +3,7 @@ import 'package:luna_lighthouse/database/tables/luna_lighthouse.dart';
 import 'package:luna_lighthouse/modules.dart';
 import 'package:luna_lighthouse/system/platform.dart';
 
-class LunaScaffold extends StatelessWidget {
+class LunaScaffold extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final LunaModule? module;
   final PreferredSizeWidget? appBar;
@@ -32,23 +32,29 @@ class LunaScaffold extends StatelessWidget {
   });
 
   @override
+  State<LunaScaffold> createState() => _LunaScaffoldState();
+}
+
+class _LunaScaffoldState extends State<LunaScaffold> {
+  bool _isDrawerOpen = false;
+
+  bool get _shouldOpenDrawerOnBack {
+    if (!LunaLighthouseDatabase.ANDROID_BACK_OPENS_DRAWER.read()) return false;
+    return widget.drawer != null && !_isDrawerOpen;
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (LunaPlatform.isAndroid) return android;
     return scaffold;
   }
 
   Widget get android {
-    return WillPopScope(
-      onWillPop: () async {
-        if (!LunaLighthouseDatabase.ANDROID_BACK_OPENS_DRAWER.read()) return true;
-
-        final state = scaffoldKey.currentState;
-        if (state?.hasDrawer ?? false) {
-          if (state!.isDrawerOpen) return true;
-          state.openDrawer();
-          return false;
-        }
-        return true;
+    return PopScope<void>(
+      canPop: !_shouldOpenDrawerOnBack,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop || !_shouldOpenDrawerOnBack) return;
+        widget.scaffoldKey.currentState?.openDrawer();
       },
       child: scaffold,
     );
@@ -57,17 +63,21 @@ class LunaScaffold extends StatelessWidget {
   Widget get scaffold {
     return LunaLighthouseDatabase.ENABLED_PROFILE.listenableBuilder(
       builder: (context, _) {
-        onProfileChange?.call(context);
+        widget.onProfileChange?.call(context);
         return Scaffold(
-          key: scaffoldKey,
-          appBar: appBar,
-          body: body,
-          drawer: drawer,
-          bottomNavigationBar: bottomNavigationBar,
-          floatingActionButton: floatingActionButton,
-          extendBody: extendBody,
-          extendBodyBehindAppBar: extendBodyBehindAppBar,
-          onDrawerChanged: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+          key: widget.scaffoldKey,
+          appBar: widget.appBar,
+          body: widget.body,
+          drawer: widget.drawer,
+          bottomNavigationBar: widget.bottomNavigationBar,
+          floatingActionButton: widget.floatingActionButton,
+          extendBody: widget.extendBody,
+          extendBodyBehindAppBar: widget.extendBodyBehindAppBar,
+          onDrawerChanged: (isOpen) {
+            FocusManager.instance.primaryFocus?.unfocus();
+            if (_isDrawerOpen == isOpen) return;
+            setState(() => _isDrawerOpen = isOpen);
+          },
         );
       },
     );

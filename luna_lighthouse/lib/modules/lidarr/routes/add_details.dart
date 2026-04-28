@@ -10,9 +10,9 @@ class AddArtistDetailsRoute extends StatefulWidget {
   final LidarrSearchData? data;
 
   const AddArtistDetailsRoute({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   @override
   State<AddArtistDetailsRoute> createState() => _State();
@@ -136,7 +136,6 @@ class _State extends State<AddArtistDetailsRoute>
           case ConnectionState.none:
           case ConnectionState.waiting:
           case ConnectionState.active:
-          default:
             return const LunaLoader();
         }
       },

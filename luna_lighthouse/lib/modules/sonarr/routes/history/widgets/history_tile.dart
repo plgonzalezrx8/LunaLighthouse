@@ -19,12 +19,12 @@ class SonarrHistoryTile extends StatelessWidget {
   final SonarrEpisode? episode;
 
   const SonarrHistoryTile({
-    Key? key,
+    super.key,
     required this.history,
     required this.type,
     this.series,
     this.episode,
-  }) : super(key: key);
+  });
 
   bool _hasEpisodeInfo() {
     if (history.episode != null || episode != null) return true;
@@ -39,7 +39,6 @@ class SonarrHistoryTile extends StatelessWidget {
         return _hasEpisodeInfo();
       case SonarrHistoryTileType.SEASON:
       case SonarrHistoryTileType.EPISODE:
-      default:
         return false;
     }
   }

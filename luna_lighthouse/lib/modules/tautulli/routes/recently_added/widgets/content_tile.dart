@@ -9,9 +9,9 @@ class TautulliRecentlyAddedContentTile extends StatefulWidget {
   final TautulliRecentlyAdded recentlyAdded;
 
   const TautulliRecentlyAddedContentTile({
-    Key? key,
+    super.key,
     required this.recentlyAdded,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => _State();
@@ -112,7 +112,8 @@ class _State extends State<TautulliRecentlyAddedContentTile> {
         const TextSpan(text: LunaUI.TEXT_EMDASH),
       TextSpan(text: widget.recentlyAdded.libraryName),
       TextSpan(
-        text: widget.recentlyAdded.addedAt?.asAge() ?? 'luna_lighthouse.Unknown'.tr(),
+        text: widget.recentlyAdded.addedAt?.asAge() ??
+            'luna_lighthouse.Unknown'.tr(),
       ),
     ];
   }

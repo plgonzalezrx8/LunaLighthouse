@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/router/routes/radarr.dart';
 
 class RadarrManualImportBottomActionBar extends StatelessWidget {
   const RadarrManualImportBottomActionBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

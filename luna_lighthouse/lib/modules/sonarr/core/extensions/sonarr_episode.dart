@@ -33,7 +33,8 @@ extension SonarrEpisodeExtension on SonarrEpisode {
       return 'sonarr.Missing'.tr();
     }
     if (file == null) return 'luna_lighthouse.Unknown'.tr();
-    String quality = file.quality?.quality?.name ?? 'luna_lighthouse.Unknown'.tr();
+    String quality =
+        file.quality?.quality?.name ?? 'luna_lighthouse.Unknown'.tr();
     String size = file.size?.asBytes() ?? '0.00 B';
     return '$quality ${LunaUI.TEXT_EMDASH} $size';
   }

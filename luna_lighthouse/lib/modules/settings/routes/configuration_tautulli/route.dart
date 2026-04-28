@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/router/routes/settings.dart';
 
 class ConfigurationTautulliRoute extends StatefulWidget {
   const ConfigurationTautulliRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationTautulliRoute> createState() => _State();
@@ -96,7 +96,9 @@ class _State extends State<ConfigurationTautulliRoute>
         return LunaBlock(
           title: 'tautulli.DefaultTerminationMessage'.tr(),
           body: [
-            TextSpan(text: message.isEmpty ? 'luna_lighthouse.NotSet'.tr() : message),
+            TextSpan(
+                text:
+                    message.isEmpty ? 'luna_lighthouse.NotSet'.tr() : message),
           ],
           trailing: const LunaIconButton(icon: Icons.videocam_off_rounded),
           onTap: () async {

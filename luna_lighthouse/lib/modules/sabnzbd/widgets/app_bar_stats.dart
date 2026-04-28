@@ -6,8 +6,8 @@ import 'package:luna_lighthouse/modules/sabnzbd.dart';
 
 class SABnzbdAppBarStats extends StatelessWidget {
   const SABnzbdAppBarStats({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) =>

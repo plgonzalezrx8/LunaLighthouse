@@ -1,4 +1,4 @@
-part of radarr_types;
+part of '../types.dart';
 
 enum RadarrHistorySortKey {
   DATE,
@@ -36,8 +36,6 @@ extension RadarrHistorySortKeyExtension on RadarrHistorySortKey {
         return 'languages';
       case RadarrHistorySortKey.QUALITY:
         return 'quality';
-      default:
-        return null;
     }
   }
 }

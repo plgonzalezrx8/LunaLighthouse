@@ -34,7 +34,7 @@ The log database size is checked on startup, so all logs that have occurred in t
 
 ## Exporting Logs
 
-LunaLighthouse offers the ability to export your logs into a JSON file, which can be easily sent to the developer to help debug the problems. The exported logs also include additional information, including the code-execution stack trace to see exactly where in the code the error occurred.
+LunaLighthouse can export logs into a JSON file that can be shared with maintainers to help debug problems. The exported logs also include additional information, including the code-execution stack trace to see exactly where in the code the error occurred.
 
 To export your logs, go to Settings -> System -> Logs -> "Export" to trigger an export of your logs. A system-level share menu or dialog prompt will appear with the ability to share or save the exported logs to your device.
 

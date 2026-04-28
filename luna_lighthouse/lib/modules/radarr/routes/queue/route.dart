@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/modules/radarr.dart';
 
 class QueueRoute extends StatefulWidget {
   const QueueRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => _State();

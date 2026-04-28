@@ -7,9 +7,9 @@ class NZBGetHistory extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
   const NZBGetHistory({
-    Key? key,
+    super.key,
     required this.refreshIndicatorKey,
-  }) : super(key: key);
+  });
 
   @override
   State<NZBGetHistory> createState() => _State();
@@ -73,7 +73,6 @@ class _State extends State<NZBGetHistory>
             case ConnectionState.none:
             case ConnectionState.waiting:
             case ConnectionState.active:
-            default:
               return const LunaLoader();
           }
         },

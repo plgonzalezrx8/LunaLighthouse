@@ -6,9 +6,9 @@ class SABnzbdHistory extends StatefulWidget {
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey;
 
   const SABnzbdHistory({
-    Key? key,
+    super.key,
     required this.refreshIndicatorKey,
-  }) : super(key: key);
+  });
 
   @override
   State<SABnzbdHistory> createState() => _State();
@@ -72,7 +72,6 @@ class _State extends State<SABnzbdHistory>
             case ConnectionState.none:
             case ConnectionState.waiting:
             case ConnectionState.active:
-            default:
               return const LunaLoader();
           }
         },

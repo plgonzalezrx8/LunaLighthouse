@@ -6,8 +6,8 @@ import 'package:luna_lighthouse/widgets/sheets/download_client/button.dart';
 
 class ResultsRoute extends StatefulWidget {
   const ResultsRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ResultsRoute> createState() => _State();

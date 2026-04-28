@@ -4,8 +4,8 @@ import 'package:luna_lighthouse/modules/settings.dart';
 
 class ConfigurationSonarrConnectionDetailsHeadersRoute extends StatelessWidget {
   const ConfigurationSonarrConnectionDetailsHeadersRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

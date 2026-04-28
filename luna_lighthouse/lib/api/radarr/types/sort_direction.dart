@@ -1,4 +1,4 @@
-part of radarr_types;
+part of '../types.dart';
 
 enum RadarrSortDirection {
   ASCENDING,
@@ -26,8 +26,6 @@ extension RadarrSortDirectionExtension on RadarrSortDirection {
         return 'ascending';
       case RadarrSortDirection.DESCENDING:
         return 'descending';
-      default:
-        return null;
     }
   }
 }

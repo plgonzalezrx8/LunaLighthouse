@@ -7,8 +7,8 @@ import 'package:luna_lighthouse/types/list_view_option.dart';
 
 class SonarrCatalogueRoute extends StatefulWidget {
   const SonarrCatalogueRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<SonarrCatalogueRoute> createState() => _State();
@@ -168,8 +168,6 @@ class _State extends State<SonarrCatalogueRoute>
             return _blockView(_filtered, qualities);
           case LunaListViewOption.GRID_VIEW:
             return _gridView(_filtered, qualities);
-          default:
-            throw Exception('Invalid moviesViewType');
         }
       },
     );

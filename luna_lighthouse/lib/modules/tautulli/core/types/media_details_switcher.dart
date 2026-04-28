@@ -21,8 +21,6 @@ extension TautulliMediaDetailsSwitcherTypeExtension
         return 'gotoartist';
       case TautulliMediaDetailsSwitcherType.GO_TO_ALBUM:
         return 'gotoalbum';
-      default:
-        return null;
     }
   }
 
@@ -36,8 +34,6 @@ extension TautulliMediaDetailsSwitcherTypeExtension
         return 'Artist';
       case TautulliMediaDetailsSwitcherType.GO_TO_ALBUM:
         return 'Album';
-      default:
-        return null;
     }
   }
 

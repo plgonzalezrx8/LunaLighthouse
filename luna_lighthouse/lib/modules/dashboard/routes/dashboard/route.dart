@@ -11,8 +11,8 @@ import 'package:luna_lighthouse/modules/dashboard/routes/dashboard/widgets/navig
 
 class DashboardRoute extends StatefulWidget {
   const DashboardRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<DashboardRoute> createState() => _State();
@@ -57,8 +57,10 @@ class _State extends State<DashboardRoute> {
       builder: (context, _) => LunaPageView(
         controller: _pageController,
         children: [
-          ModulesPage(key: ValueKey(LunaLighthouseDatabase.ENABLED_PROFILE.read())),
-          CalendarPage(key: ValueKey(LunaLighthouseDatabase.ENABLED_PROFILE.read())),
+          ModulesPage(
+              key: ValueKey(LunaLighthouseDatabase.ENABLED_PROFILE.read())),
+          CalendarPage(
+              key: ValueKey(LunaLighthouseDatabase.ENABLED_PROFILE.read())),
         ],
       ),
     );

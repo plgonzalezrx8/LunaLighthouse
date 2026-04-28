@@ -6,9 +6,9 @@ class LidarrDetailsAlbumList extends StatefulWidget {
   final int artistID;
 
   const LidarrDetailsAlbumList({
-    Key? key,
+    super.key,
     required this.artistID,
-  }) : super(key: key);
+  });
 
   @override
   State<LidarrDetailsAlbumList> createState() => _State();
@@ -65,7 +65,6 @@ class _State extends State<LidarrDetailsAlbumList>
               case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
-              default:
                 return const LunaLoader();
             }
           },

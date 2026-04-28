@@ -5,7 +5,7 @@
 ## Getting Started
 
 * [Build Channels](getting-started/build-channels.md)
-* [Donations](getting-started/donations.md)
+* [Support LunaLighthouse](getting-started/donations.md)
 * [Frequently Asked Questions](getting-started/frequently-asked-questions.md)
 * [Platform Restrictions](getting-started/platform-restrictions.md)
 

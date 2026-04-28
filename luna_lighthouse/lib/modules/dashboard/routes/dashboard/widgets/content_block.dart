@@ -9,7 +9,7 @@ import 'package:luna_lighthouse/modules/dashboard/core/api/data/sonarr.dart';
 
 class ContentBlock extends StatelessWidget {
   final CalendarData data;
-  const ContentBlock(this.data, {Key? key}) : super(key: key);
+  const ContentBlock(this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +28,12 @@ class ContentBlock extends StatelessWidget {
   }
 
   Map getHeaders() {
-    switch (data.runtimeType) {
-      case CalendarLidarrData:
+    switch (data) {
+      case CalendarLidarrData _:
         return LunaProfile.current.lidarrHeaders;
-      case CalendarRadarrData:
+      case CalendarRadarrData _:
         return LunaProfile.current.radarrHeaders;
-      case CalendarSonarrData:
+      case CalendarSonarrData _:
         return LunaProfile.current.sonarrHeaders;
       default:
         return const {};

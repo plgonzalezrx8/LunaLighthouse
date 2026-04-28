@@ -1,4 +1,4 @@
-library sonarr_utilities;
+library;
 
 import 'package:luna_lighthouse/modules/sonarr.dart';
 

@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/modules/nzbget.dart';
 
 class ConfigurationNZBGetDefaultPagesRoute extends StatefulWidget {
   const ConfigurationNZBGetDefaultPagesRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationNZBGetDefaultPagesRoute> createState() => _State();

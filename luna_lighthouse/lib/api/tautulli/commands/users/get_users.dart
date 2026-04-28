@@ -1,4 +1,4 @@
-part of tautulli_commands;
+part of '../../commands.dart';
 
 Future<List<TautulliUser>> _commandGetUsers(Dio client) async {
   Response response = await client.get(

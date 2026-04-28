@@ -5,8 +5,8 @@ import 'package:luna_lighthouse/modules/settings.dart';
 
 class ConfigurationExternalModulesAddRoute extends StatefulWidget {
   const ConfigurationExternalModulesAddRoute({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ConfigurationExternalModulesAddRoute> createState() => _State();
@@ -76,7 +76,9 @@ class _State extends State<ConfigurationExternalModulesAddRoute>
       title: 'settings.DisplayName'.tr(),
       body: [
         TextSpan(
-          text: _displayName.isEmpty ? 'luna_lighthouse.NotSet'.tr() : _displayName,
+          text: _displayName.isEmpty
+              ? 'luna_lighthouse.NotSet'.tr()
+              : _displayName,
         ),
       ],
       trailing: const LunaIconButton.arrow(),

@@ -104,8 +104,6 @@ extension LunaRadarrEventType on RadarrEventType {
         return _movieFileRenamedTableContent(record);
       case RadarrEventType.MOVIE_FOLDER_IMPORTED:
         return _movieFolderImportedTableContent(record);
-      default:
-        return [];
     }
   }
 

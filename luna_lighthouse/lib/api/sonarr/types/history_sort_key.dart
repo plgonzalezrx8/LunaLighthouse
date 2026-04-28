@@ -1,4 +1,4 @@
-part of sonarr_types;
+part of '../types.dart';
 
 enum SonarrHistorySortKey {
   DATE,
@@ -26,8 +26,6 @@ extension SonarrHistorySortKeyExtension on SonarrHistorySortKey {
         return 'date';
       case SonarrHistorySortKey.SERIES_TITLE:
         return 'series.title';
-      default:
-        return null;
     }
   }
 }
