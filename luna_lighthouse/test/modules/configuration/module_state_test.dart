@@ -45,6 +45,17 @@ void main() {
     expect(state.api, isNull);
   });
 
+  test('enabled Radarr with a relative host does not crash provider creation',
+      () async {
+    await _saveProfile(
+        LunaProfile(radarrEnabled: true, radarrHost: '/api/v3/'));
+
+    final state = RadarrState();
+
+    expect(state.enabled, isFalse);
+    expect(state.api, isNull);
+  });
+
   test('enabled Sonarr with a blank host does not crash provider creation',
       () async {
     await _saveProfile(LunaProfile(sonarrEnabled: true));
@@ -55,9 +66,31 @@ void main() {
     expect(state.api, isNull);
   });
 
+  test('enabled Sonarr with a relative host does not crash provider creation',
+      () async {
+    await _saveProfile(
+        LunaProfile(sonarrEnabled: true, sonarrHost: '/api/v3/'));
+
+    final state = SonarrState();
+
+    expect(state.enabled, isFalse);
+    expect(state.api, isNull);
+  });
+
   test('enabled Tautulli with a blank host does not crash provider creation',
       () async {
     await _saveProfile(LunaProfile(tautulliEnabled: true));
+
+    final state = TautulliState();
+
+    expect(state.enabled, isFalse);
+    expect(state.api, isNull);
+  });
+
+  test('enabled Tautulli with a relative host does not crash provider creation',
+      () async {
+    await _saveProfile(
+        LunaProfile(tautulliEnabled: true, tautulliHost: '/api/v3/'));
 
     final state = TautulliState();
 
