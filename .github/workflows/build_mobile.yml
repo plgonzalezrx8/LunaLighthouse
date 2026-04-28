@@ -85,6 +85,13 @@ jobs:
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}
         run: flutter pub get
 
+      - name: Regenerate Build Artifacts
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}
+        run: |
+          dart run environment_config:generate
+          dart ./scripts/generate_localization.dart
+          dart run build_runner build --delete-conflicting-outputs
+
       - name: Install Android Fastlane Dependencies
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/android
         run: bundle install
@@ -136,6 +143,13 @@ jobs:
       - name: Fetch Dependencies
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}
         run: flutter pub get
+
+      - name: Regenerate Build Artifacts
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}
+        run: |
+          dart run environment_config:generate
+          dart ./scripts/generate_localization.dart
+          dart run build_runner build --delete-conflicting-outputs
 
       - name: Install iOS Fastlane Dependencies
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
