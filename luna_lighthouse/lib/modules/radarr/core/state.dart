@@ -67,8 +67,8 @@ class RadarrState extends LunaModuleState {
   void resetProfile() {
     LunaProfile _profile = LunaProfile.current;
     // Copy profile into state
-    _enabled = _profile.radarrEnabled;
-    _host = _profile.radarrHost;
+    _host = _profile.radarrHost.trim();
+    _enabled = _profile.radarrEnabled && hasUsableApiHost(_host);
     _apiKey = _profile.radarrKey;
     _headers = _profile.radarrHeaders;
     // Create the API instance if Radarr is enabled
