@@ -8,12 +8,20 @@ void main() {
     expect(LunaColours.accent, const Color(0xFF006DFF));
     expect(LunaColours.primary, const Color(0xFF05070D));
     expect(LunaColours.secondary, const Color(0xFF000000));
+    expect(LunaColours.drawerSurface, const Color(0xFF0B1B3D));
   });
 
   test('interactive accent blue has readable contrast on black and white', () {
     expect(_contrastRatio(LunaColours.accent, Colors.black),
         greaterThanOrEqualTo(4.5));
     expect(_contrastRatio(LunaColours.accent, Colors.white),
+        greaterThanOrEqualTo(4.5));
+  });
+
+  test('drawer surface separates from black while keeping readable text', () {
+    expect(_contrastRatio(LunaColours.drawerSurface, Colors.black),
+        greaterThanOrEqualTo(1.2));
+    expect(_contrastRatio(LunaColours.drawerSurface, Colors.white),
         greaterThanOrEqualTo(4.5));
   });
 }

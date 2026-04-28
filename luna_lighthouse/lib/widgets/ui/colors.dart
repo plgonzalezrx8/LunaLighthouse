@@ -21,6 +21,18 @@ class LunaColours {
   /// black.
   static const Color brandBlue = Color(0xFF012988);
 
+  /// Scrim color used over primary content while the drawer is open.
+  ///
+  /// The blue tint keeps black-on-black surfaces visually separated without
+  /// reintroducing the old green/gray palette.
+  static const Color drawerScrim = Color(0xBF012988);
+
+  /// Drawer/menu surface color.
+  ///
+  /// Kept dark enough to belong in the black theme, but blue enough to separate
+  /// the open menu from the dimmed main view.
+  static const Color drawerSurface = Color(0xFF0B1B3D);
+
   /// Core accent colour.
   ///
   /// A brighter LunaLighthouse blue derived from the logo blue so interactive

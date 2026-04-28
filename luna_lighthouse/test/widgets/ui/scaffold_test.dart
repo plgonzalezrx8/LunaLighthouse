@@ -7,6 +7,7 @@ import 'package:luna_lighthouse/database/box.dart';
 import 'package:luna_lighthouse/database/models/profile.dart';
 import 'package:luna_lighthouse/database/table.dart';
 import 'package:luna_lighthouse/database/tables/luna_lighthouse.dart';
+import 'package:luna_lighthouse/widgets/ui/colors.dart';
 import 'package:luna_lighthouse/widgets/ui/scaffold.dart';
 
 void main() {
@@ -32,6 +33,16 @@ void main() {
     // app's fire-and-forget writes, and awaiting Hive.close() can hang this
     // widget-test process while those writes settle.
   });
+
+  testWidgets(
+    'drawer uses a LunaLighthouse blue scrim to separate black surfaces',
+    (tester) async {
+      final route = await _pumpScaffoldRoute(tester, includeDrawer: true);
+      final scaffold = route.scaffoldKey.currentWidget! as Scaffold;
+
+      expect(scaffold.drawerScrimColor, LunaColours.drawerScrim);
+    },
+  );
 
   testWidgets(
     'Android system back opens the drawer instead of popping the route when enabled',

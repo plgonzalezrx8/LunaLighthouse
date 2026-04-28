@@ -38,7 +38,7 @@ class LunaDrawer extends StatelessWidget {
       builder: (context, _) => LunaBox.indexers.listenableBuilder(
         builder: (context, _) => Drawer(
           elevation: LunaUI.ELEVATION,
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: LunaColours.drawerSurface,
           child:
               LunaLighthouseDatabase.DRAWER_AUTOMATIC_MANAGE.listenableBuilder(
             builder: (context, _) => Column(

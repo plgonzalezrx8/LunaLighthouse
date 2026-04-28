@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:luna_lighthouse/database/tables/luna_lighthouse.dart';
 import 'package:luna_lighthouse/modules.dart';
 import 'package:luna_lighthouse/system/platform.dart';
+import 'package:luna_lighthouse/widgets/ui/colors.dart';
 
 class LunaScaffold extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -69,6 +70,7 @@ class _LunaScaffoldState extends State<LunaScaffold> {
           appBar: widget.appBar,
           body: widget.body,
           drawer: widget.drawer,
+          drawerScrimColor: LunaColours.drawerScrim,
           bottomNavigationBar: widget.bottomNavigationBar,
           floatingActionButton: widget.floatingActionButton,
           extendBody: widget.extendBody,
