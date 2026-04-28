@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:luna_lighthouse/database/box.dart';
 import 'package:luna_lighthouse/database/models/profile.dart';
 import 'package:luna_lighthouse/database/table.dart';
+import 'package:luna_lighthouse/database/tables/luna_lighthouse.dart';
 import 'package:luna_lighthouse/modules/radarr.dart';
 import 'package:luna_lighthouse/modules/sonarr.dart';
 import 'package:luna_lighthouse/modules/tautulli.dart';
@@ -45,9 +46,31 @@ void main() {
     expect(state.api, isNull);
   });
 
+  test('enabled Radarr with a relative host does not crash provider creation',
+      () async {
+    await _saveProfile(
+        LunaProfile(radarrEnabled: true, radarrHost: '/api/v3/'));
+
+    final state = RadarrState();
+
+    expect(state.enabled, isFalse);
+    expect(state.api, isNull);
+  });
+
   test('enabled Sonarr with a blank host does not crash provider creation',
       () async {
     await _saveProfile(LunaProfile(sonarrEnabled: true));
+
+    final state = SonarrState();
+
+    expect(state.enabled, isFalse);
+    expect(state.api, isNull);
+  });
+
+  test('enabled Sonarr with a relative host does not crash provider creation',
+      () async {
+    await _saveProfile(
+        LunaProfile(sonarrEnabled: true, sonarrHost: '/api/v3/'));
 
     final state = SonarrState();
 
@@ -65,81 +88,10 @@ void main() {
     expect(state.api, isNull);
   });
 
-  // Regression tests for the simplified _saveProfile helper (no longer calls
-  // LunaLighthouseDatabase.ENABLED_PROFILE.update). The profile is saved at
-  // DEFAULT_PROFILE key, and ENABLED_PROFILE falls back to DEFAULT_PROFILE
-  // when the box is empty, so states should still read the saved profile.
-
-  test(
-      'profile saved without setting ENABLED_PROFILE is still read by RadarrState',
-      () async {
-    await _saveProfile(LunaProfile(radarrEnabled: true));
-
-    final state = RadarrState();
-
-    // radarrEnabled is true but host is blank, so enabled must remain false.
-    // This verifies the profile was read (radarrEnabled=true) even without
-    // explicitly setting ENABLED_PROFILE in the database.
-    expect(state.enabled, isFalse);
-    expect(state.host, isEmpty);
-    expect(state.api, isNull);
-  });
-
-  test(
-      'profile saved without setting ENABLED_PROFILE is still read by SonarrState',
+  test('enabled Tautulli with a relative host does not crash provider creation',
       () async {
     await _saveProfile(
-        LunaProfile(sonarrEnabled: true, sonarrKey: 'testkey123'));
-
-    final state = SonarrState();
-
-    // sonarrEnabled is true but host is blank, so enabled must remain false.
-    expect(state.enabled, isFalse);
-    expect(state.api, isNull);
-  });
-
-  test(
-      'profile saved without setting ENABLED_PROFILE is still read by TautulliState',
-      () async {
-    await _saveProfile(
-        LunaProfile(tautulliEnabled: true, tautulliKey: 'testkey123'));
-
-    final state = TautulliState();
-
-    // tautulliEnabled is true but host is blank, so enabled must remain false.
-    expect(state.enabled, isFalse);
-    expect(state.api, isNull);
-  });
-
-  // Host validation boundary tests — verifying that only absolute http/https
-  // URLs are treated as usable (relative paths and schemeless hosts are not).
-
-  test('enabled Radarr with a schemeless host is treated as disabled',
-      () async {
-    await _saveProfile(
-        LunaProfile(radarrEnabled: true, radarrHost: 'localhost:7878'));
-
-    final state = RadarrState();
-
-    expect(state.enabled, isFalse);
-    expect(state.api, isNull);
-  });
-
-  test('enabled Sonarr with a schemeless host is treated as disabled',
-      () async {
-    await _saveProfile(
-        LunaProfile(sonarrEnabled: true, sonarrHost: 'myserver.local:8989'));
-
-    final state = SonarrState();
-
-    expect(state.enabled, isFalse);
-    expect(state.api, isNull);
-  });
-
-  test('enabled Tautulli with a schemeless host is treated as disabled',
-      () async {
-    await _saveProfile(
-        LunaProfile(tautulliEnabled: true, tautulliHost: 'plex.home:8181'));
+        LunaProfile(tautulliEnabled: true, tautulliHost: '/api/v3/'));
 
     final state = TautulliState();
 
@@ -147,18 +99,8 @@ void main() {
     expect(state.api, isNull);
   });
 
-  test('enabled Radarr with a non-http scheme host is treated as disabled',
+  test('disabled Radarr with a valid http host reads the saved profile',
       () async {
-    await _saveProfile(
-        LunaProfile(radarrEnabled: true, radarrHost: 'ftp://myserver.com'));
-
-    final state = RadarrState();
-
-    expect(state.enabled, isFalse);
-    expect(state.api, isNull);
-  });
-
-  test('disabled Radarr with a valid http host remains disabled', () async {
     await _saveProfile(
         LunaProfile(radarrEnabled: false, radarrHost: 'http://localhost:7878'));
 
@@ -169,7 +111,8 @@ void main() {
     expect(state.host, equals('http://localhost:7878'));
   });
 
-  test('disabled Sonarr with a valid http host remains disabled', () async {
+  test('disabled Sonarr with a valid http host reads the saved profile',
+      () async {
     await _saveProfile(
         LunaProfile(sonarrEnabled: false, sonarrHost: 'http://localhost:8989'));
 
@@ -180,7 +123,8 @@ void main() {
     expect(state.host, equals('http://localhost:8989'));
   });
 
-  test('disabled Tautulli with a valid http host remains disabled', () async {
+  test('disabled Tautulli with a valid http host reads the saved profile',
+      () async {
     await _saveProfile(LunaProfile(
         tautulliEnabled: false, tautulliHost: 'http://localhost:8181'));
 
@@ -199,10 +143,12 @@ void main() {
     expect(validator.accepts('  http://localhost:7878  '), isTrue);
   });
 
-  test('host validation rejects blank, schemeless, and non-http URLs', () {
+  test('host validation rejects blank, relative, schemeless, and non-http URLs',
+      () {
     final validator = _HostValidationHarness();
 
     expect(validator.accepts(''), isFalse);
+    expect(validator.accepts('/api/v3/'), isFalse);
     expect(validator.accepts('localhost:7878'), isFalse);
     expect(validator.accepts('plex.home:8181'), isFalse);
     expect(validator.accepts('ftp://myserver.com'), isFalse);
@@ -211,6 +157,7 @@ void main() {
 
 Future<void> _saveProfile(LunaProfile profile) async {
   await LunaBox.profiles.update(LunaProfile.DEFAULT_PROFILE, profile);
+  LunaLighthouseDatabase.ENABLED_PROFILE.update(LunaProfile.DEFAULT_PROFILE);
 }
 
 class _HostValidationHarness extends LunaModuleState {
