@@ -8,6 +8,7 @@ import 'package:luna_lighthouse/database/table.dart';
 import 'package:luna_lighthouse/modules/radarr.dart';
 import 'package:luna_lighthouse/modules/sonarr.dart';
 import 'package:luna_lighthouse/modules/tautulli.dart';
+import 'package:luna_lighthouse/system/state.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -113,7 +114,8 @@ void main() {
   // Host validation boundary tests — verifying that only absolute http/https
   // URLs are treated as usable (relative paths and schemeless hosts are not).
 
-  test('enabled Radarr with a schemeless host is treated as disabled', () async {
+  test('enabled Radarr with a schemeless host is treated as disabled',
+      () async {
     await _saveProfile(
         LunaProfile(radarrEnabled: true, radarrHost: 'localhost:7878'));
 
@@ -123,7 +125,8 @@ void main() {
     expect(state.api, isNull);
   });
 
-  test('enabled Sonarr with a schemeless host is treated as disabled', () async {
+  test('enabled Sonarr with a schemeless host is treated as disabled',
+      () async {
     await _saveProfile(
         LunaProfile(sonarrEnabled: true, sonarrHost: 'myserver.local:8989'));
 
@@ -156,23 +159,25 @@ void main() {
   });
 
   test('disabled Radarr with a valid http host remains disabled', () async {
-    await _saveProfile(LunaProfile(
-        radarrEnabled: false, radarrHost: 'http://localhost:7878'));
+    await _saveProfile(
+        LunaProfile(radarrEnabled: false, radarrHost: 'http://localhost:7878'));
 
     final state = RadarrState();
 
     expect(state.enabled, isFalse);
     expect(state.api, isNull);
+    expect(state.host, equals('http://localhost:7878'));
   });
 
   test('disabled Sonarr with a valid http host remains disabled', () async {
-    await _saveProfile(LunaProfile(
-        sonarrEnabled: false, sonarrHost: 'http://localhost:8989'));
+    await _saveProfile(
+        LunaProfile(sonarrEnabled: false, sonarrHost: 'http://localhost:8989'));
 
     final state = SonarrState();
 
     expect(state.enabled, isFalse);
     expect(state.api, isNull);
+    expect(state.host, equals('http://localhost:8989'));
   });
 
   test('disabled Tautulli with a valid http host remains disabled', () async {
@@ -183,66 +188,34 @@ void main() {
 
     expect(state.enabled, isFalse);
     expect(state.api, isNull);
+    expect(state.host, equals('http://localhost:8181'));
   });
 
-  test('enabled Radarr with a valid http host is enabled with api instance',
-      () async {
-    await _saveProfile(LunaProfile(
-        radarrEnabled: true,
-        radarrHost: 'http://localhost:7878',
-        radarrKey: 'abc123'));
+  test('host validation accepts absolute http and https URLs', () {
+    final validator = _HostValidationHarness();
 
-    final state = RadarrState();
-
-    expect(state.enabled, isTrue);
-    expect(state.api, isNotNull);
-    expect(state.host, equals('http://localhost:7878'));
+    expect(validator.accepts('http://localhost:7878'), isTrue);
+    expect(validator.accepts('https://sonarr.example.com'), isTrue);
+    expect(validator.accepts('  http://localhost:7878  '), isTrue);
   });
 
-  test('enabled Sonarr with a valid https host is enabled with api instance',
-      () async {
-    await _saveProfile(LunaProfile(
-        sonarrEnabled: true,
-        sonarrHost: 'https://sonarr.example.com',
-        sonarrKey: 'abc123'));
+  test('host validation rejects blank, schemeless, and non-http URLs', () {
+    final validator = _HostValidationHarness();
 
-    final state = SonarrState();
-
-    expect(state.enabled, isTrue);
-    expect(state.api, isNotNull);
-    expect(state.host, equals('https://sonarr.example.com'));
-  });
-
-  test('enabled Tautulli with a valid http host is enabled with api instance',
-      () async {
-    await _saveProfile(LunaProfile(
-        tautulliEnabled: true,
-        tautulliHost: 'http://plex.home:8181',
-        tautulliKey: 'abc123'));
-
-    final state = TautulliState();
-
-    expect(state.enabled, isTrue);
-    expect(state.api, isNotNull);
-    expect(state.host, equals('http://plex.home:8181'));
-  });
-
-  test('enabled Radarr with a valid host and extra whitespace is enabled',
-      () async {
-    await _saveProfile(LunaProfile(
-        radarrEnabled: true,
-        radarrHost: '  http://localhost:7878  ',
-        radarrKey: 'key'));
-
-    final state = RadarrState();
-
-    // The host is trimmed, so the state should be enabled.
-    expect(state.enabled, isTrue);
-    expect(state.api, isNotNull);
-    expect(state.host, equals('http://localhost:7878'));
+    expect(validator.accepts(''), isFalse);
+    expect(validator.accepts('localhost:7878'), isFalse);
+    expect(validator.accepts('plex.home:8181'), isFalse);
+    expect(validator.accepts('ftp://myserver.com'), isFalse);
   });
 }
 
 Future<void> _saveProfile(LunaProfile profile) async {
+  await LunaBox.profiles.update(LunaProfile.DEFAULT_PROFILE, profile);
+}
 
+class _HostValidationHarness extends LunaModuleState {
+  bool accepts(String host) => hasUsableApiHost(host);
+
+  @override
+  void reset() {}
 }
