@@ -86,6 +86,7 @@ flutter_icons:
 flutter_native_splash:
   image: assets/images/branding_full.png
   color: "#012988"
+  ios_content_mode: scaleAspectFit
 msix_config:
   architecture: x64
   capabilities: internetClientServer,privateNetworkClientServer
