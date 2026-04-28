@@ -81,12 +81,16 @@ flutter_icons:
   android: true
   ios: true
   image_path: assets/icon/icon.png
-  adaptive_icon_background: "#32323E"
+  adaptive_icon_background: "#012988"
   adaptive_icon_foreground: assets/icon/icon_adaptive.png
 flutter_native_splash:
   image: assets/images/branding_full.png
   color: "#012988"
   ios_content_mode: scaleAspectFill
+  android_12:
+    image: assets/icon/icon_adaptive.png
+    color: "#012988"
+    icon_background_color: "#012988"
 msix_config:
   architecture: x64
   capabilities: internetClientServer,privateNetworkClientServer
