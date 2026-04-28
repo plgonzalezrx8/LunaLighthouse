@@ -59,8 +59,8 @@ class SonarrState extends LunaModuleState {
     LunaProfile _profile = LunaProfile.current;
     // Copy profile into state
     _api = null;
-    _enabled = _profile.sonarrEnabled;
-    _host = _profile.sonarrHost;
+    _host = _profile.sonarrHost.trim();
+    _enabled = _profile.sonarrEnabled && hasUsableApiHost(_host);
     _apiKey = _profile.sonarrKey;
     _headers = _profile.sonarrHeaders;
     // Create the API instance if Sonarr is enabled

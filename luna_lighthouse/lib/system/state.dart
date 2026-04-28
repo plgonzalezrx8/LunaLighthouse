@@ -45,4 +45,17 @@ class LunaState {
 abstract class LunaModuleState extends ChangeNotifier {
   /// Reset the state back to the default
   void reset();
+
+  /// Whether a configured module host can be used as a native Dio base URL.
+  ///
+  /// Dio accepts relative URLs on web, but native platforms require an absolute
+  /// URL. Treat incomplete settings as an unconfigured module instead of
+  /// throwing during provider creation.
+  @protected
+  bool hasUsableApiHost(String host) {
+    final uri = Uri.tryParse(host.trim());
+    return uri != null &&
+        uri.hasAuthority &&
+        (uri.isScheme('http') || uri.isScheme('https'));
+  }
 }

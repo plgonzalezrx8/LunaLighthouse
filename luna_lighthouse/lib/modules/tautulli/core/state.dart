@@ -85,8 +85,8 @@ class TautulliState extends LunaModuleState {
   void resetProfile() {
     LunaProfile _profile = LunaProfile.current;
     // Copy profile into state
-    _enabled = _profile.tautulliEnabled;
-    _host = _profile.tautulliHost;
+    _host = _profile.tautulliHost.trim();
+    _enabled = _profile.tautulliEnabled && hasUsableApiHost(_host);
     _apiKey = _profile.tautulliKey;
     _headers = _profile.tautulliHeaders;
     // Create the API instance if Tautulli is enabled
