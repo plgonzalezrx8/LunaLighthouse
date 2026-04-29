@@ -179,6 +179,7 @@ gh api \
   -f required_status_checks.strict=true \
   -F required_status_checks.contexts[]='mobile-analyze' \
   -F required_status_checks.contexts[]='mobile-generation-check' \
+  -F required_status_checks.contexts[]='mobile-test' \
   -F required_status_checks.contexts[]='mobile-build-android' \
   -F required_status_checks.contexts[]='mobile-build-ios' \
   -f enforce_admins=true \
