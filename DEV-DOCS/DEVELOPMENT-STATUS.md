@@ -10,14 +10,16 @@ Phase-1 mobile relaunch. iOS and Android are the active release targets. Non-mob
 - Runtime stack: Flutter, GoRouter, Provider/ChangeNotifier, Hive, Dio/Retrofit, Easy Localization.
 - Toolchain contract: `luna_lighthouse/toolchain.env` pins Flutter revision, Java 17, Node 20, Ruby 2.7.6, Bundler 2, and Xcode 15+.
 - CI gates: mobile analyze, generation check, Android debug build, and iOS debug no-codesign build.
+- Local automated coverage: `flutter test` currently passes 68 tests across eight test files; Maestro has Android and iOS launch-smoke flows.
 - Cloud/webhook: code exists but is disabled for phase 1.
 
 ## Open Gaps
 
-- Coverage is improved but still incomplete: broader generated API fixtures and older profile migration payloads remain open.
+- Highest-priority gap: CI does not yet have a dedicated `flutter test` gate, even though local test coverage now exists.
+- `scripts/mobile-build-check` does not currently run `flutter test`; release-impacting local validation should include it.
+- Coverage is improved but still incomplete: older profile migration payloads and broader launch-touched API fixtures remain open.
 - Hosted webhook relay needs auth, logging, Redis, Firebase, domain, and E2E validation before reactivation.
 - Firebase cloud functions need runtime/dependency modernization review before phase-2 use.
-- Branch policy and CI triggers must stay aligned with `development` integration and `master` release.
 
 ## Done Criteria For Phase-1 Docs
 

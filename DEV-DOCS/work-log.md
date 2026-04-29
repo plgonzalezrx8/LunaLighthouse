@@ -71,3 +71,29 @@
 - Expand generated API model/client fixtures beyond the initial Radarr, Sonarr, and Tautulli coverage.
 - Add older profile migration payload coverage.
 - Run `scripts/mobile-build-check` before final release-impacting handoff.
+
+## 2026-04-29 - Coverage PR Merge And Next Gate
+
+### Context
+
+- PR #5 merged the phase-one mobile coverage branch into `development`.
+- PR #6 was generated against the pre-PR-5 tree and targeted `master`, so it conflicted with current `development`.
+- PR #7 replaced PR #6 with a clean branch from `development` and kept only the useful generated coverage.
+
+### Work
+
+- Closed PR #6 as superseded by PR #7.
+- Merged PR #7 into `development` with conflict-resolved generated coverage.
+- Updated DEV-DOCS to reflect the current 68-test Flutter suite and Maestro Android/iOS launch-smoke coverage.
+- Rechecked CI and local scripts: `.github/workflows/mobile_ci.yml` has analyze/generation/build jobs, but no dedicated `flutter test` job; `scripts/mobile-build-check` also omits `flutter test`.
+
+### Validation
+
+- `flutter test` passes with 68 tests from `luna_lighthouse/`.
+- PR #7 checks passed: `mobile-analyze`, `mobile-generation-check`, `mobile-build-android`, `mobile-build-ios`, Socket, CodeRabbit, and Devin Review.
+
+### Follow-Up
+
+- Add a dedicated `flutter test` CI gate and make it required with the existing mobile checks.
+- Update `scripts/mobile-build-check` to run `flutter test` before analyze/builds.
+- After tests are CI-enforced, continue with older profile migration payload coverage or release-signing readiness, depending on launch priority.

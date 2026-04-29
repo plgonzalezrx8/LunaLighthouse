@@ -199,9 +199,14 @@ gh run list --limit 20
 gh run watch
 ```
 
+Required before this day is considered complete: Mobile CI should include a dedicated `flutter test` gate, not only analyze/generation/build jobs.
+
 ## Day 9 — Internal QA + Internal Store Uploads
 
 ```bash
+cd /path/to/LunaLighthouse/luna_lighthouse
+flutter test
+
 cd /path/to/LunaLighthouse
 ./scripts/mobile-build-check
 ```

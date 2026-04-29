@@ -8,12 +8,15 @@ Use this checklist before opening relaunch and release PRs.
 - [ ] `scripts/bootstrap` completes without dependency errors.
 - [ ] Flutter toolchain matches `luna_lighthouse/toolchain.env`.
 
-## Generation and Analysis
+## Generation, Tests, and Analysis
 
 - [ ] `dart run environment_config:generate` succeeds.
 - [ ] `dart ./scripts/generate_localization.dart` succeeds.
 - [ ] `dart run build_runner build --delete-conflicting-outputs` succeeds.
+- [ ] `flutter test` succeeds.
 - [ ] `flutter analyze` succeeds.
+- [ ] Maestro Android launch-smoke flow passes on a debug Android build.
+- [ ] Maestro iOS launch-smoke flow passes on an iOS simulator debug build.
 
 ## Build Viability
 

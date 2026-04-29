@@ -4,6 +4,8 @@
 
 **Goal:** Substantially increase LunaLighthouse phase-one mobile relaunch confidence by adding automated Flutter coverage around routing, cloud/webhook feature gating, profile storage/serialization, and launch-critical module behavior.
 
+**Implementation status as of 2026-04-29:** PR #5 and PR #7 are merged into `development`. The Flutter suite now passes 68 local tests across eight focused files, and Maestro Android/iOS launch-smoke flows exist under `luna_lighthouse/.maestro/`. Remaining follow-up is test-infrastructure enforcement: add a dedicated CI `flutter test` gate and align `scripts/mobile-build-check` with that local test requirement.
+
 **Architecture:** Phase one does not reactivate cloud/webhook services or expand product scope. The work adds focused tests around existing Flutter app behavior, preserving current generated-code and feature-flag contracts. Each checkpoint should be small, independently verifiable, and committed before moving to the next area.
 
 **Tech Stack:** Flutter test, Dart, GoRouter, Provider/ChangeNotifier, Hive/Hive Flutter, json_serializable/Hive generated adapters, existing LunaLighthouse scripts.
