@@ -25,7 +25,7 @@ Use this checklist before opening relaunch and release PRs.
 
 ## Relaunch Scope Compliance
 
-- [ ] No user-visible `LunaLighthouse` strings in core mobile flows.
-- [ ] No `*.luna_lighthouse.app` production URLs in runtime paths.
+- [ ] User-visible `LunaLighthouse` strings match the approved product name and current brand guidance.
+- [ ] No legacy placeholder domains or unapproved production URLs in runtime paths.
 - [ ] Cloud/webhook flows are disabled or marked unavailable.
 - [ ] Local backup/restore works using LunaLighthouse backup extension.

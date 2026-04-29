@@ -170,12 +170,12 @@ gh secret set MATCH_GIT_URL --body "git@github.com:<ORG>/lunalighthouse-match.gi
 gh secret set MATCH_SSH_PRIVATE_KEY < ~/.ssh/lunalighthouse_match
 ```
 
-Protect `main`:
+Protect `master`:
 
 ```bash
 gh api \
   -X PUT \
-  repos/<ORG>/<REPO>/branches/main/protection \
+  repos/<ORG>/<REPO>/branches/master/protection \
   -f required_status_checks.strict=true \
   -F required_status_checks.contexts[]='mobile-analyze' \
   -F required_status_checks.contexts[]='mobile-generation-check' \
@@ -224,7 +224,9 @@ Manual:
 cd /path/to/LunaLighthouse
 
 # Repeat per fix
-git checkout -b codex/revive-lunalighthouse/hotfix-<topic>
+git checkout development
+git pull --ff-only
+git checkout -b features/hotfix-<topic>
 # implement fix
 git add .
 git commit -m "fix(mobile): <summary>"

@@ -7,7 +7,7 @@ This file records the operational decisions for the LunaLighthouse mobile relaun
 - Product name: `LunaLighthouse`
 - Mobile identifier namespace: `app.lunalighthouse.lunalighthouse`
 - Mobile strategy: iOS and Android first
-- Deferred features for relaunch: cloud account and hosted webhooks
+- Phase-2/deferred features for relaunch: cloud account and hosted webhooks
 - Domain strategy: `*.lunalighthouse.app`
 
 ## Release Channels
@@ -20,7 +20,8 @@ Non-mobile channels are frozen for phase-1 and cannot block mobile releases.
 
 ## Repository Rules
 
-- `main` is protected and requires mobile checks.
+- `development` is the active integration branch for relaunch work.
+- `master` is the protected release branch and requires mobile checks.
 - Ownership enforced via `CODEOWNERS`.
 - Issues/PRs use root `.github` templates.
 - Maintainer responsibilities are documented in `docs/maintainers.md`.

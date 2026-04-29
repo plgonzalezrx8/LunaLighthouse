@@ -23,5 +23,5 @@ This document defines day-to-day ownership for the LunaLighthouse monorepo reviv
 ## Escalation
 
 - Production mobile incident: open a `release` issue and ping the mobile owner.
-- Store blocking issue (Apple/Google): prioritize hotfix branch from `main`.
+- Store blocking issue (Apple/Google): prioritize hotfix branch from `master`, then merge the fix back into `development`.
 - Deferred backend issue: document as backlog unless it blocks a mobile release.

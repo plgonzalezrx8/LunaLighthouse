@@ -2,6 +2,8 @@
 
 This folder contains operational documentation for the mobile-first relaunch.
 
+For engineering handoff, implementation contracts, and active task state, start in `../DEV-DOCS/`.
+
 ## Governance
 
 - `governance.md`
