@@ -2,9 +2,11 @@
 
 ## Active
 
-- [ ] Add older profile migration payload coverage.
-- [ ] Expand generated API model/client fixtures beyond the current Radarr, Sonarr, and Tautulli checkpoint only for launch-touched models.
-- [ ] Keep `development` and `master` branch policy reflected in docs, CI, and release runbooks.
+- [ ] Execute `docs/plans/2026-04-29-next-sprint-release-confidence.md` checkpoint-by-checkpoint.
+- [ ] Add older profile/config import coverage for legacy or partial payloads.
+- [ ] Add Flutter coverage artifact generation and a measured baseline threshold.
+- [ ] Expand generated API model/client fixtures only for launch-touched models.
+- [ ] Add release dry-run evidence requirements to launch runbooks.
 
 ## Backlog
 
@@ -15,6 +17,7 @@
 
 ## Recently Completed
 
+- [x] Added `mobile-test` to the branch-protection checklist required checks.
 - [x] Added `mobile-test` CI coverage for `flutter test` and wired `flutter test` into `scripts/mobile-build-check` before analyze/builds.
 - [x] Merged PR #5 into `development`: phase-one coverage plan, route/cloud/profile/API/module/scaffold tests, and Maestro Android/iOS smoke flows.
 - [x] Merged PR #7 into `development`: conflict-resolved generated test coverage from PR #6, excluding brittle hard-coded registry-count assertions.

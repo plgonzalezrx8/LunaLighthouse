@@ -120,3 +120,24 @@
 
 - If branch protection is managed manually in GitHub, add `mobile-test` to required checks alongside `mobile-analyze`, `mobile-generation-check`, `mobile-build-android`, and `mobile-build-ios`.
 - Continue with older profile migration payload coverage once the test gate is enforced.
+
+
+## 2026-04-29 - Next Sprint Planning
+
+### Context
+
+- PR #9 added and enforced the `mobile-test` CI gate for the current Flutter suite.
+- PR #10 updated the branch-protection checklist so `mobile-test` is required with the other mobile checks.
+- The current suite has 68 Flutter tests across eight files, but coverage visibility and legacy import coverage are still incomplete.
+
+### Work
+
+- Added `docs/plans/2026-04-29-next-sprint-release-confidence.md` as the next sprint plan.
+- Reprioritized active DEV-DOCS tasks around legacy profile/config import coverage, measured coverage artifacts, launch-touched API fixtures, and release dry-run evidence.
+- Updated status/testing docs to distinguish enforced test execution from actual line-coverage metrics.
+
+### Follow-Up
+
+- Start the sprint with legacy profile/config import tests.
+- Measure `flutter test --coverage` before setting any threshold.
+- Keep cloud/webhook reactivation out of phase-one scope until the phase-2 security/runtime checklist exists.
