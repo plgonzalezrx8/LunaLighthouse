@@ -17,7 +17,7 @@
 - `mobile-build-android`
 - `mobile-build-ios`
 
-These gates protect active integration paths. `mobile-test` runs `flutter test` so the current Flutter test suite is enforced in CI instead of only locally.
+These gates protect active integration paths. `mobile-test` runs `flutter test` so the current Flutter test suite is enforced in CI instead of only locally. The zero-to-launch branch-protection checklist requires `mobile-test` with the other mobile checks.
 
 ## Current Test Coverage
 
@@ -42,7 +42,10 @@ Covered phase-one risks include route registry drift, cloud/webhook feature-gate
 
 ## Backlog Coverage
 
-- Add older profile migration tests for legacy Hive payloads.
+The next sprint plan lives at `docs/plans/2026-04-29-next-sprint-release-confidence.md`.
+
+- Add older profile/config import tests for legacy or partial payloads.
+- Add `flutter test --coverage` artifact publishing and a measured baseline threshold before claiming complete coverage.
 - Expand generated client/model serialization fixtures beyond the initial API checkpoint only for launch-touched models.
 - Add deferred service integration tests before cloud/webhook reactivation.
 
