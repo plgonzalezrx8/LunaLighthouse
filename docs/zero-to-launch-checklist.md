@@ -199,7 +199,7 @@ gh run list --limit 20
 gh run watch
 ```
 
-Required before this day is considered complete: Mobile CI should include a dedicated `flutter test` gate, not only analyze/generation/build jobs.
+Required before this day is considered complete: Mobile CI must pass `mobile-test` in addition to analyze/generation/build jobs.
 
 ## Day 9 — Internal QA + Internal Store Uploads
 

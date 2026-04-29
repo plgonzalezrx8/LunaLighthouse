@@ -20,7 +20,8 @@ dart run environment_config:generate
 dart ./scripts/generate_localization.dart
 dart run build_runner build --delete-conflicting-outputs
 
-# Static analysis is a required gate for mobile relaunch checks.
+# Tests and static analysis are required gates for mobile relaunch checks.
+flutter test
 flutter analyze
 
 # Build Android debug artifact to validate Gradle/package identity paths.

@@ -97,3 +97,26 @@
 - Add a dedicated `flutter test` CI gate and make it required with the existing mobile checks.
 - Update `scripts/mobile-build-check` to run `flutter test` before analyze/builds.
 - After tests are CI-enforced, continue with older profile migration payload coverage or release-signing readiness, depending on launch priority.
+
+## 2026-04-29 - Mobile Test Gate
+
+### Context
+
+- The phase-one Flutter test suite existed locally, but CI did not run `flutter test`.
+- `scripts/mobile-build-check` also omitted `flutter test`, so release-impacting local validation did not fully match the coverage surface.
+
+### Work
+
+- Added `mobile-test` to `.github/workflows/mobile_ci.yml` to run `flutter test` on pull requests and pushes to `development`/`master`.
+- Updated `scripts/mobile-build-check` to run `flutter test` before `flutter analyze` and platform builds.
+- Updated DEV-DOCS and launch docs so the mobile release checklist names the test gate as release-critical.
+
+### Validation
+
+- Run the full local verification suite before merging this work.
+- Confirm PR checks include the new `mobile-test` gate.
+
+### Follow-Up
+
+- If branch protection is managed manually in GitHub, add `mobile-test` to required checks alongside `mobile-analyze`, `mobile-generation-check`, `mobile-build-android`, and `mobile-build-ios`.
+- Continue with older profile migration payload coverage once the test gate is enforced.
