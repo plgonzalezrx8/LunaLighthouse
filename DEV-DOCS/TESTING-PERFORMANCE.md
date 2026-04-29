@@ -19,17 +19,22 @@ These gates should protect release branches and run on active integration paths.
 
 ## Current Test Coverage
 
-Only narrow Flutter tests are present:
+Flutter coverage now includes six focused test files:
 
+- `luna_lighthouse/test/database/profile_serialization_test.dart`
+- `luna_lighthouse/test/database/profile_storage_test.dart`
 - `luna_lighthouse/test/modules/configuration/module_state_test.dart`
+- `luna_lighthouse/test/router/routes_smoke_test.dart`
+- `luna_lighthouse/test/system/cloud_webhook_feature_flag_test.dart`
 - `luna_lighthouse/test/widgets/ui/scaffold_test.dart`
+
+Covered phase-one risks include route registry drift, cloud/webhook feature-gate behavior, profile JSON serialization, Hive-backed profile selection/storage, module-state host validation, and Android scaffold back behavior.
 
 ## Backlog Coverage
 
-- Route smoke tests for GoRouter surfaces.
 - API serialization and command tests for generated clients.
-- Profile storage and migration tests for Hive models.
-- Module UI tests for launch-critical flows.
+- Broader module UI tests for launch-critical flows.
+- Additional profile migration tests for older Hive payloads.
 - Deferred service integration tests before cloud/webhook reactivation.
 
 ## Performance Notes

@@ -37,3 +37,29 @@
 
 - Implement the plan with TDD and frequent commits.
 - Update `TESTING-PERFORMANCE.md`, `DEVELOPMENT-STATUS.md`, and this work log as coverage lands.
+
+## 2026-04-28 - Phase-One Test Coverage Checkpoints
+
+### Context
+
+- Work continued on `codex/phase-one-test-coverage` after the plan checkpoint.
+- Baseline Flutter test suite passed before adding new coverage.
+
+### Work
+
+- Added route registry smoke coverage in `luna_lighthouse/test/router/routes_smoke_test.dart`.
+- Added phase-one cloud/webhook feature-gate coverage in `luna_lighthouse/test/system/cloud_webhook_feature_flag_test.dart`.
+- Added profile JSON serialization coverage in `luna_lighthouse/test/database/profile_serialization_test.dart`.
+- Added Hive-backed profile storage and selected-profile coverage in `luna_lighthouse/test/database/profile_storage_test.dart`.
+- Updated testing/status docs to reflect the new coverage surface.
+
+### Validation
+
+- `flutter test` passes with 30 tests.
+- `flutter analyze` passes with no issues.
+
+### Follow-Up
+
+- Add fixture-driven API serialization tests.
+- Expand module UI/state tests for launch-critical flows.
+- Run `scripts/mobile-build-check` before final release-impacting handoff.
