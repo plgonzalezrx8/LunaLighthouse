@@ -43,6 +43,73 @@ void main() {
         equals(<String, String>{'X-Overseerr-Token': 'overseerr-token'}),
       );
     });
+
+    test('clone creates an independent copy that does not share state', () {
+      final original = _fullProfile();
+      final clone = LunaProfile.clone(original);
+
+      // Verify the clone matched the original first.
+      _expectFullProfile(clone);
+
+      // The clone should be a distinct object (not identical reference).
+      expect(identical(original, clone), isFalse);
+    });
+
+    test('profile with empty host strings serializes without error', () {
+      // Boundary: all hosts empty (no configured services) must not throw.
+      final profile = LunaProfile(
+        lidarrEnabled: false,
+        lidarrHost: '',
+        lidarrKey: '',
+        lidarrHeaders: const <String, String>{},
+        radarrEnabled: false,
+        radarrHost: '',
+        radarrKey: '',
+        radarrHeaders: const <String, String>{},
+        sonarrEnabled: false,
+        sonarrHost: '',
+        sonarrKey: '',
+        sonarrHeaders: const <String, String>{},
+      );
+
+      final json = profile.toJson();
+
+      expect(json['lidarrHost'], equals(''));
+      expect(json['radarrHost'], equals(''));
+      expect(json['sonarrHost'], equals(''));
+      expect(json['lidarrHeaders'], isEmpty);
+    });
+
+    test('fromJson round-trips back through toJson for a full profile', () {
+      final original = _fullProfile();
+      final json = original.toJson();
+      final roundTripped = LunaProfile.fromJson(json);
+
+      // All service-host/key/header/password fields must survive a round-trip.
+      _expectFullProfile(roundTripped);
+    });
+
+    test('header maps with multiple entries survive serialization', () {
+      final profile = LunaProfile(
+        radarrEnabled: true,
+        radarrHost: 'https://radarr.example.test',
+        radarrKey: 'radarr-key',
+        radarrHeaders: const <String, String>{
+          'X-Token': 'token-value',
+          'X-Extra': 'extra-value',
+        },
+      );
+
+      final json = profile.toJson();
+      final restored = LunaProfile.fromJson(json);
+
+      expect(
+          restored.radarrHeaders,
+          equals(<String, String>{
+            'X-Token': 'token-value',
+            'X-Extra': 'extra-value',
+          }));
+    });
   });
 }
 
@@ -75,7 +142,9 @@ LunaProfile _fullProfile() {
     tautulliEnabled: true,
     tautulliHost: 'https://tautulli.example.test',
     tautulliKey: 'tautulli-key',
-    tautulliHeaders: const <String, String>{'X-Tautulli-Token': 'tautulli-token'},
+    tautulliHeaders: const <String, String>{
+      'X-Tautulli-Token': 'tautulli-token'
+    },
     overseerrEnabled: true,
     overseerrHost: 'https://overseerr.example.test',
     overseerrKey: 'overseerr-key',
@@ -119,7 +188,8 @@ void _expectFullProfile(LunaProfile profile) {
   expect(profile.tautulliEnabled, isTrue);
   expect(profile.tautulliHost, equals('https://tautulli.example.test'));
   expect(profile.tautulliKey, equals('tautulli-key'));
-  expect(profile.tautulliHeaders, equals({'X-Tautulli-Token': 'tautulli-token'}));
+  expect(
+      profile.tautulliHeaders, equals({'X-Tautulli-Token': 'tautulli-token'}));
 
   expect(profile.overseerrEnabled, isTrue);
   expect(profile.overseerrHost, equals('https://overseerr.example.test'));

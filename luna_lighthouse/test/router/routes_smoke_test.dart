@@ -46,7 +46,8 @@ void main() {
   group('LunaModule route metadata', () {
     test('keeps module keys round-trippable', () {
       for (final module in LunaModule.values) {
-        expect(LunaModule.fromKey(module.key), equals(module), reason: module.key);
+        expect(LunaModule.fromKey(module.key), equals(module),
+            reason: module.key);
       }
 
       expect(LunaModule.fromKey('unknown'), isNull);
@@ -55,7 +56,8 @@ void main() {
 
     test('maps routed modules to registered root paths', () {
       expect(LunaModule.DASHBOARD.homeRoute, equals('/dashboard'));
-      expect(LunaModule.EXTERNAL_MODULES.homeRoute, equals('/external_modules'));
+      expect(
+          LunaModule.EXTERNAL_MODULES.homeRoute, equals('/external_modules'));
       expect(LunaModule.LIDARR.homeRoute, equals('/lidarr'));
       expect(LunaModule.NZBGET.homeRoute, equals('/nzbget'));
       expect(LunaModule.RADARR.homeRoute, equals('/radarr'));
@@ -69,6 +71,39 @@ void main() {
     test('leaves unavailable phase-one modules without root routes', () {
       expect(LunaModule.OVERSEERR.homeRoute, isNull);
       expect(LunaModule.WAKE_ON_LAN.homeRoute, isNull);
+    });
+
+    test('all module keys are distinct non-empty strings', () {
+      final keys = LunaModule.values.map((m) => m.key).toList();
+
+      expect(keys, everyElement(isNotEmpty));
+      // A set collapses duplicates; if the lengths differ, keys are not unique.
+      expect(keys.toSet().length, equals(keys.length));
+    });
+
+    test('fromKey with empty string returns null', () {
+      expect(LunaModule.fromKey(''), isNull);
+    });
+
+    test('fromKey with whitespace-only string returns null', () {
+      expect(LunaModule.fromKey('   '), isNull);
+    });
+
+    test('homeRoute values are registered root paths or null', () {
+      final registeredPaths =
+          LunaRoutes.values.map((route) => route.root.path).toSet();
+
+      for (final module in LunaModule.values) {
+        final home = module.homeRoute;
+        if (home != null) {
+          expect(
+            registeredPaths,
+            contains(home),
+            reason:
+                '${module.key}.homeRoute ($home) not found in route registry',
+          );
+        }
+      }
     });
   });
 }
