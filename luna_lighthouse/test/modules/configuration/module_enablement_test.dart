@@ -53,16 +53,18 @@ void main() {
       expect(active, isNot(contains(LunaModule.DASHBOARD)));
       expect(active, isNot(contains(LunaModule.SETTINGS)));
       expect(active, isNot(contains(LunaModule.OVERSEERR)));
-      expect(active, containsAll(<LunaModule>[
-        LunaModule.EXTERNAL_MODULES,
-        LunaModule.LIDARR,
-        LunaModule.NZBGET,
-        LunaModule.RADARR,
-        LunaModule.SABNZBD,
-        LunaModule.SEARCH,
-        LunaModule.SONARR,
-        LunaModule.TAUTULLI,
-      ]));
+      expect(
+          active,
+          containsAll(<LunaModule>[
+            LunaModule.EXTERNAL_MODULES,
+            LunaModule.LIDARR,
+            LunaModule.NZBGET,
+            LunaModule.RADARR,
+            LunaModule.SABNZBD,
+            LunaModule.SEARCH,
+            LunaModule.SONARR,
+            LunaModule.TAUTULLI,
+          ]));
       expect(active.every((module) => module.featureFlag), isTrue);
       expect(
         active.contains(LunaModule.WAKE_ON_LAN),
@@ -139,7 +141,8 @@ void main() {
         ),
       );
 
-      expect(LunaModule.DASHBOARD.state(providerContext), isA<DashboardState>());
+      expect(
+          LunaModule.DASHBOARD.state(providerContext), isA<DashboardState>());
       expect(LunaModule.SETTINGS.state(providerContext), isA<SettingsState>());
       expect(LunaModule.SEARCH.state(providerContext), isA<SearchState>());
       expect(LunaModule.LIDARR.state(providerContext), isA<LidarrState>());
@@ -153,6 +156,52 @@ void main() {
       expect(LunaModule.EXTERNAL_MODULES.state(providerContext), isNull);
 
       expect(() => LunaState.reset(providerContext), returnsNormally);
+    });
+  });
+
+  group('LunaModule.isEnabled toggling', () {
+    test('disabling a previously enabled module reflects in isEnabled',
+        () async {
+      // Enable Radarr then disable it; isEnabled must track the current profile.
+      await _saveProfile(LunaProfile(radarrEnabled: true));
+      expect(LunaModule.RADARR.isEnabled, isTrue);
+
+      await _saveProfile(LunaProfile(radarrEnabled: false));
+      expect(LunaModule.RADARR.isEnabled, isFalse);
+    });
+
+    test('removing all indexers disables search', () async {
+      // Pre-condition: add an indexer so search is enabled.
+      await LunaBox.indexers.create(LunaIndexer(displayName: 'Test Indexer'));
+      expect(LunaModule.SEARCH.isEnabled, isTrue);
+
+      // Remove the indexer; search should become disabled again.
+      await LunaBox.indexers.clear();
+      expect(LunaModule.SEARCH.isEnabled, isFalse);
+    });
+
+    test('removing all external modules disables external_modules', () async {
+      await LunaBox.externalModules.create(
+        LunaExternalModule(displayName: 'My Tool', host: 'http://tool.test'),
+      );
+      expect(LunaModule.EXTERNAL_MODULES.isEnabled, isTrue);
+
+      await LunaBox.externalModules.clear();
+      expect(LunaModule.EXTERNAL_MODULES.isEnabled, isFalse);
+    });
+  });
+
+  group('LunaModule.active shape', () {
+    test('active list contains no duplicate modules', () {
+      final active = LunaModule.active;
+      expect(active.toSet().length, equals(active.length));
+    });
+
+    test('active list contains only known module values', () {
+      final allValues = LunaModule.values.toSet();
+      for (final module in LunaModule.active) {
+        expect(allValues, contains(module));
+      }
     });
   });
 }

@@ -142,6 +142,67 @@ void main() {
     expect(focusNode.hasFocus, isFalse);
     focusNode.dispose();
   });
+
+  testWidgets(
+    'macOS platform also does not install Android PopScope',
+    (tester) async => _runAsPlatform(TargetPlatform.macOS, () async {
+      await _pumpScaffoldRoute(tester, includeDrawer: true);
+
+      expect(find.text(_routeBodyText), findsOneWidget);
+      expect(find.byType(PopScope), findsNothing);
+    }),
+  );
+
+  testWidgets(
+    'non-Android scaffold without drawer also has no PopScope',
+    (tester) async => _runAsPlatform(TargetPlatform.iOS, () async {
+      await _pumpScaffoldRoute(tester, includeDrawer: false);
+
+      expect(find.text(_routeBodyText), findsOneWidget);
+      expect(find.byType(PopScope), findsNothing);
+    }),
+  );
+
+  testWidgets(
+    'profile change callback is not invoked when onProfileChange is null',
+    (tester) async {
+      // Should not throw when onProfileChange is null and the profile changes.
+      await _pumpScaffoldRoute(
+        tester,
+        includeDrawer: true,
+        onProfileChange: null,
+      );
+
+      LunaLighthouseDatabase.ENABLED_PROFILE.update('another-profile');
+      await _pumpNavigation(tester);
+
+      expect(find.text(_routeBodyText), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'profile change callback accumulates over successive profile switches',
+    (tester) async {
+      final profilesSeen = <String>[];
+      await _pumpScaffoldRoute(
+        tester,
+        includeDrawer: true,
+        onProfileChange: (_) {
+          final currentProfile =
+              LunaLighthouseDatabase.ENABLED_PROFILE.read() ?? '';
+          profilesSeen.add(currentProfile);
+        },
+      );
+
+      LunaLighthouseDatabase.ENABLED_PROFILE.update('profile-a');
+      await _pumpNavigation(tester);
+      LunaLighthouseDatabase.ENABLED_PROFILE.update('profile-b');
+      await _pumpNavigation(tester);
+
+      // The callback must have fired at least twice (one per profile update).
+      expect(profilesSeen.length, greaterThanOrEqualTo(2));
+    },
+  );
 }
 
 const _homeText = 'Home route';

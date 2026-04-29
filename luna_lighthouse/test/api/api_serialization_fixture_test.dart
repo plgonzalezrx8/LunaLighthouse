@@ -35,10 +35,59 @@ void main() {
 
       expect(userName.userId, equals(42));
       expect(userName.friendlyName, equals('12345'));
-      expect(userName.toJson(), equals(<String, dynamic>{
-        'user_id': 42,
-        'friendly_name': '12345',
-      }));
+      expect(
+          userName.toJson(),
+          equals(<String, dynamic>{
+            'user_id': 42,
+            'friendly_name': '12345',
+          }));
+    });
+
+    test('parses Tautulli user name when user_id is already an integer', () {
+      // Boundary: the API sometimes returns user_id as an int rather than a
+      // string; TautulliUtilities.ensureIntegerFromJson must handle both.
+      final json = _readFixture('tautulli_user_name_int_id.json');
+
+      final userName = TautulliUserName.fromJson(json);
+
+      expect(userName.userId, equals(99));
+      expect(userName.friendlyName, equals('alice'));
+      expect(
+          userName.toJson(),
+          equals(<String, dynamic>{
+            'user_id': 99,
+            'friendly_name': 'alice',
+          }));
+    });
+
+    test('parses Tautulli user name with zero id and empty friendly name', () {
+      // Boundary/negative: zero user_id and an empty friendly_name string
+      // should not throw or coerce values.
+      final json = _readFixture('tautulli_user_name_zero.json');
+
+      final userName = TautulliUserName.fromJson(json);
+
+      expect(userName.userId, equals(0));
+      expect(userName.friendlyName, equals(''));
+    });
+
+    test('Radarr tag round-trips preserve integer id without coercion', () {
+      // Regression guard: toJson must emit id as int, not as String.
+      final json = _readFixture('radarr_tag.json');
+      final tag = RadarrTag.fromJson(json);
+      final emitted = tag.toJson();
+
+      expect(emitted['id'], isA<int>());
+      expect(emitted['label'], isA<String>());
+    });
+
+    test('Sonarr tag round-trips preserve integer id without coercion', () {
+      final json = _readFixture('sonarr_tag.json');
+      final tag = SonarrTag.fromJson(json);
+      final emitted = tag.toJson();
+
+      expect(emitted['id'], isA<int>());
+      expect(emitted['label'], isA<String>());
     });
   });
 }

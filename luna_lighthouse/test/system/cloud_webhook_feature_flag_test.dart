@@ -15,7 +15,8 @@ void main() {
       }
     });
 
-    test('ignores webhook payloads while cloud integrations are disabled', () async {
+    test('ignores webhook payloads while cloud integrations are disabled',
+        () async {
       for (final module in LunaModule.values) {
         await expectLater(
           module.handleWebhook(<String, dynamic>{
@@ -24,6 +25,40 @@ void main() {
           }),
           completes,
           reason: module.key,
+        );
+      }
+    });
+
+    test('feature flag value is stable across repeated reads', () {
+      // Reading the flag multiple times must return the same value without side
+      // effects (no mutable state toggle between reads).
+      final first = LunaFeatureFlags.cloudIntegrationsEnabled;
+      final second = LunaFeatureFlags.cloudIntegrationsEnabled;
+      final third = LunaFeatureFlags.cloudIntegrationsEnabled;
+
+      expect(first, equals(second));
+      expect(second, equals(third));
+      expect(third, isFalse);
+    });
+
+    test('handleWebhook completes with an empty payload', () async {
+      // An empty map must not throw, as the feature gate runs before dispatch.
+      for (final module in LunaModule.values) {
+        await expectLater(
+          module.handleWebhook(<String, dynamic>{}),
+          completes,
+          reason: module.key,
+        );
+      }
+    });
+
+    test('every module key is a non-empty lowercase string', () {
+      for (final module in LunaModule.values) {
+        expect(module.key, isNotEmpty, reason: 'module key must not be empty');
+        expect(
+          module.key,
+          equals(module.key.toLowerCase()),
+          reason: '${module.key} should be lowercase',
         );
       }
     });
