@@ -14,7 +14,7 @@ Phase-1 mobile relaunch. iOS and Android are the active release targets. Non-mob
 
 ## Open Gaps
 
-- Sparse tests: only configuration/module-state and scaffold tests are present.
+- Coverage is improved but still incomplete: broader generated API fixtures and older profile migration payloads remain open.
 - Hosted webhook relay needs auth, logging, Redis, Firebase, domain, and E2E validation before reactivation.
 - Firebase cloud functions need runtime/dependency modernization review before phase-2 use.
 - Branch policy and CI triggers must stay aligned with `development` integration and `master` release.

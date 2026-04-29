@@ -95,6 +95,53 @@ void main() {
       expect(find.text(_homeText), findsOneWidget);
     }),
   );
+
+  testWidgets(
+    'non-Android scaffold does not install Android PopScope',
+    (tester) async => _runAsPlatform(TargetPlatform.iOS, () async {
+      await _pumpScaffoldRoute(tester, includeDrawer: true);
+
+      expect(find.text(_routeBodyText), findsOneWidget);
+      expect(find.byType(PopScope), findsNothing);
+    }),
+  );
+
+  testWidgets('profile change callback fires when enabled profile changes',
+      (tester) async {
+    var callbackCount = 0;
+    await _pumpScaffoldRoute(
+      tester,
+      includeDrawer: true,
+      onProfileChange: (_) => callbackCount += 1,
+    );
+    final initialCallbackCount = callbackCount;
+
+    LunaLighthouseDatabase.ENABLED_PROFILE.update('alternate-profile');
+    await _pumpNavigation(tester);
+
+    expect(initialCallbackCount, greaterThanOrEqualTo(1));
+    expect(callbackCount, greaterThan(initialCallbackCount));
+    expect(find.text(_routeBodyText), findsOneWidget);
+  });
+
+  testWidgets('opening the drawer clears primary focus', (tester) async {
+    final focusNode = FocusNode();
+    final route = await _pumpScaffoldRoute(
+      tester,
+      includeDrawer: true,
+      routeBody: TextField(focusNode: focusNode),
+    );
+
+    await tester.tap(find.byType(TextField));
+    await _pumpNavigation(tester);
+    expect(focusNode.hasFocus, isTrue);
+
+    route.scaffoldKey.currentState!.openDrawer();
+    await _pumpNavigation(tester);
+
+    expect(focusNode.hasFocus, isFalse);
+    focusNode.dispose();
+  });
 }
 
 const _homeText = 'Home route';
@@ -132,8 +179,15 @@ Future<void> _simulateSystemBack() {
 }
 
 Future<void> _runAsAndroid(Future<void> Function() body) async {
+  return _runAsPlatform(TargetPlatform.android, body);
+}
+
+Future<void> _runAsPlatform(
+  TargetPlatform platform,
+  Future<void> Function() body,
+) async {
   final previousPlatform = debugDefaultTargetPlatformOverride;
-  debugDefaultTargetPlatformOverride = TargetPlatform.android;
+  debugDefaultTargetPlatformOverride = platform;
   try {
     await body();
   } finally {
@@ -144,6 +198,8 @@ Future<void> _runAsAndroid(Future<void> Function() body) async {
 Future<_ScaffoldRoute> _pumpScaffoldRoute(
   WidgetTester tester, {
   required bool includeDrawer,
+  Widget? routeBody,
+  void Function(BuildContext)? onProfileChange,
 }) async {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late BuildContext routeContext;
@@ -167,12 +223,15 @@ Future<_ScaffoldRoute> _pumpScaffoldRoute(
                           body: Builder(
                             builder: (context) {
                               routeContext = context;
-                              return const Center(child: Text(_routeBodyText));
+                              return Center(
+                                child: routeBody ?? const Text(_routeBodyText),
+                              );
                             },
                           ),
                           drawer: includeDrawer
                               ? const Drawer(child: Text(_drawerText))
                               : null,
+                          onProfileChange: onProfileChange,
                         ),
                       ),
                     );
@@ -190,7 +249,11 @@ Future<_ScaffoldRoute> _pumpScaffoldRoute(
   await tester.tap(find.text(_openRouteText));
   await _pumpNavigation(tester);
 
-  expect(find.text(_routeBodyText), findsOneWidget);
+  if (routeBody == null) {
+    expect(find.text(_routeBodyText), findsOneWidget);
+  } else {
+    expect(find.byWidget(routeBody), findsOneWidget);
+  }
   expect(find.text(_drawerText), findsNothing);
 
   return _ScaffoldRoute(scaffoldKey: scaffoldKey, context: routeContext);
