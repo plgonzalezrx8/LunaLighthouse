@@ -151,6 +151,12 @@ jobs:
       - name: Fetch Dependencies
         run: flutter pub get
 
+      - name: Regenerate Build Artifacts
+        run: |
+          dart run environment_config:generate
+          dart ./scripts/generate_localization.dart
+          dart run build_runner build --delete-conflicting-outputs
+
       - name: Run Flutter Tests
         run: flutter test
 
