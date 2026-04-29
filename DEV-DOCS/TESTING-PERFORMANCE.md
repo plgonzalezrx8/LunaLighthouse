@@ -7,16 +7,17 @@
 - `flutter test` from `luna_lighthouse/`
 - `scripts/mobile-build-check`
 
-`scripts/mobile-build-check` currently runs toolchain validation, Flutter dependency fetch, environment generation, localization generation, build runner, `flutter analyze`, Android debug build, and iOS debug no-codesign build on macOS. It does **not** currently run `flutter test`; aligning that script with the local release checklist is the next test-infrastructure fix.
+`scripts/mobile-build-check` runs toolchain validation, Flutter dependency fetch, environment generation, localization generation, build runner, `flutter test`, `flutter analyze`, Android debug build, and iOS debug no-codesign build on macOS.
 
 ## CI Gates
 
 - `mobile-analyze`
 - `mobile-generation-check`
+- `mobile-test`
 - `mobile-build-android`
 - `mobile-build-ios`
 
-These gates protect active integration paths, but they do not yet include a dedicated Flutter test job. Add a `mobile-test`/`flutter test` gate before treating the new test suite as CI-enforced release protection.
+These gates protect active integration paths. `mobile-test` runs `flutter test` so the current Flutter test suite is enforced in CI instead of only locally.
 
 ## Current Test Coverage
 
@@ -41,7 +42,6 @@ Covered phase-one risks include route registry drift, cloud/webhook feature-gate
 
 ## Backlog Coverage
 
-- Add CI enforcement for `flutter test`; this is now higher value than adding more unprotected tests.
 - Add older profile migration tests for legacy Hive payloads.
 - Expand generated client/model serialization fixtures beyond the initial API checkpoint only for launch-touched models.
 - Add deferred service integration tests before cloud/webhook reactivation.

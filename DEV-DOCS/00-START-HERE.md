@@ -11,15 +11,15 @@
 
 ## Immediate Priorities
 
-1. Add a dedicated `flutter test` CI gate and align `scripts/mobile-build-check` with that local test requirement.
+1. Keep the new `mobile-test` CI gate and `scripts/mobile-build-check` test step green.
 2. Keep iOS/Android reliability and release readiness ahead of non-mobile work.
 3. Preserve clear user and maintainer messaging that hosted cloud/webhook features are deferred.
 4. Expand API/profile coverage only where it reduces release risk, not as generic test-padding.
 
 ## Current Blockers And Risks
 
-- The repository now has meaningful local tests, but `.github/workflows/mobile_ci.yml` does not run `flutter test` as a dedicated CI gate yet.
-- `scripts/mobile-build-check` validates generation, analyze, and platform builds, but currently omits the Flutter test suite.
+- The repository now has meaningful local tests and a dedicated `mobile-test` CI gate; keep it required alongside analyze/generation/build checks.
+- `scripts/mobile-build-check` now includes `flutter test` before analyze/builds; release-impacting changes should run it locally when the full mobile toolchain is available.
 - Cloud/webhook services exist but need phase-2 security, runtime, secrets, and integration validation before reactivation.
 - API keys and custom headers are stored through profile data; secret handling needs explicit review before new sync/cloud work.
 

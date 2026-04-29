@@ -115,6 +115,51 @@ jobs:
             exit 1
           fi
 
+  mobile-test:
+    name: mobile-test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.6
+          bundler-cache: false
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.29.3
+
+      - name: Fetch Dependencies
+        run: flutter pub get
+
+      - name: Regenerate Build Artifacts
+        run: |
+          dart run environment_config:generate
+          dart ./scripts/generate_localization.dart
+          dart run build_runner build --delete-conflicting-outputs
+
+      - name: Run Flutter Tests
+        run: flutter test
+
   mobile-build-android:
     name: mobile-build-android
     runs-on: ubuntu-latest
