@@ -1,0 +1,8 @@
+appId: app.lunalighthouse.lunalighthouse.debug
+name: Android launch smoke
+tags:
+  - android
+  - smoke
+---
+- launchApp
+- assertVisible: "LunaLighthouse"

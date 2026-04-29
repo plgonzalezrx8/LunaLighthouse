@@ -3,9 +3,9 @@
 ## Active
 
 - [ ] Continue the phase-one test coverage plan in `docs/plans/2026-04-28-phase-one-test-coverage.md`.
-- [ ] Expand module state and launch-critical UI coverage.
+- [ ] Expand generated API model/client fixtures beyond the initial Radarr, Sonarr, and Tautulli coverage.
+- [ ] Add older profile migration payload coverage.
 - [ ] Keep `development` and `master` branch policy reflected in docs, CI, and release runbooks.
-- [ ] Maintain phase-1 launch docs so cloud/webhook and non-mobile surfaces are not described as release blockers.
 - [ ] Use `scripts/mobile-build-check` before release-impacting Flutter changes.
 
 ## Backlog
@@ -17,6 +17,8 @@
 
 ## Recently Completed
 
+- [x] Added module enablement/provider registry tests and expanded scaffold UI behavior tests.
+- [x] Added Maestro Android and iOS launch-smoke flows under `luna_lighthouse/.maestro/`.
 - [x] Added fixture-driven API serialization tests for Radarr, Sonarr, and Tautulli models.
 - [x] Added phase-one route registry smoke coverage on `codex/phase-one-test-coverage`.
 - [x] Added cloud/webhook feature-gate tests proving deferred services stay inert.
