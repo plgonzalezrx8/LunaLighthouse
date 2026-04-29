@@ -18,3 +18,22 @@
 
 - Keep operational docs current as relaunch tasks complete.
 - Re-run doc impact checks after future behavior, CI, security, or architecture changes.
+
+## 2026-04-28 - Phase-One Test Coverage Plan
+
+### Context
+
+- Phase-one relaunch confidence needs stronger automated coverage before release work continues.
+- Existing Flutter tests cover only narrow module-state and scaffold behavior.
+- Cloud/webhook features must stay deferred while route, profile, and API contracts are hardened.
+
+### Work
+
+- Created `docs/plans/2026-04-28-phase-one-test-coverage.md` as the checkpoint-by-checkpoint implementation plan.
+- Moved route, cloud/webhook feature-gate, profile storage, and API serialization tests into active phase-one work.
+- Established `codex/phase-one-test-coverage` as the implementation branch.
+
+### Follow-Up
+
+- Implement the plan with TDD and frequent commits.
+- Update `TESTING-PERFORMANCE.md`, `DEVELOPMENT-STATUS.md`, and this work log as coverage lands.
