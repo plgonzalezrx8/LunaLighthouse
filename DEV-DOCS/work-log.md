@@ -51,15 +51,16 @@
 - Added phase-one cloud/webhook feature-gate coverage in `luna_lighthouse/test/system/cloud_webhook_feature_flag_test.dart`.
 - Added profile JSON serialization coverage in `luna_lighthouse/test/database/profile_serialization_test.dart`.
 - Added Hive-backed profile storage and selected-profile coverage in `luna_lighthouse/test/database/profile_storage_test.dart`.
+- Added fixture-driven API serialization coverage in `luna_lighthouse/test/api/api_serialization_fixture_test.dart` with sanitized fixtures in `luna_lighthouse/test/fixtures/api/`.
 - Updated testing/status docs to reflect the new coverage surface.
 
 ### Validation
 
-- `flutter test` passes with 30 tests.
+- `flutter test` passes with 33 tests.
 - `flutter analyze` passes with no issues.
 
 ### Follow-Up
 
-- Add fixture-driven API serialization tests.
+- Expand generated API model/client fixtures beyond the initial Radarr, Sonarr, and Tautulli coverage.
 - Expand module UI/state tests for launch-critical flows.
 - Run `scripts/mobile-build-check` before final release-impacting handoff.

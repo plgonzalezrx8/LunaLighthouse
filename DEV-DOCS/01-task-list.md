@@ -3,7 +3,6 @@
 ## Active
 
 - [ ] Continue the phase-one test coverage plan in `docs/plans/2026-04-28-phase-one-test-coverage.md`.
-- [ ] Add API serialization tests for generated model/client contracts.
 - [ ] Expand module state and launch-critical UI coverage.
 - [ ] Keep `development` and `master` branch policy reflected in docs, CI, and release runbooks.
 - [ ] Maintain phase-1 launch docs so cloud/webhook and non-mobile surfaces are not described as release blockers.
@@ -18,6 +17,7 @@
 
 ## Recently Completed
 
+- [x] Added fixture-driven API serialization tests for Radarr, Sonarr, and Tautulli models.
 - [x] Added phase-one route registry smoke coverage on `codex/phase-one-test-coverage`.
 - [x] Added cloud/webhook feature-gate tests proving deferred services stay inert.
 - [x] Added profile serialization and Hive-backed storage tests for credentials/custom headers.

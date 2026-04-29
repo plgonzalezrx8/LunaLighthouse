@@ -19,8 +19,9 @@ These gates should protect release branches and run on active integration paths.
 
 ## Current Test Coverage
 
-Flutter coverage now includes six focused test files:
+Flutter coverage now includes seven focused test files:
 
+- `luna_lighthouse/test/api/api_serialization_fixture_test.dart`
 - `luna_lighthouse/test/database/profile_serialization_test.dart`
 - `luna_lighthouse/test/database/profile_storage_test.dart`
 - `luna_lighthouse/test/modules/configuration/module_state_test.dart`
@@ -28,11 +29,11 @@ Flutter coverage now includes six focused test files:
 - `luna_lighthouse/test/system/cloud_webhook_feature_flag_test.dart`
 - `luna_lighthouse/test/widgets/ui/scaffold_test.dart`
 
-Covered phase-one risks include route registry drift, cloud/webhook feature-gate behavior, profile JSON serialization, Hive-backed profile selection/storage, module-state host validation, and Android scaffold back behavior.
+Covered phase-one risks include route registry drift, cloud/webhook feature-gate behavior, profile JSON serialization, Hive-backed profile selection/storage, module-state host validation, Android scaffold back behavior, and fixture-driven API model serialization for selected Radarr, Sonarr, and Tautulli contracts.
 
 ## Backlog Coverage
 
-- API serialization and command tests for generated clients.
+- Broader generated client/model serialization fixtures beyond the initial API checkpoint.
 - Broader module UI tests for launch-critical flows.
 - Additional profile migration tests for older Hive payloads.
 - Deferred service integration tests before cloud/webhook reactivation.
