@@ -77,8 +77,8 @@ Checklist:
 - [x] Run Flutter analyzer.
 - [x] Run the full mobile build check before release-impacting handoff.
 - [ ] Run or capture Maestro Android and iOS launch-smoke evidence on real or emulator/simulator devices. iOS passed on simulator; Android is blocked by local ADB daemon startup failure.
-- [ ] Confirm Mobile CI passes all five gates on the release candidate branch or commit.
-- [ ] Confirm `mobile-test` uploads the `flutter-coverage-lcov` artifact.
+- [x] Confirm Mobile CI passes all five gates on the release candidate branch or commit. PR #15 run `25194846125` passed `mobile-analyze`, `mobile-generation-check`, `mobile-test`, `mobile-build-android`, and `mobile-build-ios`.
+- [x] Confirm `mobile-test` uploads the `flutter-coverage-lcov` artifact. Run `25194846125` uploaded artifact `flutter-coverage-lcov`.
 - [x] Raise the coverage threshold only after meaningful launch-focused tests improve the measured baseline. No threshold change made; current 3.71% baseline still supports the 2% floor.
 
 Commands:

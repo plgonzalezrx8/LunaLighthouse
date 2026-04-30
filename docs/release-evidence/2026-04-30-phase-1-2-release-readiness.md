@@ -120,19 +120,36 @@ Android launch smoke:
 
 ## Remote Mobile CI
 
-Pending. The first evidence commit will be pushed and opened as a PR to `development`; Mobile CI will run on the PR because `.github/workflows/mobile_ci.yml` has no `workflow_dispatch` trigger.
+PR-triggered Mobile CI ran because `.github/workflows/mobile_ci.yml` has no `workflow_dispatch` trigger.
 
-Expected evidence to add after PR creation:
+- Pull request: `https://github.com/plgonzalezrx8/LunaLighthouse/pull/15`.
+- Run URL: `https://github.com/plgonzalezrx8/LunaLighthouse/actions/runs/25194846125`.
+- Event: `pull_request`.
+- Head SHA: `fe9ebdcd6b5d9186a201584acb3b6fb4ba9276e9`.
+- Created: `2026-04-30T23:41:53Z`.
+- Updated: `2026-04-30T23:52:13Z`.
+- Conclusion: `success`.
 
-- Mobile CI run URL.
-- `mobile-analyze` result.
-- `mobile-generation-check` result.
-- `mobile-test` result.
-- `mobile-build-android` result.
-- `mobile-build-ios` result.
-- `flutter-coverage-lcov` artifact presence.
+Gate results:
+
+- `mobile-analyze`: passed in 3m19s, job `73873021449`.
+- `mobile-generation-check`: passed in 2m58s, job `73873021471`.
+- `mobile-test`: passed in 3m50s, job `73873021452`.
+- `mobile-build-android`: passed in 3m58s, job `73873021473`.
+- `mobile-build-ios`: passed in 1m47s, job `73873021462`.
+
+Coverage artifact:
+
+- Artifact: `flutter-coverage-lcov`.
+- Created: `2026-04-30T23:45:42Z`.
+- Size: 50095 bytes.
+- Expired: `false`.
+- Archive URL: `https://api.github.com/repos/plgonzalezrx8/LunaLighthouse/actions/artifacts/6742419372/zip`.
+
+CI warning:
+
+- GitHub Actions emitted a Node.js 20 action deprecation warning for `actions/checkout@v4`, `actions/setup-java@v4`, and `android-actions/setup-android@v3`. This did not fail the run, but it should be tracked before GitHub forces JavaScript actions to Node.js 24 by default on 2026-06-02.
 
 ## Open Blockers
 
 - Android Maestro launch smoke needs a clean local ADB/emulator session before it can be marked complete.
-- Fresh PR-triggered Mobile CI evidence is pending.
