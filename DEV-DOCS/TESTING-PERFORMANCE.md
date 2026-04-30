@@ -23,9 +23,10 @@ These gates protect active integration paths. `mobile-test` runs `flutter test -
 
 ## Current Test Coverage
 
-Flutter coverage now passes 91 tests across ten focused test files plus Maestro launch-smoke flows. The measured LCOV baseline is 3.71% line coverage (`1373/37026`); the initial enforced threshold is 2%.
+Flutter coverage now passes 130 tests across eleven focused test files plus Maestro launch-smoke flows. The measured LCOV baseline is 3.71% line coverage (`1373/37026`); the initial enforced threshold is 2%.
 
 - `luna_lighthouse/test/api/api_serialization_fixture_test.dart`
+- `luna_lighthouse/test/ci/self_hosted_runner_workflow_test.dart`
 - `luna_lighthouse/test/database/box_clear_test.dart`
 - `luna_lighthouse/test/database/profile_import_test.dart`
 - `luna_lighthouse/test/database/profile_serialization_test.dart`
@@ -42,7 +43,7 @@ Maestro launch-smoke coverage lives under:
 - `luna_lighthouse/.maestro/flows/android/launch_smoke.yaml`
 - `luna_lighthouse/.maestro/flows/ios/launch_smoke.yaml`
 
-Covered phase-one risks include route registry drift, cloud/webhook feature-gate behavior, profile JSON serialization, legacy/partial profile import behavior, Hive-backed profile selection/storage and box clearing, module-state host validation, module enablement/provider registry wiring, Android and non-Android scaffold behavior, focus/profile-change scaffold hooks, Android/iOS Maestro launch smoke, and fixture-driven API model serialization for selected Radarr, Sonarr, Tautulli, NZBGet, and SABnzbd contracts.
+Covered phase-one risks include route registry drift, cloud/webhook feature-gate behavior, profile JSON serialization, legacy/partial profile import behavior, Hive-backed profile selection/storage and box clearing, self-hosted runner workflow routing, module-state host validation, module enablement/provider registry wiring, Android and non-Android scaffold behavior, focus/profile-change scaffold hooks, Android/iOS Maestro launch smoke, and fixture-driven API model serialization for selected Radarr, Sonarr, Tautulli, NZBGet, and SABnzbd contracts.
 
 ## Backlog Coverage
 

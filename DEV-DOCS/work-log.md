@@ -142,6 +142,29 @@
 - Measure `flutter test --coverage` before setting any threshold.
 - Keep cloud/webhook reactivation out of phase-one scope until the phase-2 security/runtime checklist exists.
 
+## 2026-04-30 - PR #14 Self-Hosted Runner Workflow Test Review
+
+### Context
+
+- PR #14 was generated against `master`, but the requested merge target is `development`.
+- `development` already contains the two-job Linux/macOS self-hosted runner workflow from PR #13.
+
+### Work
+
+- Retargeted PR #14 to `development`.
+- Merged `origin/development` into the PR branch with no textual conflicts.
+- Updated `luna_lighthouse/test/ci/self_hosted_runner_workflow_test.dart` to assert the current Linux and macOS self-hosted runner jobs.
+- Updated DEV-DOCS and the sprint plan with the current 130-test suite and unchanged 3.71% LCOV baseline.
+
+### Validation
+
+- `flutter test test/ci/self_hosted_runner_workflow_test.dart` passes with 39 tests.
+- `flutter test` passes with 130 tests.
+- `flutter test --coverage` passes with 130 tests.
+- `flutter analyze` passes with no issues.
+- `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2` passes at 3.71% line coverage.
+- `git diff --check` passes.
+
 ## 2026-04-29 - Release Confidence Sprint Implementation
 
 ### Context

@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  const workflowPath =
-      '../.github/workflows/self_hosted_runner_test.yml';
+  const workflowPath = '../.github/workflows/self_hosted_runner_test.yml';
 
   late String content;
 
@@ -49,12 +48,20 @@ void main() {
   });
 
   group('job configuration', () {
-    test('defines the runner-smoke-test job', () {
-      expect(content, contains('runner-smoke-test:'));
+    test('defines the Linux runner smoke-test job', () {
+      expect(content, contains('linux-runner-smoke-test:'));
     });
 
-    test('job display name is runner-smoke-test', () {
-      expect(content, contains('name: runner-smoke-test'));
+    test('defines the macOS runner smoke-test job', () {
+      expect(content, contains('macos-runner-smoke-test:'));
+    });
+
+    test('Linux job display name is linux-runner-smoke-test', () {
+      expect(content, contains('name: linux-runner-smoke-test'));
+    });
+
+    test('macOS job display name is macos-runner-smoke-test', () {
+      expect(content, contains('name: macos-runner-smoke-test'));
     });
 
     test('job targets the self-hosted runner label', () {
@@ -65,16 +72,27 @@ void main() {
       expect(content, contains('lunalighthouse'));
     });
 
-    test('runs-on specifies both self-hosted and lunalighthouse labels', () {
+    test('Linux runs-on includes self-hosted, lunalighthouse, and Linux', () {
       // The labels must appear together on the same runs-on line so the job
       // is routed to the correct custom runner.
       final runsOn =
-          RegExp(r'runs-on:\s*\[self-hosted,\s*lunalighthouse\]');
+          RegExp(r'runs-on:\s*\[self-hosted,\s*lunalighthouse,\s*Linux\]');
       expect(
         runsOn.hasMatch(content),
         isTrue,
         reason:
-            'runs-on must list both self-hosted and lunalighthouse labels',
+            'Linux runs-on must list self-hosted, lunalighthouse, and Linux',
+      );
+    });
+
+    test('macOS runs-on includes self-hosted, lunalighthouse, and macOS', () {
+      final runsOn =
+          RegExp(r'runs-on:\s*\[self-hosted,\s*lunalighthouse,\s*macOS\]');
+      expect(
+        runsOn.hasMatch(content),
+        isTrue,
+        reason:
+            'macOS runs-on must list self-hosted, lunalighthouse, and macOS',
       );
     });
   });
@@ -90,18 +108,31 @@ void main() {
   });
 
   group('Verify Runner Host step', () {
-    test('includes the Verify Runner Host step', () {
+    test('includes the Linux Verify Runner Host step', () {
       expect(content, contains('Verify Runner Host'));
     });
 
-    test('Verify Runner Host step uses bash shell', () {
-      // A "shell: bash" directive must appear in the file so the runner does
-      // not fall back to sh on non-default platforms.
-      expect(content, contains('shell: bash'));
+    test('includes the macOS Verify Runner Host step', () {
+      expect(content, contains('Verify macOS Runner Host'));
     });
 
-    test('enables strict mode with set -euo pipefail', () {
-      expect(content, contains('set -euo pipefail'));
+    test('run steps use bash shell', () {
+      final shellBashCount = 'shell: bash'.allMatches(content).length;
+      expect(
+        shellBashCount,
+        greaterThanOrEqualTo(3),
+        reason: 'Every run step must declare shell: bash',
+      );
+    });
+
+    test('run steps enable strict mode with set -euo pipefail', () {
+      final strictCount = 'set -euo pipefail'.allMatches(content).length;
+      expect(
+        strictCount,
+        greaterThanOrEqualTo(3),
+        reason:
+            'Every run step should enable strict mode with set -euo pipefail',
+      );
     });
 
     test('prints RUNNER_NAME environment variable', () {
@@ -127,6 +158,11 @@ void main() {
     test('calls uname -a', () {
       expect(content, contains('uname -a'));
     });
+
+    test('macOS host verification checks macOS and Xcode versions', () {
+      expect(content, contains('sw_vers'));
+      expect(content, contains('xcodebuild -version'));
+    });
   });
 
   group('Verify Tooling step', () {
@@ -135,24 +171,19 @@ void main() {
     });
 
     test('Verify Tooling step also uses bash shell', () {
-      // Both run steps must declare shell: bash so behaviour is explicit and
-      // consistent regardless of the runner OS default.
-      final shellBashCount =
-          'shell: bash'.allMatches(content).length;
+      final shellBashCount = 'shell: bash'.allMatches(content).length;
       expect(
         shellBashCount,
-        greaterThanOrEqualTo(2),
-        reason: 'Both run steps must declare shell: bash',
+        greaterThanOrEqualTo(3),
+        reason: 'Every run step must declare shell: bash',
       );
     });
 
     test('Verify Tooling also enables strict mode', () {
-      // set -euo pipefail must appear at least twice — once per run step.
-      final strictCount =
-          'set -euo pipefail'.allMatches(content).length;
+      final strictCount = 'set -euo pipefail'.allMatches(content).length;
       expect(
         strictCount,
-        greaterThanOrEqualTo(2),
+        greaterThanOrEqualTo(3),
         reason:
             'Every run step should enable strict mode with set -euo pipefail',
       );

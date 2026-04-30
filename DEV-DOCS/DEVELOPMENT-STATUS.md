@@ -10,7 +10,7 @@ Phase-1 mobile relaunch. iOS and Android are the active release targets. Non-mob
 - Runtime stack: Flutter, GoRouter, Provider/ChangeNotifier, Hive, Dio/Retrofit, Easy Localization.
 - Toolchain contract: `luna_lighthouse/toolchain.env` pins Flutter revision, Java 17, Node 20, Ruby 2.7.6, Bundler 2, and Xcode 15+.
 - CI gates: mobile analyze, generation check, Flutter test, Android debug build, and iOS debug no-codesign build; the branch-protection checklist includes all five mobile gates.
-- Local automated coverage: `flutter test --coverage` currently passes 91 tests across ten test files; Maestro has Android and iOS launch-smoke flows.
+- Local automated coverage: `flutter test --coverage` currently passes 130 tests across eleven test files; Maestro has Android and iOS launch-smoke flows.
 - Coverage baseline: LCOV reports 3.71% line coverage (`1373/37026`), and `scripts/check-flutter-coverage` enforces a 2% minimum.
 - Cloud/webhook: code exists but is disabled for phase 1.
 
