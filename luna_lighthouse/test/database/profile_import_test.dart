@@ -118,10 +118,144 @@ void main() {
     expect(LunaProfile.current.radarrEnabled, isFalse);
     expect(LunaProfile.current.radarrHost, isEmpty);
   });
+
+  // ---------------------------------------------------------------------------
+  // Edge cases for nullable context + resetState parameter (config.dart change)
+  // ---------------------------------------------------------------------------
+
+  test('import with empty profiles list leaves the profiles box empty',
+      () async {
+    await _importConfig(
+      <String, dynamic>{
+        LunaBox.profiles.key: <dynamic>[],
+      },
+    );
+
+    // An empty profiles list should result in zero stored profiles.
+    expect(LunaBox.profiles.isEmpty, isTrue);
+  });
+
+  test('import without a profiles key does not crash', () async {
+    // Simulates a legacy backup that omits the profiles section entirely.
+    await _importConfig(
+      <String, dynamic>{
+        // No 'profiles' key at all.
+        LunaBox.indexers.key: <dynamic>[],
+      },
+    );
+
+    // The import should succeed without throwing; no profiles means empty box.
+    expect(LunaBox.profiles.isEmpty, isTrue);
+  });
+
+  test('import with multiple profiles stores all of them', () async {
+    await _importConfig(
+      <String, dynamic>{
+        LunaBox.profiles.key: [
+          <String, dynamic>{
+            'key': 'alpha',
+            'radarrEnabled': true,
+            'radarrHost': 'https://radarr.example.test',
+          },
+          <String, dynamic>{
+            'key': 'beta',
+            'sonarrEnabled': true,
+            'sonarrHost': 'https://sonarr.example.test',
+          },
+        ],
+        LunaTable.luna_lighthouse.key: <String, dynamic>{
+          LunaLighthouseDatabase.ENABLED_PROFILE.key: 'alpha',
+        },
+      },
+    );
+
+    expect(LunaBox.profiles.size, equals(2));
+
+    await LunaBox.luna_lighthouse
+        .update(LunaLighthouseDatabase.ENABLED_PROFILE.key, 'alpha');
+    expect(LunaProfile.current.radarrEnabled, isTrue);
+
+    await LunaBox.luna_lighthouse
+        .update(LunaLighthouseDatabase.ENABLED_PROFILE.key, 'beta');
+    expect(LunaProfile.current.sonarrEnabled, isTrue);
+  });
+
+  test('second import clears the state written by the first import', () async {
+    // Verifies that LunaDatabase().clear() is called at the start of each
+    // import, so stale profiles from a previous import do not persist.
+    await _importConfig(
+      <String, dynamic>{
+        LunaBox.profiles.key: [
+          <String, dynamic>{
+            'key': 'first-run',
+            'radarrEnabled': true,
+            'radarrHost': 'https://radarr-first.example.test',
+          },
+        ],
+      },
+    );
+    expect(LunaBox.profiles.size, equals(1));
+
+    await _importConfig(
+      <String, dynamic>{
+        LunaBox.profiles.key: [
+          <String, dynamic>{
+            'key': 'second-run',
+            'sonarrEnabled': true,
+            'sonarrHost': 'https://sonarr-second.example.test',
+          },
+        ],
+        LunaTable.luna_lighthouse.key: <String, dynamic>{
+          LunaLighthouseDatabase.ENABLED_PROFILE.key: 'second-run',
+        },
+      },
+    );
+
+    // The 'first-run' profile must be gone after the second import.
+    expect(LunaBox.profiles.size, equals(1));
+    expect(LunaBox.profiles.read('first-run'), isNull);
+    expect(LunaProfile.current.sonarrEnabled, isTrue);
+  });
+
+  test('resetState: false skips LunaState.reset so no context is needed',
+      () async {
+    // This is the main use-case for the new nullable-context + resetState param.
+    // Calling with null context and resetState: false must not throw.
+    await expectLater(
+      LunaConfig().import(null, json.encode(<String, dynamic>{
+        LunaBox.profiles.key: [
+          <String, dynamic>{
+            'key': 'no-reset',
+            'nzbgetEnabled': true,
+            'nzbgetHost': 'https://nzbget.example.test',
+          },
+        ],
+      }), resetState: false),
+      completes,
+    );
+
+    expect(LunaProfile.current.nzbgetEnabled, isTrue);
+  });
+
+  test('malformed JSON resets the database to a safe default state', () async {
+    // Pre-condition: write a profile so there is something to lose.
+    await LunaBox.profiles.update(
+      'will-be-lost',
+      LunaProfile(tautulliEnabled: true, tautulliHost: 'https://old.example.test'),
+    );
+    LunaLighthouseDatabase.ENABLED_PROFILE.update('will-be-lost');
+
+    await _importRawConfig('{{bad json}}');
+
+    // After a failed import, the database must be bootstrapped to defaults.
+    expect(LunaProfile.list, equals([LunaProfile.DEFAULT_PROFILE]));
+    expect(LunaProfile.current.tautulliEnabled, isFalse);
+    expect(LunaProfile.current.tautulliHost, isEmpty);
+  });
 }
 
 Future<void> _importConfig(
-  Map<String, dynamic> config,
+
 ) async {
   await _importRawConfig(json.encode(config));
 }
