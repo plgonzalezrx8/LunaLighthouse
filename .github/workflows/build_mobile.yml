@@ -184,3 +184,10 @@ jobs:
         with:
           name: lunalighthouse-ios-${{ needs.prepare.outputs.build-flavor }}
           path: ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunalighthouse-ios.ipa
+
+      - name: Clean up iOS signing keychain
+        if: always()
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
+        env:
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+        run: bundle exec fastlane keychain_delete || true
