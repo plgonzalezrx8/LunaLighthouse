@@ -113,6 +113,13 @@ jobs:
             ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunalighthouse-android.aab
             ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunalighthouse-android.apk
 
+      - name: Clean up Android signing files
+        if: always()
+        shell: bash
+        run: |
+          rm -f "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.jks"
+          rm -f "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.properties"
+
   build-ios:
     name: Build iOS
     needs: [prepare]

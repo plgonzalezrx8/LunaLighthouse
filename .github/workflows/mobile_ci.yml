@@ -19,6 +19,7 @@ env:
 jobs:
   mobile-analyze:
     name: mobile-analyze
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: [self-hosted, lunalighthouse, Linux]
     defaults:
       run:
@@ -64,6 +65,7 @@ jobs:
 
   mobile-generation-check:
     name: mobile-generation-check
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: [self-hosted, lunalighthouse, Linux]
     defaults:
       run:
@@ -117,6 +119,7 @@ jobs:
 
   mobile-build-android:
     name: mobile-build-android
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: [self-hosted, lunalighthouse, Linux]
     defaults:
       run:
@@ -154,6 +157,7 @@ jobs:
 
   mobile-build-ios:
     name: mobile-build-ios
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: [self-hosted, lunalighthouse, macOS]
     defaults:
       run:
