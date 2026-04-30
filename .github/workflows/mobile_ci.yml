@@ -157,8 +157,19 @@ jobs:
           dart ./scripts/generate_localization.dart
           dart run build_runner build --delete-conflicting-outputs
 
-      - name: Run Flutter Tests
-        run: flutter test
+      - name: Run Flutter Tests With Coverage
+        run: flutter test --coverage
+
+      - name: Check Flutter Coverage
+        run: ../scripts/check-flutter-coverage coverage/lcov.info 2
+
+      - name: Upload Flutter Coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: flutter-coverage-lcov
+          path: ${{ github.workspace }}/${{ env.APP_DIR }}/coverage/lcov.info
+          if-no-files-found: error
 
   mobile-build-android:
     name: mobile-build-android

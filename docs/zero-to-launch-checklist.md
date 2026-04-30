@@ -202,13 +202,26 @@ gh run watch
 
 Required before this day is considered complete: Mobile CI must pass `mobile-test` in addition to analyze/generation/build jobs.
 
+Evidence to attach to the release dry run:
+
+- `Mobile CI` run URL showing green `mobile-analyze`, `mobile-generation-check`, `mobile-test`, `mobile-build-android`, and `mobile-build-ios`.
+- `mobile-test` artifact named `flutter-coverage-lcov`, containing `luna_lighthouse/coverage/lcov.info`.
+- Local output from `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2`.
+- `Build Mobile` dry-run URL showing `Prepare`, `Build Android`, and `Build iOS` job outcomes for the selected flavor.
+
+Required signing secret names must match `.github/workflows/build_mobile.yml` exactly:
+
+- Android: `KEY_JKS`, `KEY_PROPERTIES`
+- iOS: `MATCH_SSH_PRIVATE_KEY`, `APPLE_ID`, `APPLE_ITC_TEAM_ID`, `APPLE_TEAM_ID`, `IOS_CODESIGNING_IDENTITY`, `MATCH_GIT_URL`, `MATCH_KEYCHAIN_NAME`, `MATCH_KEYCHAIN_PASSWORD`, `MATCH_PASSWORD`
+
 ## Day 9 — Internal QA + Internal Store Uploads
 
 ```bash
 cd /path/to/LunaLighthouse/luna_lighthouse
-flutter test
+flutter test --coverage
 
 cd /path/to/LunaLighthouse
+scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2
 ./scripts/mobile-build-check
 ```
 

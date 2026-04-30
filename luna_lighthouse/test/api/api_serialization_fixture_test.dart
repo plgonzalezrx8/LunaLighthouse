@@ -2,7 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:luna_lighthouse/api/nzbget/models/status.dart';
+import 'package:luna_lighthouse/api/nzbget/models/version.dart';
+import 'package:luna_lighthouse/api/radarr/models/queue/queue_status.dart';
 import 'package:luna_lighthouse/api/radarr/models/tag/tag.dart';
+import 'package:luna_lighthouse/api/sabnzbd/models/version.dart';
+import 'package:luna_lighthouse/api/sonarr/models/queue/queue.dart';
 import 'package:luna_lighthouse/api/sonarr/models/tag/tag.dart';
 import 'package:luna_lighthouse/api/tautulli/models/users/user_name.dart';
 
@@ -88,6 +93,49 @@ void main() {
 
       expect(emitted['id'], isA<int>());
       expect(emitted['label'], isA<String>());
+    });
+
+    test('parses a Radarr queue status fixture used by launch checks', () {
+      final json = _readFixture('radarr_queue_status.json');
+
+      final status = RadarrQueueStatus.fromJson(json);
+
+      expect(status.totalCount, equals(2));
+      expect(status.errors, isFalse);
+      expect(status.toJson(), equals(json));
+    });
+
+    test('parses an empty Sonarr queue page fixture', () {
+      final json = _readFixture('sonarr_queue_page_empty.json');
+
+      final queue = SonarrQueuePage.fromJson(json);
+
+      expect(queue.page, equals(1));
+      expect(queue.records, isEmpty);
+      expect(queue.toJson(), equals(json));
+    });
+
+    test('parses an NZBGet status fixture used by launch checks', () {
+      final json = _readFixture('nzbget_status.json');
+
+      final status = NZBGetStatus.fromJson(json);
+
+      expect(status.paused, isFalse);
+      expect(status.remainingSize, equals(128));
+      expect(status.toJson(), equals(json));
+    });
+
+    test('parses NZBGet and SABnzbd version fixtures', () {
+      final nzbgetJson = _readFixture('nzbget_version.json');
+      final sabnzbdJson = _readFixture('sabnzbd_version.json');
+
+      final nzbget = NZBGetVersion.fromJson(nzbgetJson);
+      final sabnzbd = SABnzbdVersion.fromJson(sabnzbdJson);
+
+      expect(nzbget.version, equals('21.1'));
+      expect(sabnzbd.version, equals('4.2.3'));
+      expect(nzbget.toJson(), equals(nzbgetJson));
+      expect(sabnzbd.toJson(), equals(sabnzbdJson));
     });
   });
 }

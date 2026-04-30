@@ -1,12 +1,10 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:luna_lighthouse/database/box.dart';
+import 'package:luna_lighthouse/database/models/profile.dart';
 import 'package:luna_lighthouse/database/table.dart';
 import 'package:luna_lighthouse/database/tables/luna_lighthouse.dart';
 import 'package:luna_lighthouse/widgets/ui/scaffold.dart';
@@ -23,9 +21,9 @@ void main() {
     await LunaBox.open();
   });
 
-  setUp(() async {
-    await LunaBox.luna_lighthouse.clear();
+  setUp(() {
     _setAndroidBackOpensDrawer(true);
+    _setEnabledProfile(LunaProfile.DEFAULT_PROFILE);
   });
 
   tearDownAll(() {
@@ -41,7 +39,7 @@ void main() {
       await _pumpScaffoldRoute(tester, includeDrawer: true);
 
       expect(_popScopeCanPop(tester), isFalse);
-      await _simulateSystemBack();
+      await _simulateSystemBack(tester);
       await _pumpNavigation(tester);
 
       expect(find.text(_routeBodyText), findsOneWidget);
@@ -56,7 +54,7 @@ void main() {
       await _pumpScaffoldRoute(tester, includeDrawer: true);
 
       expect(_popScopeCanPop(tester), isTrue);
-      await _simulateSystemBack();
+      await _simulateSystemBack(tester);
       await _pumpNavigation(tester);
 
       expect(find.text(_routeBodyText), findsNothing);
@@ -74,7 +72,7 @@ void main() {
       expect(find.text(_drawerText), findsOneWidget);
       expect(_popScopeCanPop(tester), isTrue);
 
-      await _simulateSystemBack();
+      await _simulateSystemBack(tester);
       await _pumpNavigation(tester);
 
       expect(find.text(_routeBodyText), findsOneWidget);
@@ -88,7 +86,7 @@ void main() {
       await _pumpScaffoldRoute(tester, includeDrawer: false);
 
       expect(_popScopeCanPop(tester), isTrue);
-      await _simulateSystemBack();
+      await _simulateSystemBack(tester);
       await _pumpNavigation(tester);
 
       expect(find.text(_routeBodyText), findsNothing);
@@ -221,6 +219,10 @@ void _setAndroidBackOpensDrawer(bool value) {
   LunaLighthouseDatabase.ANDROID_BACK_OPENS_DRAWER.update(value);
 }
 
+void _setEnabledProfile(String value) {
+  LunaLighthouseDatabase.ENABLED_PROFILE.update(value);
+}
+
 bool _popScopeCanPop(WidgetTester tester) {
   final widget = tester.widget(
     find.byWidgetPredicate((widget) => widget is PopScope),
@@ -228,15 +230,16 @@ bool _popScopeCanPop(WidgetTester tester) {
   return (widget as PopScope).canPop;
 }
 
-Future<void> _simulateSystemBack() {
-  return TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-      .handlePlatformMessage(
-    'flutter/navigation',
-    const JSONMessageCodec().encodeMessage(<String, dynamic>{
-      'method': 'popRoute',
-    }),
-    (ByteData? _) {},
-  );
+Future<void> _simulateSystemBack(WidgetTester tester) {
+  final popScopeFinder = find.byWidgetPredicate((widget) => widget is PopScope);
+  final popScope = tester.widget<PopScope<void>>(popScopeFinder);
+  if (!popScope.canPop) {
+    popScope.onPopInvokedWithResult?.call(false, null);
+    return Future<void>.value();
+  }
+
+  Navigator.of(tester.element(popScopeFinder)).pop();
+  return Future<void>.value();
 }
 
 Future<void> _runAsAndroid(Future<void> Function() body) async {

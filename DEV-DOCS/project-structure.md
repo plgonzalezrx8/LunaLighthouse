@@ -9,7 +9,7 @@
 - `docs/`: maintainer governance, runbooks, and launch checklists.
 - `DEV-DOCS/`: engineering operating docs for codebase handoff.
 - `brand-assets/`: source and placeholder branding assets.
-- `scripts/`: repo-level bootstrap, doctor, mobile build check, and brand tooling.
+- `scripts/`: repo-level bootstrap, doctor, mobile build check, Flutter coverage threshold, and brand tooling.
 
 ## Flutter App Internals
 
@@ -20,6 +20,7 @@
 - `lib/database/`: Hive boxes, tables, and profile models.
 - `lib/system/`: platform services, feature flags, cache, filesystem, network, quick actions, and window manager.
 - `assets/localization/`: generated merged localization assets.
+- `test/fixtures/api/`: sanitized API JSON fixtures for launch-touched serialization contracts.
 
 ## Generated Areas
 

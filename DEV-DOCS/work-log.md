@@ -141,3 +141,42 @@
 - Start the sprint with legacy profile/config import tests.
 - Measure `flutter test --coverage` before setting any threshold.
 - Keep cloud/webhook reactivation out of phase-one scope until the phase-2 security/runtime checklist exists.
+
+## 2026-04-29 - Release Confidence Sprint Implementation
+
+### Context
+
+- The next sprint plan was implemented from `development` on `features/release-confidence-sprint`.
+- The sprint stayed within docs/test/CI hygiene scope and did not reactivate cloud/webhook services.
+
+### Work
+
+- Added legacy profile/config import tests covering missing profile keys, missing header maps, partial legacy payloads, invalid selected-profile fallback, and invalid import reset behavior.
+- Added launch-touched API fixtures for Radarr queue status, Sonarr empty queue page, NZBGet status/version, and SABnzbd version.
+- Updated `mobile-test` to run `flutter test --coverage`, enforce `scripts/check-flutter-coverage coverage/lcov.info 2`, and upload `flutter-coverage-lcov`.
+- Stabilized scaffold widget tests by avoiding the Hive clear race in setup and by simulating PopScope behavior directly.
+- Added release dry-run evidence requirements and exact signing secret names to launch runbooks.
+- Updated DEV-DOCS with the measured 91-test suite and 3.71% LCOV baseline.
+- Updated `scripts/bootstrap` to skip nested app npm lifecycle hooks during `npm ci`; the app package prepare hook is not safe when run below the git root.
+
+### Validation
+
+- `flutter test test/database/profile_import_test.dart` passes with 10 tests.
+- `flutter test test/database/box_clear_test.dart` passes with 9 tests.
+- `flutter test test/api/api_serialization_fixture_test.dart` passes with 11 tests.
+- `flutter test test/widgets/ui/scaffold_test.dart` passes with 11 tests.
+- `flutter test --coverage` passes with 91 tests.
+- `flutter analyze` passes with no issues.
+- `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2` passes at 3.71% line coverage.
+- `scripts/bootstrap` passes with the pinned toolchains selected.
+- `luna_lighthouse-notification-service`: `npm ci --ignore-scripts`, `npm run build`, `npm run lint`, and `npm test --if-present` pass.
+- `luna_lighthouse-cloud-functions/functions`: `npm ci --ignore-scripts`, `npm run build`, `npm run lint`, and `npm test --if-present` pass.
+- Maestro syntax checks pass for Android and iOS flows.
+- Maestro Android launch smoke passes on `emulator-5554`.
+- Maestro iOS launch smoke passes on iPhone 16 Pro simulator `219C2460-FB14-4BB6-93E0-09B511432A4D`.
+- `scripts/mobile-build-check` passes when the pinned Java 17, Node 20, Ruby 2.7.6, Bundler 2, and Flutter paths are selected.
+
+### Follow-Up
+
+- Capture live `Mobile CI` and `Build Mobile` run URLs for the release dry-run evidence checklist.
+- Keep cloud/webhook reactivation in phase-2 backlog until security/runtime validation is complete.
