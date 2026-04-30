@@ -19,7 +19,7 @@ env:
 jobs:
   mobile-analyze:
     name: mobile-analyze
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, lunalighthouse, Linux]
     defaults:
       run:
         working-directory: ${{ env.APP_DIR }}
@@ -64,7 +64,7 @@ jobs:
 
   mobile-generation-check:
     name: mobile-generation-check
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, lunalighthouse, Linux]
     defaults:
       run:
         working-directory: ${{ env.APP_DIR }}
@@ -117,7 +117,7 @@ jobs:
 
   mobile-build-android:
     name: mobile-build-android
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, lunalighthouse, Linux]
     defaults:
       run:
         working-directory: ${{ env.APP_DIR }}
@@ -151,7 +151,7 @@ jobs:
 
   mobile-build-ios:
     name: mobile-build-ios
-    runs-on: macos-latest
+    runs-on: [self-hosted, lunalighthouse, macOS]
     defaults:
       run:
         working-directory: ${{ env.APP_DIR }}
