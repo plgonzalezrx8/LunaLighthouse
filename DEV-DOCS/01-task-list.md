@@ -4,7 +4,7 @@
 
 - [ ] Capture and attach release dry-run evidence for `Mobile CI` and `Build Mobile`.
 - [ ] Run `scripts/mobile-build-check` before release-impacting handoff.
-- [ ] Raise `scripts/check-flutter-coverage` only when meaningful launch coverage increases the measured baseline.
+- [ ] Raise the coverage threshold used by `scripts/check-flutter-coverage` only when meaningful launch coverage increases the measured baseline.
 
 ## Backlog
 

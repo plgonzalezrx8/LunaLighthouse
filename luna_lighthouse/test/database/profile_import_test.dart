@@ -123,7 +123,7 @@ void main() {
   // Edge cases for nullable context + resetState parameter (config.dart change)
   // ---------------------------------------------------------------------------
 
-  test('import with empty profiles list leaves the profiles box empty',
+  test('import with empty profiles list bootstraps the default profile',
       () async {
     await _importConfig(
       <String, dynamic>{
@@ -131,11 +131,13 @@ void main() {
       },
     );
 
-    // An empty profiles list should result in zero stored profiles.
-    expect(LunaBox.profiles.isEmpty, isTrue);
+    expect(LunaProfile.list, equals([LunaProfile.DEFAULT_PROFILE]));
+    expect(LunaLighthouseDatabase.ENABLED_PROFILE.read(),
+        equals(LunaProfile.DEFAULT_PROFILE));
   });
 
-  test('import without a profiles key does not crash', () async {
+  test('import without a profiles key bootstraps the default profile',
+      () async {
     // Simulates a legacy backup that omits the profiles section entirely.
     await _importConfig(
       <String, dynamic>{
@@ -144,8 +146,9 @@ void main() {
       },
     );
 
-    // The import should succeed without throwing; no profiles means empty box.
-    expect(LunaBox.profiles.isEmpty, isTrue);
+    expect(LunaProfile.list, equals([LunaProfile.DEFAULT_PROFILE]));
+    expect(LunaLighthouseDatabase.ENABLED_PROFILE.read(),
+        equals(LunaProfile.DEFAULT_PROFILE));
   });
 
   test('import with multiple profiles stores all of them', () async {
@@ -222,15 +225,18 @@ void main() {
     // This is the main use-case for the new nullable-context + resetState param.
     // Calling with null context and resetState: false must not throw.
     await expectLater(
-      LunaConfig().import(null, json.encode(<String, dynamic>{
-        LunaBox.profiles.key: [
-          <String, dynamic>{
-            'key': 'no-reset',
-            'nzbgetEnabled': true,
-            'nzbgetHost': 'https://nzbget.example.test',
-          },
-        ],
-      }), resetState: false),
+      LunaConfig().import(
+          null,
+          json.encode(<String, dynamic>{
+            LunaBox.profiles.key: [
+              <String, dynamic>{
+                'key': 'no-reset',
+                'nzbgetEnabled': true,
+                'nzbgetHost': 'https://nzbget.example.test',
+              },
+            ],
+          }),
+          resetState: false),
       completes,
     );
 
@@ -241,7 +247,8 @@ void main() {
     // Pre-condition: write a profile so there is something to lose.
     await LunaBox.profiles.update(
       'will-be-lost',
-      LunaProfile(tautulliEnabled: true, tautulliHost: 'https://old.example.test'),
+      LunaProfile(
+          tautulliEnabled: true, tautulliHost: 'https://old.example.test'),
     );
     LunaLighthouseDatabase.ENABLED_PROFILE.update('will-be-lost');
 
@@ -254,9 +261,7 @@ void main() {
   });
 }
 
-Future<void> _importConfig(
-
-) async {
+Future<void> _importConfig(Map<String, dynamic> config) async {
   await _importRawConfig(json.encode(config));
 }
 

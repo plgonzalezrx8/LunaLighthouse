@@ -21,9 +21,12 @@ class LunaConfig {
       _setExternalModules(config[LunaBox.externalModules.key]);
       for (final table in LunaTable.values) table.import(config[table.key]);
 
-      if (!LunaProfile.list
+      final profiles = LunaProfile.list;
+      if (profiles.isEmpty) {
+        await LunaDatabase().bootstrap();
+      } else if (!profiles
           .contains(LunaLighthouseDatabase.ENABLED_PROFILE.read())) {
-        LunaLighthouseDatabase.ENABLED_PROFILE.update(LunaProfile.list[0]);
+        LunaLighthouseDatabase.ENABLED_PROFILE.update(profiles.first);
       }
     } catch (error, stack) {
       await LunaDatabase().bootstrap();

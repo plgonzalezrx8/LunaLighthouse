@@ -156,17 +156,18 @@
 - Updated `mobile-test` to run `flutter test --coverage`, enforce `scripts/check-flutter-coverage coverage/lcov.info 2`, and upload `flutter-coverage-lcov`.
 - Stabilized scaffold widget tests by avoiding the Hive clear race in setup and by simulating PopScope behavior directly.
 - Added release dry-run evidence requirements and exact signing secret names to launch runbooks.
-- Updated DEV-DOCS with the measured 76-test suite and 3.70% LCOV baseline.
+- Updated DEV-DOCS with the measured 91-test suite and 3.71% LCOV baseline.
 - Updated `scripts/bootstrap` to skip nested app npm lifecycle hooks during `npm ci`; the app package prepare hook is not safe when run below the git root.
 
 ### Validation
 
-- `flutter test test/database/profile_import_test.dart` passes with 4 tests.
+- `flutter test test/database/profile_import_test.dart` passes with 10 tests.
+- `flutter test test/database/box_clear_test.dart` passes with 9 tests.
 - `flutter test test/api/api_serialization_fixture_test.dart` passes with 11 tests.
 - `flutter test test/widgets/ui/scaffold_test.dart` passes with 11 tests.
-- `flutter test --coverage` passes with 76 tests.
+- `flutter test --coverage` passes with 91 tests.
 - `flutter analyze` passes with no issues.
-- `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2` passes at 3.70% line coverage.
+- `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2` passes at 3.71% line coverage.
 - `scripts/bootstrap` passes with the pinned toolchains selected.
 - `luna_lighthouse-notification-service`: `npm ci --ignore-scripts`, `npm run build`, `npm run lint`, and `npm test --if-present` pass.
 - `luna_lighthouse-cloud-functions/functions`: `npm ci --ignore-scripts`, `npm run build`, `npm run lint`, and `npm test --if-present` pass.

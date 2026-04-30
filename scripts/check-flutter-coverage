@@ -5,6 +5,11 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 LCOV_FILE="${1:-$ROOT_DIR/luna_lighthouse/coverage/lcov.info}"
 MIN_COVERAGE="${2:-2}"
 
+if ! [[ "$MIN_COVERAGE" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+  echo "[check-flutter-coverage] Invalid minimum coverage: $MIN_COVERAGE" >&2
+  exit 1
+fi
+
 if [[ ! -f "$LCOV_FILE" ]]; then
   echo "[check-flutter-coverage] Missing LCOV file: $LCOV_FILE" >&2
   exit 1

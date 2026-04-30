@@ -18,8 +18,7 @@ void main() {
   late Directory hiveDirectory;
 
   setUpAll(() async {
-    hiveDirectory =
-        Directory.systemTemp.createTempSync('luna_box_clear_test_');
+    hiveDirectory = Directory.systemTemp.createTempSync('luna_box_clear_test_');
     Hive.init(hiveDirectory.path);
     LunaTable.register();
     await LunaBox.open();
@@ -127,7 +126,8 @@ void main() {
     });
 
     test('clearing one box does not affect other boxes', () async {
-      await LunaBox.profiles.update('profile-a', LunaProfile(sonarrEnabled: true));
+      await LunaBox.profiles
+          .update('profile-a', LunaProfile(sonarrEnabled: true));
       await LunaBox.alerts.update('alert-1', 'my alert');
 
       // Clear only profiles.

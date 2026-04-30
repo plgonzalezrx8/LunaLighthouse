@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 import 'package:luna_lighthouse/database/box.dart';
+import 'package:luna_lighthouse/database/models/profile.dart';
 import 'package:luna_lighthouse/database/table.dart';
 import 'package:luna_lighthouse/database/tables/luna_lighthouse.dart';
 import 'package:luna_lighthouse/widgets/ui/scaffold.dart';
@@ -22,6 +23,7 @@ void main() {
 
   setUp(() {
     _setAndroidBackOpensDrawer(true);
+    _setEnabledProfile(LunaProfile.DEFAULT_PROFILE);
   });
 
   tearDownAll(() {
@@ -215,6 +217,10 @@ class _ScaffoldRoute {
 
 void _setAndroidBackOpensDrawer(bool value) {
   LunaLighthouseDatabase.ANDROID_BACK_OPENS_DRAWER.update(value);
+}
+
+void _setEnabledProfile(String value) {
+  LunaLighthouseDatabase.ENABLED_PROFILE.update(value);
 }
 
 bool _popScopeCanPop(WidgetTester tester) {
