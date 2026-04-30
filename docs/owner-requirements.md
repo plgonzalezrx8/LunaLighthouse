@@ -28,6 +28,7 @@ You must own and control the following identities and governance surfaces.
 1. Branch protection on `master` with required checks:
    - `mobile-analyze`
    - `mobile-generation-check`
+   - `mobile-test`
    - `mobile-build-android`
    - `mobile-build-ios`
 2. Enforce at least 1 PR approval.

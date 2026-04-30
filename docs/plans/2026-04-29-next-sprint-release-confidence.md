@@ -16,6 +16,7 @@
 
 - `development` includes PR #9's enforced `mobile-test` CI gate and `scripts/mobile-build-check` now runs `flutter test` before analyze/builds.
 - `development` includes PR #10's branch-protection checklist update requiring `mobile-test` beside analyze/generation/platform build checks.
+- `development` includes PR #14's self-hosted runner workflow coverage.
 - Flutter coverage now passes 130 tests across eleven test files.
 - `flutter test --coverage` measured 3.71% line coverage from `1373/37026` LCOV lines; the initial threshold is 2%.
 - Remaining release-risk gaps are mostly around release-operation dry runs and broader phase-2 service validation.

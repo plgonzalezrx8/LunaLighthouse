@@ -25,6 +25,7 @@ Start with `DEV-DOCS/00-START-HERE.md` for the current engineering state, then r
 
 - Use `development` as the active integration branch.
 - Treat `master` as the protected release branch.
+- Use `ROADMAP.md` for the phase-1 release-readiness path and phase-2 external service requirements.
 - Run `scripts/bootstrap` for deterministic setup.
 - Run `scripts/mobile-build-check` before release-impacting PRs.
 - Follow runbooks in `docs/runbooks/` for release and incident operations.
@@ -34,4 +35,4 @@ Start with `DEV-DOCS/00-START-HERE.md` for the current engineering state, then r
 
 - Local setup: `scripts/doctor`, then `scripts/bootstrap`.
 - Release-impacting mobile changes: `scripts/mobile-build-check`.
-- CI gates: `mobile-analyze`, `mobile-generation-check`, `mobile-build-android`, and `mobile-build-ios`.
+- CI gates: `mobile-analyze`, `mobile-generation-check`, `mobile-test`, `mobile-build-android`, and `mobile-build-ios`.

@@ -2,7 +2,8 @@
 
 ## Active
 
-- [ ] Capture and attach release dry-run evidence for `Mobile CI` and `Build Mobile`.
+- [ ] Capture `Build Mobile` dry-run evidence for the selected release flavor.
+- [ ] Verify GitHub branch protection requires `mobile-analyze`, `mobile-generation-check`, `mobile-test`, `mobile-build-android`, and `mobile-build-ios`.
 - [ ] Run `scripts/mobile-build-check` before release-impacting handoff.
 - [ ] Raise the coverage threshold used by `scripts/check-flutter-coverage` only when meaningful launch coverage increases the measured baseline.
 
@@ -16,6 +17,8 @@
 ## Recently Completed
 
 - [x] Added legacy `LunaConfig.import` and `LunaProfile.fromJson` coverage for missing keys, missing header maps, partial payloads, selected-profile fallback, and invalid import reset behavior.
+- [x] Merged PR #14 into `development`: self-hosted runner workflow coverage and 130-test baseline.
+- [x] Recorded PR #14 `Mobile CI` evidence at `https://github.com/plgonzalezrx8/LunaLighthouse/actions/runs/25192467035`.
 - [x] Added `flutter test --coverage` to `mobile-test`, uploaded `flutter-coverage-lcov`, and enforced the measured 2% coverage floor.
 - [x] Added launch-touched API fixtures for Radarr queue status, Sonarr empty queue page, NZBGet status/version, and SABnzbd version.
 - [x] Added release dry-run evidence and exact signing secret names to launch runbooks.

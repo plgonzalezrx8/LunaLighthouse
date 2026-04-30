@@ -21,6 +21,8 @@
 
 These gates protect active integration paths. `mobile-test` runs `flutter test --coverage`, enforces `scripts/check-flutter-coverage coverage/lcov.info 2`, and uploads the `flutter-coverage-lcov` artifact. The zero-to-launch branch-protection checklist requires `mobile-test` with the other mobile checks.
 
+PR #14's post-merge `Mobile CI` run on `development` passed all five mobile gates: `https://github.com/plgonzalezrx8/LunaLighthouse/actions/runs/25192467035`. Treat that as current CI evidence for analyze, generation, coverage test, Android debug build, and iOS debug no-codesign build until the next release-impacting change lands.
+
 ## Current Test Coverage
 
 Flutter coverage now passes 130 tests across eleven focused test files plus Maestro launch-smoke flows. The measured LCOV baseline is 3.71% line coverage (`1373/37026`); the initial enforced threshold is 2%.
@@ -49,8 +51,10 @@ Covered phase-one risks include route registry drift, cloud/webhook feature-gate
 
 The next sprint plan lives at `docs/plans/2026-04-29-next-sprint-release-confidence.md`.
 
-- Capture release dry-run evidence from `Mobile CI` and `Build Mobile`.
+- Capture `Build Mobile` dry-run evidence for the selected release flavor.
+- Verify GitHub branch protection requires all five current mobile gates.
 - Ratchet `scripts/check-flutter-coverage` only after meaningful launch-focused coverage improves the measured baseline.
+- Review API key/custom-header storage before adding account, sync, or cloud work.
 - Add deferred service integration tests before cloud/webhook reactivation.
 
 ## Performance Notes

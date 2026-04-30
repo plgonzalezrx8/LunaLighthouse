@@ -33,6 +33,19 @@ dart run build_runner build --delete-conflicting-outputs
 
 Then inspect `git status --porcelain` for generated Dart or localization diffs.
 
+## Self-Hosted Runner Jobs Stay Queued
+
+`mobile-analyze`, `mobile-generation-check`, and `mobile-build-android` require `[self-hosted, lunalighthouse, Linux]`; `mobile-build-ios` requires `[self-hosted, lunalighthouse, macOS]`. If a job remains queued while hosted jobs pass, inspect runner availability before changing workflow logic.
+
+Use:
+
+```bash
+gh run view <run-id> --json jobs,status,conclusion,url
+gh pr checks <pr-number>
+```
+
+The standalone `Self-hosted Runner Test` workflow is scoped to `ci/use-lunalighthouse-runner` and can be dispatched manually when validating runner host/tooling health.
+
 ## Android Build Fails
 
 - Confirm Java 17.
@@ -47,4 +60,4 @@ Then inspect `git status --porcelain` for generated Dart or localization diffs.
 
 ## Branch Trigger Drift
 
-The active integration branch is `development`; the protected/release branch is `master`. Workflow branch filters should reflect that model.
+The active integration branch is `development`; the protected/release branch is `master`. Workflow branch filters should reflect that model, and branch protection should require `mobile-analyze`, `mobile-generation-check`, `mobile-test`, `mobile-build-android`, and `mobile-build-ios`.

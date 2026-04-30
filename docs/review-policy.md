@@ -13,8 +13,9 @@ The following checks should be required on `master` and run on `development`:
 
 1. `mobile-analyze`
 2. `mobile-generation-check`
-3. `mobile-build-android`
-4. `mobile-build-ios` (required when macOS runner capacity exists)
+3. `mobile-test`
+4. `mobile-build-android`
+5. `mobile-build-ios` (required when macOS runner capacity exists)
 
 Non-mobile checks remain optional during phase-1 relaunch.
 

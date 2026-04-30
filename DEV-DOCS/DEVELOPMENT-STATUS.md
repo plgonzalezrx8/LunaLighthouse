@@ -17,7 +17,9 @@ Phase-1 mobile relaunch. iOS and Android are the active release targets. Non-mob
 ## Open Gaps
 
 - Coverage is still sparse overall; raise the 2% floor only with tests that cover launch-relevant behavior.
-- Release dry-run evidence must still be captured from live `Mobile CI` and `Build Mobile` runs before launch handoff.
+- Release dry-run evidence must still be attached for `Build Mobile`; PR #14 provides green `Mobile CI` evidence at `https://github.com/plgonzalezrx8/LunaLighthouse/actions/runs/25192467035`.
+- GitHub branch protection must be verified against the five current mobile CI gates.
+- API key/custom-header storage needs a security direction before new sync, account, or cloud work.
 - Hosted webhook relay needs auth, logging, Redis, Firebase, domain, and E2E validation before reactivation.
 - Firebase cloud functions need runtime/dependency modernization review before phase-2 use.
 
