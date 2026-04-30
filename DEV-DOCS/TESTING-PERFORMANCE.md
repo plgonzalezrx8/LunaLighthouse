@@ -5,6 +5,8 @@
 - `scripts/doctor`
 - `scripts/bootstrap`
 - `flutter test` from `luna_lighthouse/`
+- `flutter test --coverage` from `luna_lighthouse/`
+- `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2`
 - `scripts/mobile-build-check`
 
 `scripts/mobile-build-check` runs toolchain validation, Flutter dependency fetch, environment generation, localization generation, build runner, `flutter test`, `flutter analyze`, Android debug build, and iOS debug no-codesign build on macOS.
@@ -17,13 +19,14 @@
 - `mobile-build-android`
 - `mobile-build-ios`
 
-These gates protect active integration paths. `mobile-test` runs `flutter test` so the current Flutter test suite is enforced in CI instead of only locally. The zero-to-launch branch-protection checklist requires `mobile-test` with the other mobile checks.
+These gates protect active integration paths. `mobile-test` runs `flutter test --coverage`, enforces `scripts/check-flutter-coverage coverage/lcov.info 2`, and uploads the `flutter-coverage-lcov` artifact. The zero-to-launch branch-protection checklist requires `mobile-test` with the other mobile checks.
 
 ## Current Test Coverage
 
-Flutter coverage now passes 68 tests across eight focused test files plus Maestro launch-smoke flows:
+Flutter coverage now passes 76 tests across nine focused test files plus Maestro launch-smoke flows. The measured LCOV baseline is 3.70% line coverage (`1369/37024`); the initial enforced threshold is 2%.
 
 - `luna_lighthouse/test/api/api_serialization_fixture_test.dart`
+- `luna_lighthouse/test/database/profile_import_test.dart`
 - `luna_lighthouse/test/database/profile_serialization_test.dart`
 - `luna_lighthouse/test/database/profile_storage_test.dart`
 - `luna_lighthouse/test/modules/configuration/module_enablement_test.dart`
@@ -38,15 +41,14 @@ Maestro launch-smoke coverage lives under:
 - `luna_lighthouse/.maestro/flows/android/launch_smoke.yaml`
 - `luna_lighthouse/.maestro/flows/ios/launch_smoke.yaml`
 
-Covered phase-one risks include route registry drift, cloud/webhook feature-gate behavior, profile JSON serialization, Hive-backed profile selection/storage, module-state host validation, module enablement/provider registry wiring, Android and non-Android scaffold behavior, focus/profile-change scaffold hooks, Android/iOS Maestro launch smoke, and fixture-driven API model serialization for selected Radarr, Sonarr, and Tautulli contracts.
+Covered phase-one risks include route registry drift, cloud/webhook feature-gate behavior, profile JSON serialization, legacy/partial profile import behavior, Hive-backed profile selection/storage, module-state host validation, module enablement/provider registry wiring, Android and non-Android scaffold behavior, focus/profile-change scaffold hooks, Android/iOS Maestro launch smoke, and fixture-driven API model serialization for selected Radarr, Sonarr, Tautulli, NZBGet, and SABnzbd contracts.
 
 ## Backlog Coverage
 
 The next sprint plan lives at `docs/plans/2026-04-29-next-sprint-release-confidence.md`.
 
-- Add older profile/config import tests for legacy or partial payloads.
-- Add `flutter test --coverage` artifact publishing and a measured baseline threshold before claiming complete coverage.
-- Expand generated client/model serialization fixtures beyond the initial API checkpoint only for launch-touched models.
+- Capture release dry-run evidence from `Mobile CI` and `Build Mobile`.
+- Ratchet `scripts/check-flutter-coverage` only after meaningful launch-focused coverage improves the measured baseline.
 - Add deferred service integration tests before cloud/webhook reactivation.
 
 ## Performance Notes

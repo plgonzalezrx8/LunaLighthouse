@@ -6,6 +6,21 @@
 - If generated files changed, commit the regenerated outputs.
 - Check Flutter revision against `luna_lighthouse/toolchain.env`.
 
+## Bootstrap Fails During App NPM Install
+
+`scripts/bootstrap` runs `npm ci --ignore-scripts` inside `luna_lighthouse/` because the app package is nested below the git root. Do not re-enable npm lifecycle hooks in that script unless the app package `prepare` hook is made safe for nested execution.
+
+## Mobile Test Or Coverage Fails
+
+Run from `luna_lighthouse/`:
+
+```bash
+flutter test --coverage
+../scripts/check-flutter-coverage coverage/lcov.info 2
+```
+
+`mobile-test` uploads the `flutter-coverage-lcov` artifact from `luna_lighthouse/coverage/lcov.info`. If the artifact is missing, confirm the test step still uses `flutter test --coverage` and that the coverage file path has not moved. Raise the `2%` threshold only after a measured baseline increase from meaningful launch-focused tests.
+
 ## Generation Check Fails
 
 Run from `luna_lighthouse/`:

@@ -2,11 +2,9 @@
 
 ## Active
 
-- [ ] Execute `docs/plans/2026-04-29-next-sprint-release-confidence.md` checkpoint-by-checkpoint.
-- [ ] Add older profile/config import coverage for legacy or partial payloads.
-- [ ] Add Flutter coverage artifact generation and a measured baseline threshold.
-- [ ] Expand generated API model/client fixtures only for launch-touched models.
-- [ ] Add release dry-run evidence requirements to launch runbooks.
+- [ ] Capture and attach release dry-run evidence for `Mobile CI` and `Build Mobile`.
+- [ ] Run `scripts/mobile-build-check` before release-impacting handoff.
+- [ ] Raise `scripts/check-flutter-coverage` only when meaningful launch coverage increases the measured baseline.
 
 ## Backlog
 
@@ -17,6 +15,10 @@
 
 ## Recently Completed
 
+- [x] Added legacy `LunaConfig.import` and `LunaProfile.fromJson` coverage for missing keys, missing header maps, partial payloads, selected-profile fallback, and invalid import reset behavior.
+- [x] Added `flutter test --coverage` to `mobile-test`, uploaded `flutter-coverage-lcov`, and enforced the measured 2% coverage floor.
+- [x] Added launch-touched API fixtures for Radarr queue status, Sonarr empty queue page, NZBGet status/version, and SABnzbd version.
+- [x] Added release dry-run evidence and exact signing secret names to launch runbooks.
 - [x] Added `mobile-test` to the branch-protection checklist required checks.
 - [x] Added `mobile-test` CI coverage for `flutter test` and wired `flutter test` into `scripts/mobile-build-check` before analyze/builds.
 - [x] Merged PR #5 into `development`: phase-one coverage plan, route/cloud/profile/API/module/scaffold tests, and Maestro Android/iOS smoke flows.

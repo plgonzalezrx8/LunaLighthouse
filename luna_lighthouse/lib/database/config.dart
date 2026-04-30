@@ -6,7 +6,11 @@ import 'package:luna_lighthouse/database/models/indexer.dart';
 import 'package:luna_lighthouse/database/table.dart';
 
 class LunaConfig {
-  Future<void> import(BuildContext context, String data) async {
+  Future<void> import(
+    BuildContext? context,
+    String data, {
+    bool resetState = true,
+  }) async {
     await LunaDatabase().clear();
 
     try {
@@ -30,7 +34,7 @@ class LunaConfig {
       );
     }
 
-    LunaState.reset(context);
+    if (resetState) LunaState.reset(context);
   }
 
   String export() {

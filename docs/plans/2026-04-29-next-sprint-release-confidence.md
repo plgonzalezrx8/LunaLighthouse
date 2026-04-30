@@ -16,18 +16,19 @@
 
 - `development` includes PR #9's enforced `mobile-test` CI gate and `scripts/mobile-build-check` now runs `flutter test` before analyze/builds.
 - `development` includes PR #10's branch-protection checklist update requiring `mobile-test` beside analyze/generation/platform build checks.
-- Flutter coverage currently passes 68 tests across eight test files.
-- Remaining release-risk gaps are mostly around import/backward compatibility, coverage visibility, launch-touched API fixtures, and release-operation dry runs.
+- Flutter coverage now passes 76 tests across nine test files.
+- `flutter test --coverage` measured 3.70% line coverage from `1369/37024` LCOV lines; the initial threshold is 2%.
+- Remaining release-risk gaps are mostly around release-operation dry runs and broader phase-2 service validation.
 
 ## Sprint Outcomes
 
 By the end of the sprint:
 
-1. Legacy profile/config imports have focused regression coverage.
-2. CI produces Flutter coverage artifacts and fails below an agreed minimum threshold.
-3. Launch-touched API model fixtures cover the next highest-risk services beyond the current Radarr/Sonarr tag and Tautulli user-name checkpoint.
-4. Release-signing and store-upload documentation has a dry-run checklist with explicit evidence requirements.
-5. DEV-DOCS reflects the actual test count, CI gates, and remaining phase-1 blockers.
+1. Legacy profile/config imports have focused regression coverage. Done.
+2. CI produces Flutter coverage artifacts and fails below the measured minimum threshold. Done.
+3. Launch-touched API model fixtures cover the next highest-risk services beyond the current Radarr/Sonarr tag and Tautulli user-name checkpoint. Done.
+4. Release-signing and store-upload documentation has a dry-run checklist with explicit evidence requirements. Done.
+5. DEV-DOCS reflects the actual test count, CI gates, and remaining phase-1 blockers. Done.
 
 ## Checkpoint 1: Profile Import And Legacy Payload Coverage
 

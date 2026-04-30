@@ -12,10 +12,13 @@ LunaLighthouse is currently a mobile-first Flutter relaunch. The active runtime 
 - Routing uses GoRouter through `luna_lighthouse/lib/router/`.
 - State uses Provider and `ChangeNotifier`, with module providers registered in `luna_lighthouse/lib/system/state.dart`.
 - Local storage uses Hive boxes, typed database tables, and profile models under `luna_lighthouse/lib/database/`.
+- Backup/import paths use `LunaConfig.import` and `LunaProfile.fromJson`; legacy payload compatibility is covered by focused tests because profile data includes service credentials and custom headers.
 
 ## Modules And APIs
 
 Supported module surfaces include dashboard, settings, Lidarr, Radarr, Sonarr, SABnzbd, NZBGet, Search/indexers, Tautulli, external modules, and Wake-on-LAN. API clients live under `luna_lighthouse/lib/api/` and use Dio/Retrofit plus generated JSON model code.
+
+Launch-touched API model fixtures currently cover selected Radarr, Sonarr, Tautulli, NZBGet, and SABnzbd serialization contracts. Keep fixture expansion small and tied to mobile release flows.
 
 ## Deferred Services
 
