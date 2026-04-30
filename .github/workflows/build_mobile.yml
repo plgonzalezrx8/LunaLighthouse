@@ -23,7 +23,7 @@ env:
 jobs:
   prepare:
     name: Prepare
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, lunalighthouse, Linux]
     outputs:
       build-number: ${{ steps.build-number.outputs.value }}
       build-flavor: ${{ steps.build-flavor.outputs.value }}
@@ -47,7 +47,7 @@ jobs:
   build-android:
     name: Build Android
     needs: [prepare]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, lunalighthouse, Linux]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -57,6 +57,9 @@ jobs:
         with:
           distribution: zulu
           java-version: 17
+
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -110,10 +113,17 @@ jobs:
             ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunalighthouse-android.aab
             ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunalighthouse-android.apk
 
+      - name: Clean up Android signing files
+        if: always()
+        shell: bash
+        run: |
+          rm -f "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.jks"
+          rm -f "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.properties"
+
   build-ios:
     name: Build iOS
     needs: [prepare]
-    runs-on: macos-latest
+    runs-on: [self-hosted, lunalighthouse, macOS]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -174,3 +184,10 @@ jobs:
         with:
           name: lunalighthouse-ios-${{ needs.prepare.outputs.build-flavor }}
           path: ${{ github.workspace }}/${{ env.APP_DIR }}/output/lunalighthouse-ios.ipa
+
+      - name: Clean up iOS signing keychain
+        if: always()
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
+        env:
+          MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
+        run: bundle exec fastlane keychain_delete || true

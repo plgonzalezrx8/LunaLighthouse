@@ -6,7 +6,11 @@ import 'package:luna_lighthouse/database/models/indexer.dart';
 import 'package:luna_lighthouse/database/table.dart';
 
 class LunaConfig {
-  Future<void> import(BuildContext context, String data) async {
+  Future<void> import(
+    BuildContext? context,
+    String data, {
+    bool resetState = true,
+  }) async {
     await LunaDatabase().clear();
 
     try {
@@ -17,9 +21,12 @@ class LunaConfig {
       _setExternalModules(config[LunaBox.externalModules.key]);
       for (final table in LunaTable.values) table.import(config[table.key]);
 
-      if (!LunaProfile.list
+      final profiles = LunaProfile.list;
+      if (profiles.isEmpty) {
+        await LunaDatabase().bootstrap();
+      } else if (!profiles
           .contains(LunaLighthouseDatabase.ENABLED_PROFILE.read())) {
-        LunaLighthouseDatabase.ENABLED_PROFILE.update(LunaProfile.list[0]);
+        LunaLighthouseDatabase.ENABLED_PROFILE.update(profiles.first);
       }
     } catch (error, stack) {
       await LunaDatabase().bootstrap();
@@ -30,7 +37,7 @@ class LunaConfig {
       );
     }
 
-    LunaState.reset(context);
+    if (resetState) LunaState.reset(context);
   }
 
   String export() {

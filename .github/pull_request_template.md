@@ -13,8 +13,8 @@
 - [ ] iOS build path validated (or not available in this environment)
 
 ## Risk Check
-- [ ] No new LunaLighthouse public-facing strings introduced
-- [ ] No `*.luna_lighthouse.app` production URLs introduced
+- [ ] New LunaLighthouse public-facing strings match approved product naming
+- [ ] No legacy placeholder domains or unapproved production URLs introduced
 - [ ] Cloud/webhook deferred behavior preserved (phase-1 gate)
 
 ## Reviewer Notes

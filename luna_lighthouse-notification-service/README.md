@@ -2,13 +2,13 @@
 
 A TypeScript backend service that handles receiving webhooks from applications supported in [LunaLighthouse](https://www.lunalighthouse.app/github) and sends notifications to the respective user or device.
 
-> Setting up an instance of your own notification service is **not** necessary to get webhook notifications in LunaLighthouse, simply use the hosted notification service available at [https://notify.lunalighthouse.app](https://notify.lunalighthouse.app). Setting up your own instance _will not_ send notifications to the officially published LunaLighthouse application.
+> Cloud/webhook notifications are phase-2/deferred for the mobile relaunch. The hosted notification service at [https://notify.lunalighthouse.app](https://notify.lunalighthouse.app) may be a placeholder or unavailable until re-enable criteria are met.
 >
 > Setting up your own instance of the notification service is only necessary when building your own version of LunaLighthouse, which utilizes a different Firebase project.
 
 ## Usage
 
-For documentation on setting up the webhooks, please look at LunaLighthouse's documentation [available here](https://notify.lunalighthouse.app).
+Webhook setup documentation will return when phase-2 cloud/webhook services are re-enabled.
 
 ## Installation (Docker)
 

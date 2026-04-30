@@ -1,0 +1,57 @@
+name: Self-hosted Runner Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - ci/use-lunalighthouse-runner
+
+permissions:
+  contents: read
+
+jobs:
+  linux-runner-smoke-test:
+    name: linux-runner-smoke-test
+    runs-on: [self-hosted, lunalighthouse, Linux]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify Runner Host
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "runner_name=${RUNNER_NAME}"
+          echo "runner_os=${RUNNER_OS}"
+          echo "runner_arch=${RUNNER_ARCH}"
+          hostname
+          whoami
+          uname -a
+
+      - name: Verify Tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          git --version
+          docker --version
+          docker run --rm hello-world
+
+
+  macos-runner-smoke-test:
+    name: macos-runner-smoke-test
+    runs-on: [self-hosted, lunalighthouse, macOS]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Verify macOS Runner Host
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "runner_name=${RUNNER_NAME}"
+          echo "runner_os=${RUNNER_OS}"
+          echo "runner_arch=${RUNNER_ARCH}"
+          hostname
+          whoami
+          sw_vers
+          xcodebuild -version

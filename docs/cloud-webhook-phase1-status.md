@@ -2,7 +2,7 @@
 
 ## Decision
 
-Cloud account and hosted webhook features are intentionally deferred for the LunaLighthouse mobile relaunch.
+Cloud account and hosted webhook features are intentionally phase-2/deferred for the LunaLighthouse mobile relaunch.
 
 ## Implementation Contract
 
@@ -13,7 +13,7 @@ Cloud account and hosted webhook features are intentionally deferred for the Lun
 ## User Messaging
 
 - Provide clear "temporarily unavailable" wording.
-- Do not imply account migration continuity from LunaLighthouse.
+- Do not imply continuity for legacy cloud accounts or hosted webhook subscriptions.
 - Keep local backup/restore available and documented.
 
 ## Re-enable Prerequisites (Phase 2)

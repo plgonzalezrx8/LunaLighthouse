@@ -4,7 +4,7 @@ run-name: "Build Mobile Release: ${{ inputs.flavor || github.sha }}"
 on:
   push:
     branches:
-      - main
+      - development
       - master
   workflow_dispatch:
     inputs:

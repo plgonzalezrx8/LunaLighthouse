@@ -2,13 +2,14 @@
 
 ## Branch Strategy
 
-- `main`: protected release branch.
-- `codex/revive-lunalighthouse/*`: implementation branches for rebrand and mobile recovery work.
-- `hotfix/*`: emergency production fixes, merged back into `main` immediately.
+- `development`: active integration branch for mobile relaunch work.
+- `master`: protected release branch.
+- `features/*`: implementation branches for rebrand and mobile recovery work, merged through `development`.
+- `hotfix/*`: emergency production fixes, merged into `master` and then back into `development` immediately.
 
 ## Required Checks (Mobile-First)
 
-The following checks should be required on `main`:
+The following checks should be required on `master` and run on `development`:
 
 1. `mobile-analyze`
 2. `mobile-generation-check`
