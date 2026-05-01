@@ -15,8 +15,13 @@ class AboutOpenSourceRoute extends StatefulWidget {
 class _State extends State<AboutOpenSourceRoute>
     with LunaScrollControllerMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  late final Future<List<_OpenSourcePackage>> _packages =
-      _loadOpenSourcePackages();
+  late Future<List<_OpenSourcePackage>> _packages;
+
+  @override
+  void initState() {
+    super.initState();
+    _packages = _loadOpenSourcePackages();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +43,24 @@ class _State extends State<AboutOpenSourceRoute>
     return FutureBuilder<List<_OpenSourcePackage>>(
       future: _packages,
       builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return LunaListView(
+            controller: scrollController,
+            children: [
+              LunaBlock(
+                title: 'luna_lighthouse.AnErrorHasOccurred'.tr(),
+                body: [
+                  TextSpan(text: 'luna_lighthouse.UnknownError'.tr()),
+                ],
+                trailing: LunaIconButton(
+                  icon: Icons.refresh_rounded,
+                  onPressed: _retryLoadingOpenSourcePackages,
+                ),
+              ),
+            ],
+          );
+        }
+
         final packages = snapshot.data;
 
         if (packages == null) {
@@ -110,6 +133,12 @@ class _State extends State<AboutOpenSourceRoute>
       ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
     return packages;
+  }
+
+  void _retryLoadingOpenSourcePackages() {
+    setState(() {
+      _packages = _loadOpenSourcePackages();
+    });
   }
 }
 

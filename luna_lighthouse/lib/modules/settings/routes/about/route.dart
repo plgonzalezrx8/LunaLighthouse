@@ -39,7 +39,7 @@ class _State extends State<AboutRoute> with LunaScrollControllerMixin {
         final info = snapshot.data;
         final version = info?.version ?? 'luna_lighthouse.Unknown'.tr();
         final build = info?.buildNumber ?? 'luna_lighthouse.Unknown'.tr();
-        final packageName = info?.packageName ?? 'app.lunalighthouse';
+        final packageName = info?.packageName ?? 'luna_lighthouse.Unknown'.tr();
 
         return LunaListView(
           controller: scrollController,

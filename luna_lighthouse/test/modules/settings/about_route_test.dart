@@ -70,7 +70,7 @@ void main() {
       expect(_findRichTextContaining('11.0.0'), findsAtLeastNWidgets(1));
       expect(find.text('Build'), findsOneWidget);
       expect(_findRichTextContaining('42'), findsAtLeastNWidgets(1));
-      expect(find.text('Package'), findsOneWidget);
+      expect(_findRichTextContaining('Package'), findsAtLeastNWidgets(1));
       expect(
         _findRichTextContaining('app.lunalighthouse.lunalighthouse.debug'),
         findsOneWidget,
