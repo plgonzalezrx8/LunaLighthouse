@@ -25,19 +25,19 @@ Goal: prove the repository is protected, reviewable, and synchronized before rel
 
 Checklist:
 
-- [ ] Confirm local `development` matches `origin/development`.
-- [ ] Confirm `master` remains the protected release branch.
-- [ ] Verify branch protection on `master` requires:
+- [x] Confirm local `development` matches `origin/development`.
+- [x] Confirm `master` remains the protected release branch.
+- [x] Verify branch protection on `master` requires:
   - `mobile-analyze`
   - `mobile-generation-check`
   - `mobile-test`
   - `mobile-build-android`
   - `mobile-build-ios`
-- [ ] Verify branch protection requires at least one PR approval.
-- [ ] Verify branch protection requires conversation resolution before merge.
-- [ ] Verify force pushes and branch deletion are disabled for `master`.
-- [ ] Verify `CODEOWNERS` review behavior is active if CODEOWNERS is used for release-sensitive paths.
-- [ ] Confirm self-hosted runner capacity:
+- [x] Verify branch protection requires at least one PR approval.
+- [x] Verify branch protection requires conversation resolution before merge.
+- [x] Verify force pushes and branch deletion are disabled for `master`.
+- [x] Verify `CODEOWNERS` review behavior is active if CODEOWNERS is used for release-sensitive paths.
+- [x] Confirm self-hosted runner capacity:
   - Linux jobs require `[self-hosted, lunalighthouse, Linux]`.
   - iOS jobs require `[self-hosted, lunalighthouse, macOS]`.
 
@@ -70,16 +70,16 @@ Goal: prove the release candidate passes the same checks locally and in GitHub A
 
 Checklist:
 
-- [ ] Run the local toolchain baseline.
-- [ ] Run bootstrap from a clean dependency state where practical.
-- [ ] Run Flutter tests with coverage.
-- [ ] Run the coverage gate at the current 2% threshold.
-- [ ] Run Flutter analyzer.
-- [ ] Run the full mobile build check before release-impacting handoff.
-- [ ] Run or capture Maestro Android and iOS launch-smoke evidence on real or emulator/simulator devices.
-- [ ] Confirm Mobile CI passes all five gates on the release candidate branch or commit.
-- [ ] Confirm `mobile-test` uploads the `flutter-coverage-lcov` artifact.
-- [ ] Raise the coverage threshold only after meaningful launch-focused tests improve the measured baseline.
+- [x] Run the local toolchain baseline.
+- [x] Run bootstrap from a clean dependency state where practical.
+- [x] Run Flutter tests with coverage.
+- [x] Run the coverage gate at the current 2% threshold.
+- [x] Run Flutter analyzer.
+- [x] Run the full mobile build check before release-impacting handoff.
+- [ ] Run or capture Maestro Android and iOS launch-smoke evidence on real or emulator/simulator devices. iOS passed on simulator; Android is blocked by local ADB daemon startup failure.
+- [x] Confirm Mobile CI passes all five gates on the release candidate branch or commit. PR #15 run `25194846125` passed `mobile-analyze`, `mobile-generation-check`, `mobile-test`, `mobile-build-android`, and `mobile-build-ios`.
+- [x] Confirm `mobile-test` uploads the `flutter-coverage-lcov` artifact. Run `25194846125` uploaded artifact `flutter-coverage-lcov`.
+- [x] Raise the coverage threshold only after meaningful launch-focused tests improve the measured baseline. No threshold change made; current 3.71% baseline still supports the 2% floor.
 
 Commands:
 
