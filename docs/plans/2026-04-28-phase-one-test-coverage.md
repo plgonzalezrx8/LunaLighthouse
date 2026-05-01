@@ -4,7 +4,7 @@
 
 **Goal:** Substantially increase LunaLighthouse phase-one mobile relaunch confidence by adding automated Flutter coverage around routing, cloud/webhook feature gating, profile storage/serialization, and launch-critical module behavior.
 
-**Implementation status as of 2026-04-30:** PR #5, PR #7, and the follow-up release-confidence PRs are merged into `development`. The Flutter suite now passes 130 tests across eleven focused files with `flutter test --coverage`, and Maestro Android/iOS launch-smoke flows exist under `luna_lighthouse/.maestro/`. Test-infrastructure enforcement now includes a dedicated CI `mobile-test` gate, coverage artifact upload, a 2% LCOV floor, and `flutter test` inside `scripts/mobile-build-check`.
+**Implementation status as of 2026-04-30:** PR #5, PR #7, and the follow-up release-confidence PRs are merged into `development`. The Flutter suite now passes 137 tests across twelve focused files with `flutter test --coverage`, and Maestro Android/iOS launch plus Settings About smoke flows exist under `luna_lighthouse/.maestro/`. Test-infrastructure enforcement now includes a dedicated CI `mobile-test` gate, coverage artifact upload, a 2% LCOV floor, and `flutter test` inside `scripts/mobile-build-check`.
 
 **Architecture:** Phase one does not reactivate cloud/webhook services or expand product scope. The work adds focused tests around existing Flutter app behavior, preserving current generated-code and feature-flag contracts. Each checkpoint should be small, independently verifiable, and committed before moving to the next area.
 

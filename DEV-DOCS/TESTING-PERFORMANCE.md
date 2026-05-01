@@ -25,7 +25,7 @@ PR #14's post-merge `Mobile CI` run on `development` passed all five mobile gate
 
 ## Current Test Coverage
 
-Flutter coverage now passes 130 tests across eleven focused test files plus Maestro launch-smoke flows. The measured LCOV baseline is 3.71% line coverage (`1373/37026`); the initial enforced threshold is 2%.
+Flutter coverage now passes 137 tests across twelve focused test files plus Maestro launch and Settings About smoke flows. The measured LCOV baseline is 4.74% line coverage (`1761/37142`); the initial enforced threshold is 2%.
 
 - `luna_lighthouse/test/api/api_serialization_fixture_test.dart`
 - `luna_lighthouse/test/ci/self_hosted_runner_workflow_test.dart`
@@ -35,6 +35,7 @@ Flutter coverage now passes 130 tests across eleven focused test files plus Maes
 - `luna_lighthouse/test/database/profile_storage_test.dart`
 - `luna_lighthouse/test/modules/configuration/module_enablement_test.dart`
 - `luna_lighthouse/test/modules/configuration/module_state_test.dart`
+- `luna_lighthouse/test/modules/settings/about_route_test.dart`
 - `luna_lighthouse/test/router/routes_smoke_test.dart`
 - `luna_lighthouse/test/system/cloud_webhook_feature_flag_test.dart`
 - `luna_lighthouse/test/widgets/ui/scaffold_test.dart`
@@ -43,9 +44,11 @@ Maestro launch-smoke coverage lives under:
 
 - `luna_lighthouse/.maestro/config.yaml`
 - `luna_lighthouse/.maestro/flows/android/launch_smoke.yaml`
+- `luna_lighthouse/.maestro/flows/android/settings_about_smoke.yaml`
 - `luna_lighthouse/.maestro/flows/ios/launch_smoke.yaml`
+- `luna_lighthouse/.maestro/flows/ios/settings_about_smoke.yaml`
 
-Covered phase-one risks include route registry drift, cloud/webhook feature-gate behavior, profile JSON serialization, legacy/partial profile import behavior, Hive-backed profile selection/storage and box clearing, self-hosted runner workflow routing, module-state host validation, module enablement/provider registry wiring, Android and non-Android scaffold behavior, focus/profile-change scaffold hooks, Android/iOS Maestro launch smoke, and fixture-driven API model serialization for selected Radarr, Sonarr, Tautulli, NZBGet, and SABnzbd contracts.
+Covered phase-one risks include route registry drift, cloud/webhook feature-gate behavior, profile JSON serialization, legacy/partial profile import behavior, Hive-backed profile selection/storage and box clearing, self-hosted runner workflow routing, module-state host validation, module enablement/provider registry wiring, Settings About/Open Source rendering, Android and non-Android scaffold behavior, focus/profile-change scaffold hooks, Android/iOS Maestro launch and Settings About smoke, and fixture-driven API model serialization for selected Radarr, Sonarr, Tautulli, NZBGet, and SABnzbd contracts.
 
 ## Backlog Coverage
 

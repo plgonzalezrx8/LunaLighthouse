@@ -1,5 +1,30 @@
 # Work Log
 
+## 2026-04-30 - Settings About And Open Source Detour
+
+### Context
+
+- A quick phase-1 detour added user-visible app metadata without changing runtime integrations, feature flags, schemas, signing, or package versions.
+- `ROADMAP.md` was intentionally left untouched.
+
+### Work
+
+- Added a Settings `About` destination with the app icon, version, build, package, and license information.
+- Added an `Open Source` screen backed by Flutter's license registry so package/license entries render inside the app.
+- Added widget coverage for the Settings About route registration and About/Open Source rendering.
+- Added Android and iOS Maestro Settings About smoke flows.
+- Updated maintainer and user docs to identify where users can find app version and open-source package information.
+
+### Validation
+
+- `flutter test` passes with 137 tests.
+- `flutter test --coverage` passes with 137 tests and reports 4.74% line coverage (`1761/37142`).
+- `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2` passes.
+- `flutter analyze --no-pub` passes.
+- `flutter build apk --debug --no-pub` and `flutter build ios --simulator --debug --no-pub` pass.
+- `maestro --platform android --device emulator-5554 test --include-tags android .maestro` passes both Android launch and Settings About smoke flows.
+- `maestro --platform ios --device 000D55D0-93BA-45B5-988D-2D4CED040A4E test --include-tags ios .maestro` passes both iOS launch and Settings About smoke flows.
+
 ## 2026-04-30 - Current-State Review And Documentation Refresh
 
 ### Context
