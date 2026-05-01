@@ -89,10 +89,7 @@ class _State extends State<AboutOpenSourceRoute>
   }
 
   Future<List<_OpenSourcePackage>> _loadOpenSourcePackages() async {
-    final packageLicenseCounts = <String, int>{
-      'Dart': 1,
-      'Flutter': 1,
-    };
+    final packageLicenseCounts = <String, int>{};
 
     await for (final entry in LicenseRegistry.licenses) {
       for (final package in entry.packages) {
@@ -103,6 +100,9 @@ class _State extends State<AboutOpenSourceRoute>
         );
       }
     }
+
+    packageLicenseCounts.putIfAbsent('Dart', () => 1);
+    packageLicenseCounts.putIfAbsent('Flutter', () => 1);
 
     final packages = packageLicenseCounts.entries
         .map((entry) => _OpenSourcePackage(entry.key, entry.value))

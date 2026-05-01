@@ -21,7 +21,7 @@ tags:
 - tapOn: "Open Source"
 - assertVisible: "Open Source Packages"
 - scrollUntilVisible:
-    element: "archive"
+    element: "Dart"
     direction: DOWN
-- assertVisible: "archive"
-- assertVisible: "args"
+- assertVisible: "Dart"
+- assertVisible: "Flutter"
