@@ -7,6 +7,9 @@ import 'package:luna_lighthouse/database/box.dart';
 import 'package:luna_lighthouse/database/models/profile.dart';
 import 'package:luna_lighthouse/database/table.dart';
 import 'package:luna_lighthouse/database/tables/luna_lighthouse.dart';
+import 'package:luna_lighthouse/modules.dart';
+import 'package:luna_lighthouse/widgets/ui/colors.dart';
+import 'package:luna_lighthouse/widgets/ui/drawer/drawer.dart';
 import 'package:luna_lighthouse/widgets/ui/scaffold.dart';
 
 void main() {
@@ -32,6 +35,31 @@ void main() {
     // app's fire-and-forget writes, and awaiting Hive.close() can hang this
     // widget-test process while those writes settle.
   });
+
+  testWidgets(
+    'drawer uses a LunaLighthouse blue scrim to separate black surfaces',
+    (tester) async {
+      final route = await _pumpScaffoldRoute(tester, includeDrawer: true);
+      final scaffold = route.scaffoldKey.currentWidget! as Scaffold;
+
+      expect(scaffold.drawerScrimColor, LunaColours.drawerScrim);
+    },
+  );
+
+  testWidgets(
+    'selected drawer item keeps its label and icon white',
+    (tester) async {
+      await _pumpDrawer(tester, page: LunaModule.DASHBOARD.key);
+
+      final title = LunaModule.DASHBOARD.title;
+      final dashboardText = tester.widget<Text>(find.text(title));
+      final dashboardIcon =
+          tester.widget<Icon>(find.byIcon(LunaModule.DASHBOARD.icon));
+
+      expect(dashboardText.style?.color, LunaColours.white);
+      expect(dashboardIcon.color, LunaColours.white);
+    },
+  );
 
   testWidgets(
     'Android system back opens the drawer instead of popping the route when enabled',
@@ -257,6 +285,20 @@ Future<void> _runAsPlatform(
   } finally {
     debugDefaultTargetPlatformOverride = previousPlatform;
   }
+}
+
+Future<void> _pumpDrawer(
+  WidgetTester tester, {
+  required String page,
+}) async {
+  await tester.pumpWidget(
+    MaterialApp(
+      home: Material(
+        child: LunaDrawer(page: page),
+      ),
+    ),
+  );
+  await tester.pump();
 }
 
 Future<_ScaffoldRoute> _pumpScaffoldRoute(
