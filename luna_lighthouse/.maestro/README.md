@@ -1,6 +1,6 @@
 # Maestro E2E Smoke Coverage
 
-These flows provide launch-smoke coverage for LunaLighthouse on local Android and iOS targets.
+These flows provide launch-smoke coverage for LunaLighthouse on local Android and iOS targets. They also cover the Settings About/Open Source path so release candidates prove that user-visible app metadata and license registry views render.
 
 ## App IDs
 
@@ -13,7 +13,9 @@ From `luna_lighthouse/`:
 
 ```bash
 maestro check-syntax .maestro/flows/android/launch_smoke.yaml
+maestro check-syntax .maestro/flows/android/settings_about_smoke.yaml
 maestro check-syntax .maestro/flows/ios/launch_smoke.yaml
+maestro check-syntax .maestro/flows/ios/settings_about_smoke.yaml
 ```
 
 ## Android local run
@@ -22,6 +24,7 @@ Start an Android emulator, install the debug build, then run the Android-tagged 
 
 ```bash
 export PATH="$HOME/.sdk/flutter/bin:$PATH"
+flutter build apk --debug
 flutter install -d <android-device-id> --debug
 maestro --platform android --device <android-device-id> test --include-tags android .maestro
 ```

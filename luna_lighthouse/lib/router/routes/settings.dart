@@ -44,6 +44,8 @@ import 'package:luna_lighthouse/modules/settings/routes/configuration_tautulli/p
 import 'package:luna_lighthouse/modules/settings/routes/configuration_tautulli/pages/headers.dart';
 import 'package:luna_lighthouse/modules/settings/routes/configuration_tautulli/route.dart';
 import 'package:luna_lighthouse/modules/settings/routes/configuration_wake_on_lan/route.dart';
+import 'package:luna_lighthouse/modules/settings/routes/about/open_source_route.dart';
+import 'package:luna_lighthouse/modules/settings/routes/about/route.dart';
 import 'package:luna_lighthouse/modules/settings/routes/profiles/route.dart';
 import 'package:luna_lighthouse/modules/settings/routes/settings/route.dart';
 import 'package:luna_lighthouse/modules/settings/routes/system/route.dart';
@@ -100,7 +102,9 @@ enum SettingsRoutes with LunaRoutesMixin {
   PROFILES('profiles'),
   SYSTEM('system'),
   SYSTEM_LOGS('logs'),
-  SYSTEM_LOGS_DETAILS('view/:type');
+  SYSTEM_LOGS_DETAILS('view/:type'),
+  ABOUT('about'),
+  ABOUT_OPEN_SOURCE('open_source');
 
   @override
   final String path;
@@ -241,6 +245,10 @@ enum SettingsRoutes with LunaRoutesMixin {
           final type = LunaLogType.fromKey(state.pathParameters['type']!);
           return SystemLogsDetailsRoute(type: type);
         });
+      case SettingsRoutes.ABOUT:
+        return route(widget: const AboutRoute());
+      case SettingsRoutes.ABOUT_OPEN_SOURCE:
+        return route(widget: const AboutOpenSourceRoute());
     }
   }
 
@@ -252,6 +260,7 @@ enum SettingsRoutes with LunaRoutesMixin {
           SettingsRoutes.CONFIGURATION.routes,
           SettingsRoutes.PROFILES.routes,
           SettingsRoutes.SYSTEM.routes,
+          SettingsRoutes.ABOUT.routes,
         ];
       case SettingsRoutes.CONFIGURATION:
         return [
@@ -357,6 +366,10 @@ enum SettingsRoutes with LunaRoutesMixin {
       case SettingsRoutes.SYSTEM_LOGS:
         return [
           SettingsRoutes.SYSTEM_LOGS_DETAILS.routes,
+        ];
+      case SettingsRoutes.ABOUT:
+        return [
+          SettingsRoutes.ABOUT_OPEN_SOURCE.routes,
         ];
       default:
         return const <GoRoute>[];

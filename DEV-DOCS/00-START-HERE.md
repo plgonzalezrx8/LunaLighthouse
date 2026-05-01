@@ -5,8 +5,8 @@
 - Branch model: `development` is the active integration branch; `master` is the protected/release branch.
 - Current phase: phase-1 mobile-first relaunch, closing out release-confidence work after PR #14 landed on `development`.
 - Active runtime scope: Flutter app for iOS and Android in `luna_lighthouse/`.
-- Current automated Flutter coverage: 130 tests across eleven focused test files, enforced by the `mobile-test` CI gate and `scripts/mobile-build-check`, plus Maestro Android/iOS launch-smoke flows.
-- Current line coverage baseline: `flutter test --coverage` reports 3.71% line coverage (`1373/37026`), with `scripts/check-flutter-coverage` initially enforcing a 2% minimum.
+- Current automated Flutter coverage: 137 tests across twelve focused test files, enforced by the `mobile-test` CI gate and `scripts/mobile-build-check`, plus Maestro Android/iOS launch and Settings About smoke flows.
+- Current line coverage baseline: `flutter test --coverage` reports 4.74% line coverage (`1761/37142`), with `scripts/check-flutter-coverage` initially enforcing a 2% minimum.
 - Deferred runtime scope: cloud account flows and hosted webhook relay, gated off by `LunaFeatureFlags.cloudIntegrationsEnabled = false`.
 - Existing docs roles: `DEV-DOCS/` for engineering handoff, `docs/` for maintainer runbooks, `luna_lighthouse-docs/` for end-user docs.
 
