@@ -273,4 +273,8 @@
 - `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2` passes at 4.96% line coverage.
 - `flutter analyze --no-pub` passes with no issues.
 - `maestro check-syntax` passes for Android and iOS Settings Coming Soon smoke flows.
+- `flutter build ios --simulator --debug --no-pub` passes; installed on iPhone 16 Pro simulator `219C2460-FB14-4BB6-93E0-09B511432A4D`.
+- `maestro --platform ios --device 219C2460-FB14-4BB6-93E0-09B511432A4D test --include-tags ios .maestro/flows/ios/settings_coming_soon_smoke.yaml` passes.
+- `flutter build apk --debug --no-pub` passes; installed on Android emulator `emulator-5554`.
+- `maestro --platform android --device emulator-5554 test --include-tags android .maestro/flows/android/settings_coming_soon_smoke.yaml` passes after rebuilding the debug APK.
 - `git diff --check` passes.
