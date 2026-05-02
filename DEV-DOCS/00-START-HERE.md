@@ -2,6 +2,7 @@
 
 ## Current State
 
+- Planning source: [LunaLighthouse in Linear](https://linear.app/blueforce-innovations/project/lunalighthouse-d6fd89f22aa5) owns active task state, sprint selection, and project sequencing.
 - Branch model: `development` is the active integration branch; `master` is the protected/release branch.
 - Current phase: phase-1 mobile-first relaunch, closing out release-confidence work after PR #14 landed on `development`.
 - Active runtime scope: Flutter app for iOS and Android in `luna_lighthouse/`.

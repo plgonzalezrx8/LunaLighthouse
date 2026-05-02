@@ -25,7 +25,8 @@ Start with `DEV-DOCS/00-START-HERE.md` for the current engineering state, then r
 
 - Use `development` as the active integration branch.
 - Treat `master` as the protected release branch.
-- Use `ROADMAP.md` for the phase-1 release-readiness path and phase-2 external service requirements.
+- Use Linear as the source of truth for active task state, sprint selection, and project sequencing.
+- Use `ROADMAP.md` as release-readiness reference material for the phase-1 path and phase-2 external service requirements.
 - Run `scripts/bootstrap` for deterministic setup.
 - Run `scripts/mobile-build-check` before release-impacting PRs.
 - Follow runbooks in `docs/runbooks/` for release and incident operations.

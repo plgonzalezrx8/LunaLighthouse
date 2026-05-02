@@ -2,6 +2,8 @@
 
 ## Phase
 
+Planning source: [LunaLighthouse in Linear](https://linear.app/blueforce-innovations/project/lunalighthouse-d6fd89f22aa5) owns active task state, sprint selection, and project sequencing.
+
 Phase-1 mobile relaunch. iOS and Android are the active release targets. Non-mobile packaging remains present in the repo but is frozen for release gating.
 
 ## Observed Baseline

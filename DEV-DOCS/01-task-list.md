@@ -1,5 +1,7 @@
 # Task List
 
+> Linear is the source of truth for live task state, sprint selection, and backlog order. This file is a repo-local handoff snapshot only.
+
 ## Active
 
 - [ ] Capture `Build Mobile` dry-run evidence for the selected release flavor.
