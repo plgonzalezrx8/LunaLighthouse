@@ -5,12 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
+import 'package:luna_lighthouse/core.dart';
 import 'package:luna_lighthouse/database/box.dart';
 import 'package:luna_lighthouse/database/table.dart';
-import 'package:luna_lighthouse/modules/settings/routes/about/open_source_route.dart';
-import 'package:luna_lighthouse/modules/settings/routes/about/route.dart';
+import 'package:luna_lighthouse/modules/settings/routes/coming_soon/route.dart';
+import 'package:luna_lighthouse/modules/settings/routes/settings/route.dart';
 import 'package:luna_lighthouse/router/routes/settings.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -21,7 +21,8 @@ void main() {
   setUpAll(() async {
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
-    hiveDirectory = Directory.systemTemp.createTempSync('luna_about_test_');
+    hiveDirectory =
+        Directory.systemTemp.createTempSync('luna_coming_soon_test_');
     Hive.init(hiveDirectory!.path);
     LunaTable.register();
     await LunaBox.open();
@@ -29,14 +30,6 @@ void main() {
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
-    PackageInfo.setMockInitialValues(
-      appName: 'LunaLighthouse',
-      packageName: 'app.lunalighthouse.lunalighthouse.debug',
-      version: '11.0.0',
-      buildNumber: '42',
-      buildSignature: '',
-      installerStore: null,
-    );
   });
 
   tearDownAll(() async {
@@ -44,44 +37,61 @@ void main() {
     hiveDirectory?.deleteSync(recursive: true);
   });
 
-  group('Settings about routes', () {
-    test('registers about and open source beneath settings', () {
+  group('Settings coming soon route', () {
+    test('registers coming soon beneath settings', () {
       final settingsSubroutePaths =
           SettingsRoutes.HOME.subroutes.map((route) => route.path);
-      final aboutSubroutePaths =
-          SettingsRoutes.ABOUT.subroutes.map((route) => route.path);
 
-      expect(settingsSubroutePaths, contains(SettingsRoutes.ABOUT.path));
-      expect(
-        aboutSubroutePaths,
-        contains(SettingsRoutes.ABOUT_OPEN_SOURCE.path),
-      );
+      expect(settingsSubroutePaths, contains(SettingsRoutes.COMING_SOON.path));
     });
 
-    testWidgets('about and open source pages render', (tester) async {
-      final home = ValueNotifier<Widget>(const AboutRoute());
+    testWidgets('settings home and coming soon page render', (tester) async {
+      final home = ValueNotifier<Widget>(const SettingsRoute());
 
       await tester.pumpWidget(_localizedApp(home: home));
       await _pumpLocalizedSettled(tester);
 
-      expect(find.byType(Image), findsOneWidget);
-      expect(find.text('LunaLighthouse'), findsOneWidget);
-      expect(find.text('Version'), findsOneWidget);
-      expect(_findRichTextContaining('11.0.0'), findsAtLeastNWidgets(1));
-      expect(find.text('Build'), findsOneWidget);
-      expect(_findRichTextContaining('42'), findsAtLeastNWidgets(1));
-      expect(_findRichTextContaining('Package'), findsAtLeastNWidgets(1));
       expect(
-        _findRichTextContaining('app.lunalighthouse.lunalighthouse.debug'),
+        find.textContaining('Coming Soon', findRichText: true),
         findsOneWidget,
       );
-      expect(find.text('Open Source'), findsOneWidget);
+      expect(
+        _findRichTextContaining('Cloud and notification features planned'),
+        findsOneWidget,
+      );
 
-      home.value = const AboutOpenSourceRoute();
+      home.value = const ComingSoonRoute();
       await _pumpLocalizedSettled(tester);
 
-      expect(find.text('Dart'), findsOneWidget);
-      expect(find.text('Flutter'), findsOneWidget);
+      expect(
+          find.textContaining('Coming Soon', findRichText: true), findsWidgets);
+      expect(
+        find.textContaining('Cloud Account', findRichText: true),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining('Cloud Sync', findRichText: true),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining('Hosted Push Notifications', findRichText: true),
+        findsOneWidget,
+      );
+      expect(
+        find.textContaining('Notification Relay', findRichText: true),
+        findsOneWidget,
+      );
+      expect(
+        find.byWidgetPredicate(
+          (widget) => widget is LunaBlock && widget.disabled == true,
+        ),
+        findsNWidgets(4),
+      );
+      expect(find.textContaining('Set Up', findRichText: true), findsNothing);
+      expect(
+        find.textContaining('Webhook URL', findRichText: true),
+        findsNothing,
+      );
     });
   });
 }

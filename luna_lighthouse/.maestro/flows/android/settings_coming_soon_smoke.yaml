@@ -1,0 +1,23 @@
+appId: app.lunalighthouse.lunalighthouse.debug
+name: Android settings coming soon smoke
+tags:
+  - android
+  - smoke
+  - settings
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- tapOn: "Go to Settings"
+- assertVisible: "Settings"
+- scrollUntilVisible:
+    element: "Coming Soon"
+    direction: DOWN
+- assertVisible: "Coming Soon"
+- tapOn: "Coming Soon"
+- assertVisible: "Cloud Account"
+- assertVisible: "Cloud Sync"
+- assertVisible: "Hosted Push Notifications"
+- scrollUntilVisible:
+    element: "Notification Relay"
+    direction: DOWN
+- assertVisible: "Notification Relay"

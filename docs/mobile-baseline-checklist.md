@@ -32,7 +32,7 @@ Use this checklist before opening relaunch and release PRs.
 
 - [ ] User-visible `LunaLighthouse` strings match the approved product name and current brand guidance.
 - [ ] No legacy placeholder domains or unapproved production URLs in runtime paths.
-- [ ] Cloud/webhook flows are disabled or marked unavailable.
+- [ ] Cloud/webhook flows expose only disabled Coming Soon messaging; no setup actions, webhook URLs, push-permission prompts, or hosted service calls are available.
 - [ ] Local backup/restore works using LunaLighthouse backup extension.
 
 ## CI Evidence To Capture
