@@ -4,7 +4,7 @@
 
 - Prefer existing Flutter, Provider, Hive, Dio, and GoRouter patterns over new abstractions.
 - Keep phase-1 changes scoped to mobile reliability unless the task explicitly targets deferred services.
-- While `LunaFeatureFlags.cloudIntegrationsEnabled` remains false, cloud/webhook UI must be disabled Coming Soon messaging only; do not expose setup actions, webhook URLs, push-permission prompts, or hosted service calls.
+- While `LunaFeatureFlags.cloudIntegrationsEnabled` remains false, cloud/webhook UI must show only disabled Coming Soon messaging; do not expose setup actions, webhook URLs, push-permission prompts, or hosted service calls.
 
 ## Dart And Flutter
 

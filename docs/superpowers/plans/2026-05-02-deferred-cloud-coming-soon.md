@@ -48,7 +48,7 @@ Add strings for the page title, page description, and each disabled feature card
 Run from `luna_lighthouse/`:
 
 ```bash
-/Users/pedrogonzalez/.sdk/flutter/bin/dart ./scripts/generate_localization.dart
+dart ./scripts/generate_localization.dart
 ```
 
 ### Task 3: Add Tests And Smoke Coverage
@@ -97,9 +97,9 @@ Verify with `git diff --name-only`.
 
 ```bash
 cd luna_lighthouse
-/Users/pedrogonzalez/.sdk/flutter/bin/flutter test --no-pub test/modules/settings/about_route_test.dart
-/Users/pedrogonzalez/.sdk/flutter/bin/flutter test --coverage --no-pub
-/Users/pedrogonzalez/.sdk/flutter/bin/flutter analyze --no-pub
+flutter test --no-pub test/modules/settings/coming_soon_route_test.dart
+flutter test --coverage --no-pub
+flutter analyze --no-pub
 ```
 
 - [ ] **Step 2: Run coverage and diff checks**

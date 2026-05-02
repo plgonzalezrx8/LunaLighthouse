@@ -12,6 +12,7 @@ tags:
 - scrollUntilVisible:
     element: "Coming Soon"
     direction: DOWN
+    timeout: 5000
 - assertVisible: "Coming Soon"
 - tapOn: "Coming Soon"
 - assertVisible: "Cloud Account"
@@ -20,4 +21,5 @@ tags:
 - scrollUntilVisible:
     element: "Notification Relay"
     direction: DOWN
+    timeout: 5000
 - assertVisible: "Notification Relay"

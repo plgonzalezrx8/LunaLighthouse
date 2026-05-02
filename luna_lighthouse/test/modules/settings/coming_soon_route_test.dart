@@ -125,11 +125,6 @@ Finder _findRichTextContaining(String text) {
 
 Future<void> _pumpLocalizedSettled(WidgetTester tester) async {
   await tester.pumpAndSettle();
-  for (var i = 0; i < 5; i++) {
-    await tester.runAsync(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 50));
-    });
-    await tester.pump(const Duration(milliseconds: 100));
-  }
+  await tester.runAsync(tester.idle);
   await tester.pumpAndSettle();
 }

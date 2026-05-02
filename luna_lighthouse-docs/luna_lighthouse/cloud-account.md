@@ -8,7 +8,7 @@ This deferment is intentional while backend and webhook infrastructure is rebran
 
 ## What Still Works
 
-- Settings shows Cloud Account and Cloud Sync as disabled Coming Soon items so users can see that hosted cloud features are planned.
+- Settings shows Cloud Account, Cloud Sync, Hosted Push Notifications, and Notification Relay as disabled Coming Soon items so users can see that hosted features are planned.
 - Local on-device backup and restore.
 - Core module connectivity for supported self-hosted services.
 
