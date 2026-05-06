@@ -32,7 +32,7 @@ env:
 jobs:
   prepare:
     name: Prepare
-    runs-on: [self-hosted, lunalighthouse, Linux]
+    runs-on: ${{ fromJSON(inputs.platform == 'ios' && '["self-hosted","lunalighthouse","macOS"]' || '["self-hosted","lunalighthouse","Linux"]') }}
     outputs:
       build-number: ${{ steps.build-number.outputs.value }}
       build-flavor: ${{ steps.build-flavor.outputs.value }}
