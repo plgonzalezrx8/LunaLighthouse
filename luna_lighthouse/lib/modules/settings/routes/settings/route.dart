@@ -58,6 +58,12 @@ class _State extends State<SettingsRoute> with LunaScrollControllerMixin {
           onTap: SettingsRoutes.SYSTEM.go,
         ),
         LunaBlock(
+          title: 'settings.ComingSoon'.tr(),
+          body: [TextSpan(text: 'settings.ComingSoonSettingsDescription'.tr())],
+          trailing: const LunaIconButton(icon: Icons.upcoming_rounded),
+          onTap: SettingsRoutes.COMING_SOON.go,
+        ),
+        LunaBlock(
           title: 'settings.About'.tr(),
           body: [TextSpan(text: 'settings.AboutDescription'.tr())],
           trailing: const LunaIconButton(icon: Icons.info_rounded),

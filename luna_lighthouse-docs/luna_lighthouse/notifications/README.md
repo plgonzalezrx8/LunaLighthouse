@@ -8,7 +8,8 @@ Cloud account and hosted webhook flows are intentionally gated off while backend
 
 ## Current Phase Behavior
 
-- No in-app hosted webhook URL flow is exposed for production relaunch builds.
+- Settings shows Hosted Push Notifications and Notification Relay as disabled Coming Soon items.
+- No in-app hosted webhook URL flow, setup action, or push-notification permission prompt is exposed for production relaunch builds.
 - Existing webhook setup guides are retained in this section for phase-2 reactivation work.
 - Core module functionality remains available without notification relay features.
 

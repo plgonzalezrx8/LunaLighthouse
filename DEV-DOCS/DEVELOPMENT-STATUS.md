@@ -2,6 +2,8 @@
 
 ## Phase
 
+Planning source: [LunaLighthouse in Linear](https://linear.app/blueforce-innovations/project/lunalighthouse-d6fd89f22aa5) owns active task state, sprint selection, and project sequencing.
+
 Phase-1 mobile relaunch. iOS and Android are the active release targets. Non-mobile packaging remains present in the repo but is frozen for release gating.
 
 ## Observed Baseline
@@ -10,9 +12,9 @@ Phase-1 mobile relaunch. iOS and Android are the active release targets. Non-mob
 - Runtime stack: Flutter, GoRouter, Provider/ChangeNotifier, Hive, Dio/Retrofit, Easy Localization.
 - Toolchain contract: `luna_lighthouse/toolchain.env` pins Flutter revision, Java 17, Node 20, Ruby 2.7.6, Bundler 2, and Xcode 15+.
 - CI gates: mobile analyze, generation check, Flutter test, Android debug build, and iOS debug no-codesign build; the branch-protection checklist includes all five mobile gates.
-- Local automated coverage: `flutter test --coverage` currently passes 137 tests across twelve test files; Maestro has Android and iOS launch-smoke plus Settings About smoke flows.
-- Coverage baseline: LCOV reports 4.74% line coverage (`1761/37142`), and `scripts/check-flutter-coverage` enforces a 2% minimum.
-- Cloud/webhook: code exists but is disabled for phase 1.
+- Local automated coverage: `flutter test --coverage` currently passes 139 tests across thirteen test files; Maestro has Android and iOS launch-smoke plus Settings About and Settings Coming Soon smoke flows.
+- Coverage baseline: LCOV reports 4.96% line coverage (`1844/37201`), and `scripts/check-flutter-coverage` enforces a 2% minimum.
+- Cloud/webhook: code exists but is disabled for phase 1; Settings exposes only disabled Coming Soon messaging for deferred hosted features.
 
 ## Open Gaps
 

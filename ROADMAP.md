@@ -1,6 +1,6 @@
 # LunaLighthouse Release Readiness Roadmap
 
-This roadmap defines what must happen from the current `development` state until LunaLighthouse is release-ready for phase 1.
+This roadmap defines the release-readiness reference path from the current `development` state until LunaLighthouse is release-ready for phase 1. Linear remains the source of truth for active task state, sprint selection, and project sequencing.
 
 Phase-1 release-ready means the iOS and Android Flutter app can be signed, tested, submitted, released, supported, and recovered without relying on hosted cloud account flows or hosted webhook push notifications. Cloud account and hosted webhook notification services remain phase-2/deferred while `LunaFeatureFlags.cloudIntegrationsEnabled = false`.
 

@@ -251,3 +251,30 @@
 
 - Capture live `Mobile CI` and `Build Mobile` run URLs for the release dry-run evidence checklist.
 - Keep cloud/webhook reactivation in phase-2 backlog until security/runtime validation is complete.
+
+## 2026-05-02 - Deferred Cloud Coming Soon Settings
+
+### Context
+
+- The phase-1 mobile release keeps hosted cloud accounts, cloud sync, hosted push notifications, and notification relay services deferred.
+- Product direction is to show planned hosted features as disabled Coming Soon UI instead of hiding them entirely or exposing inactive setup screens.
+
+### Work
+
+- Added Settings > Coming Soon with disabled Cloud Account, Cloud Sync, Hosted Push Notifications, and Notification Relay cards.
+- Added the Settings home entry and English localization keys, then regenerated the combined localization asset.
+- Added focused route/widget coverage for Settings Coming Soon and syntax-validated Android/iOS Maestro smoke flows.
+- Updated DEV-DOCS, maintainer docs, and user docs so deferred cloud/webhook messaging matches the in-app Coming Soon treatment.
+
+### Validation
+
+- `flutter test --no-pub test/modules/settings/coming_soon_route_test.dart` passes with 2 tests.
+- `flutter test --coverage --no-pub` passes with 139 tests.
+- `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2` passes at 4.96% line coverage.
+- `flutter analyze --no-pub` passes with no issues.
+- `maestro check-syntax` passes for Android and iOS Settings Coming Soon smoke flows.
+- `flutter build ios --simulator --debug --no-pub` passes; installed on iPhone 16 Pro simulator `219C2460-FB14-4BB6-93E0-09B511432A4D`.
+- `maestro --platform ios --device 219C2460-FB14-4BB6-93E0-09B511432A4D test --include-tags ios .maestro/flows/ios/settings_coming_soon_smoke.yaml` passes.
+- `flutter build apk --debug --no-pub` passes; installed on Android emulator `emulator-5554`.
+- `maestro --platform android --device emulator-5554 test --include-tags android .maestro/flows/android/settings_coming_soon_smoke.yaml` passes after rebuilding the debug APK.
+- `git diff --check` passes.
