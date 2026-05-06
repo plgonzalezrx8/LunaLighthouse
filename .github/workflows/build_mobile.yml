@@ -135,6 +135,9 @@ jobs:
     needs: [prepare]
     if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
     runs-on: [self-hosted, lunalighthouse, macOS]
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -239,3 +242,5 @@ jobs:
         run: |
           rm -f AuthKey_*.p8
           bundle _2.4.22_ exec fastlane keychain_delete || true
+          security default-keychain -d user -s "$HOME/Library/Keychains/login.keychain-db" || true
+          security list-keychains -d user -s "$HOME/Library/Keychains/login.keychain-db" || true

@@ -13,12 +13,24 @@ platform :ios do
     File.expand_path("~/Library/Keychains/#{ENV["MATCH_KEYCHAIN_NAME"]}-db")
   end
 
+  def login_keychain_path
+    File.expand_path("~/Library/Keychains/login.keychain-db")
+  end
+
+  def restore_login_keychain
+    return unless File.exist?(login_keychain_path)
+
+    unless system("security", "list-keychains", "-d", "user", "-s", login_keychain_path)
+      UI.message("Could not restore login keychain search list; continuing cleanup.")
+    end
+  end
+
   desc "Create the LunaLighthouse Keychain"
   lane :keychain_create do
     create_keychain(
       name: ENV["MATCH_KEYCHAIN_NAME"],
       password: ENV["MATCH_KEYCHAIN_PASSWORD"],
-      default_keychain: is_ci,
+      default_keychain: false,
       unlock: true,
       timeout: 3600,
       lock_when_sleeps: false
@@ -27,12 +39,16 @@ platform :ios do
 
   desc "Delete the LunaLighthouse Keychain"
   lane :keychain_delete do
-    if ENV["MATCH_KEYCHAIN_NAME"].to_s.empty?
-      UI.message("Skipping keychain delete; MATCH_KEYCHAIN_NAME is not set.")
-    elsif File.exist?(match_keychain_path)
-      delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
-    else
-      UI.message("Skipping keychain delete; #{ENV["MATCH_KEYCHAIN_NAME"]} does not exist.")
+    begin
+      if ENV["MATCH_KEYCHAIN_NAME"].to_s.empty?
+        UI.message("Skipping keychain delete; MATCH_KEYCHAIN_NAME is not set.")
+      elsif File.exist?(match_keychain_path)
+        delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
+      else
+        UI.message("Skipping keychain delete; #{ENV["MATCH_KEYCHAIN_NAME"]} does not exist.")
+      end
+    ensure
+      restore_login_keychain
     end
   end
 
