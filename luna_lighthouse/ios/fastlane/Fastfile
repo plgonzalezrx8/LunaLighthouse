@@ -1,6 +1,14 @@
 default_platform(:ios)
 
 platform :ios do
+  def app_store_connect_key
+    app_store_connect_api_key(
+      key_id: ENV["APPLE_STORE_CONNECT_KEY_ID"],
+      issuer_id: ENV["APPLE_STORE_CONNECT_ISSUER_ID"],
+      key_filepath: ENV["APPLE_STORE_CONNECT_KEY_FILEPATH"],
+    )
+  end
+
   desc "Create the LunaLighthouse Keychain"
   lane :keychain_create do
     create_keychain(
@@ -23,6 +31,7 @@ platform :ios do
     # Development
     match(
       type: "development",
+      api_key: app_store_connect_key,
       readonly: is_ci,
       keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
@@ -31,6 +40,7 @@ platform :ios do
     # App Store
     match(
       type: "appstore",
+      api_key: app_store_connect_key,
       readonly: is_ci,
       keychain_name: ENV['MATCH_KEYCHAIN_NAME'],
       keychain_password: ENV["MATCH_KEYCHAIN_PASSWORD"],
@@ -39,11 +49,7 @@ platform :ios do
 
   desc "Connect to App Store Connect"
   lane :connect_appstore_connect do
-    app_store_connect_api_key(
-      key_id: ENV["APPLE_STORE_CONNECT_KEY_ID"],
-      issuer_id: ENV["APPLE_STORE_CONNECT_ISSUER_ID"],
-      key_filepath: ENV["APPLE_STORE_CONNECT_KEY_FILEPATH"],
-    )
+    app_store_connect_key
   end
 
   desc "Build App Package for App Store"
@@ -52,17 +58,21 @@ platform :ios do
     keychain_setup
 
     sh(
-      "flutter", "build", "ios",
+      ENV.fetch("FLUTTER_BIN", "flutter"), "build", "ios",
       "--release",
       "--no-codesign",
+      "--no-pub",
       "--build-number=#{options[:build_number]}",
     )
     build_ios_app(
       scheme: "Runner",
       workspace: "Runner.xcworkspace",
       export_method: "app-store",
+      export_team_id: ENV["APPLE_TEAM_ID"],
       codesigning_identity: ENV["IOS_CODESIGNING_IDENTITY"],
+      xcargs: "DEVELOPMENT_TEAM=#{ENV["APPLE_TEAM_ID"]}",
       export_options: {
+        teamID: ENV["APPLE_TEAM_ID"],
         provisioningProfiles: {
           "app.lunalighthouse.lunalighthouse" => "match AppStore app.lunalighthouse.lunalighthouse"
         }
