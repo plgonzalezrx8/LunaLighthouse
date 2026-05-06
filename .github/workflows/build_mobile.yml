@@ -136,6 +136,7 @@ jobs:
     if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
     runs-on: [self-hosted, lunalighthouse, macOS]
     env:
+      AGENT_TOOLSDIRECTORY: ${{ github.workspace }}/.runner-tool-cache
       RUNNER_TOOL_CACHE: ${{ github.workspace }}/.runner-tool-cache
     steps:
       - name: Checkout Repository
