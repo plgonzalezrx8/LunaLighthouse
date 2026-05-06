@@ -139,6 +139,9 @@ These names must exist in GitHub repository secrets.
 | `APPLE_ID` | Apple ID email |
 | `APPLE_ITC_TEAM_ID` | App Store Connect team identifier |
 | `APPLE_TEAM_ID` | Apple Developer team identifier |
+| `APPLE_STORE_CONNECT_ISSUER_ID` | App Store Connect API issuer ID |
+| `APPLE_STORE_CONNECT_KEY_ID` | App Store Connect API key ID |
+| `APPLE_STORE_CONNECT_KEY_CONTENT` | Raw contents of the App Store Connect API private key `.p8` file |
 | `IOS_CODESIGNING_IDENTITY` | iOS distribution identity string |
 | `MATCH_KEYCHAIN_NAME` | Fastlane keychain name |
 | `MATCH_KEYCHAIN_PASSWORD` | Fastlane keychain password |
