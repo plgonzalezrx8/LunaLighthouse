@@ -135,9 +135,6 @@ jobs:
     needs: [prepare]
     if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
     runs-on: [self-hosted, lunalighthouse, macOS]
-    env:
-      AGENT_TOOLSDIRECTORY: ${{ github.workspace }}/.runner-tool-cache
-      RUNNER_TOOL_CACHE: ${{ github.workspace }}/.runner-tool-cache
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -147,11 +144,24 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7.6
-          bundler-cache: false
+      - name: Configure Ruby
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -x "$HOME/.rbenv/bin/rbenv" ]; then
+            echo "$HOME/.rbenv/bin" >> "$GITHUB_PATH"
+            echo "$HOME/.rbenv/shims" >> "$GITHUB_PATH"
+            echo "RBENV_ROOT=$HOME/.rbenv" >> "$GITHUB_ENV"
+            echo "RBENV_VERSION=2.7.6" >> "$GITHUB_ENV"
+            export RBENV_ROOT="$HOME/.rbenv"
+            export RBENV_VERSION=2.7.6
+            export PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
+          fi
+          ruby --version
+          if ! bundle --version >/dev/null 2>&1; then
+            gem install bundler -v 2.4.22
+          fi
+          bundle --version
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
