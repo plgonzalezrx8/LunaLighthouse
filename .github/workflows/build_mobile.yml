@@ -221,7 +221,9 @@ jobs:
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        run: bundle _2.4.22_ exec fastlane build_appstore build_number:${{ needs.prepare.outputs.build-number }}
+        run: |
+          export FLUTTER_BIN="$FLUTTER_ROOT/bin/flutter"
+          bundle _2.4.22_ exec fastlane build_appstore build_number:${{ needs.prepare.outputs.build-number }}
 
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v4
