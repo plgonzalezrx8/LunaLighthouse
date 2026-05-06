@@ -136,7 +136,7 @@ jobs:
     if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
     runs-on: [self-hosted, lunalighthouse, macOS]
     env:
-      RUNNER_TOOL_CACHE: ${{ runner.temp }}/toolcache
+      RUNNER_TOOL_CACHE: ${{ github.workspace }}/.runner-tool-cache
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
