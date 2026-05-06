@@ -9,6 +9,10 @@ platform :ios do
     )
   end
 
+  def match_keychain_path
+    File.expand_path("~/Library/Keychains/#{ENV["MATCH_KEYCHAIN_NAME"]}-db")
+  end
+
   desc "Create the LunaLighthouse Keychain"
   lane :keychain_create do
     create_keychain(
@@ -23,7 +27,13 @@ platform :ios do
 
   desc "Delete the LunaLighthouse Keychain"
   lane :keychain_delete do
-    delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
+    if ENV["MATCH_KEYCHAIN_NAME"].to_s.empty?
+      UI.message("Skipping keychain delete; MATCH_KEYCHAIN_NAME is not set.")
+    elsif File.exist?(match_keychain_path)
+      delete_keychain(name: ENV["MATCH_KEYCHAIN_NAME"])
+    else
+      UI.message("Skipping keychain delete; #{ENV["MATCH_KEYCHAIN_NAME"]} does not exist.")
+    end
   end
 
   desc "Setup the Keychain"
