@@ -23,21 +23,23 @@ class LunaReorderableListViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: controller,
-      interactive: true,
-      child: ReorderableListView.builder(
-        scrollController: controller,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        padding: padding as EdgeInsets? ??
-            MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
-                  vertical: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom,
-                )) as EdgeInsets?,
-        physics: physics,
-        itemCount: itemCount,
-        itemBuilder: itemBuilder,
-        onReorder: onReorder,
-        buildDefaultDragHandles: buildDefaultDragHandles,
+    return LunaContentWidth(
+      child: Scrollbar(
+        controller: controller,
+        interactive: true,
+        child: ReorderableListView.builder(
+          scrollController: controller,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: padding as EdgeInsets? ??
+              MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
+                    vertical: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom,
+                  )) as EdgeInsets?,
+          physics: physics,
+          itemCount: itemCount,
+          itemBuilder: itemBuilder,
+          onReorder: onReorder,
+          buildDefaultDragHandles: buildDefaultDragHandles,
+        ),
       ),
     );
   }

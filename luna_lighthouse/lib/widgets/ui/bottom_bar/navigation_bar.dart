@@ -89,46 +89,52 @@ class _State extends State<LunaBottomNavigationBar> {
   Widget get _navigationBar {
     return Container(
       child: SafeArea(
-        child: Padding(
-          child: GNav(
-            gap: LunaUI.MARGIN_SIZE_HALF,
-            duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
-            tabBackgroundColor: Theme.of(context).canvasColor.dimmed(),
-            activeColor: LunaColours.accent,
-            tabs: List.generate(
-                widget.icons.length,
-                (index) => GButton(
-                      icon: widget.icons[index],
-                      text: widget.titles[index],
-                      active: _index == index,
-                      iconSize: LunaUI.ICON_SIZE,
-                      haptic: true,
-                      padding: const EdgeInsets.all(10.0).add(EdgeInsets.only(
-                        left: _index == index ? LunaUI.MARGIN_SIZE_HALF : 0.0,
-                      )),
-                      iconColor: Colors.white,
-                      textStyle: const TextStyle(
-                        fontWeight: LunaUI.FONT_WEIGHT_BOLD,
-                        fontSize: LunaUI.FONT_SIZE_H3,
-                        color: Colors.white,
-                      ),
-                      iconActiveColor: LunaColours.accent,
-                      leading: widget.leadingOnTab == null
-                          ? null
-                          : widget.leadingOnTab![index],
-                    )).toList(),
-            tabActiveBorder: LunaUI.shouldUseBorder
-                ? Border.all(color: LunaColours.white10)
-                : null,
-            tabBorder: LunaUI.shouldUseBorder
-                ? Border.all(color: Colors.transparent)
-                : null,
-            selectedIndex: _index,
-            onTabChange: _onDestinationSelected,
+        child: LunaContentWidth(
+          maxWidth: LunaLayout.maxNavigationWidth,
+          child: Padding(
+            child: GNav(
+              gap: LunaUI.MARGIN_SIZE_HALF,
+              duration: const Duration(milliseconds: LunaUI.ANIMATION_SPEED),
+              tabBackgroundColor: Theme.of(context).canvasColor.dimmed(),
+              activeColor: LunaColours.accent,
+              tabs: List.generate(
+                  widget.icons.length,
+                  (index) => GButton(
+                        icon: widget.icons[index],
+                        text: widget.titles[index],
+                        active: _index == index,
+                        iconSize: LunaUI.ICON_SIZE,
+                        haptic: true,
+                        padding: const EdgeInsets.all(10.0).add(
+                          EdgeInsets.only(
+                            left:
+                                _index == index ? LunaUI.MARGIN_SIZE_HALF : 0.0,
+                          ),
+                        ),
+                        iconColor: Colors.white,
+                        textStyle: const TextStyle(
+                          fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                          fontSize: LunaUI.FONT_SIZE_H3,
+                          color: Colors.white,
+                        ),
+                        iconActiveColor: LunaColours.accent,
+                        leading: widget.leadingOnTab == null
+                            ? null
+                            : widget.leadingOnTab![index],
+                      )).toList(),
+              tabActiveBorder: LunaUI.shouldUseBorder
+                  ? Border.all(color: LunaColours.white10)
+                  : null,
+              tabBorder: LunaUI.shouldUseBorder
+                  ? Border.all(color: Colors.transparent)
+                  : null,
+              selectedIndex: _index,
+              onTabChange: _onDestinationSelected,
+            ),
+            padding: (widget.topActions?.isNotEmpty ?? false)
+                ? LunaUI.MARGIN_DEFAULT.copyWith(top: 0.0)
+                : LunaUI.MARGIN_DEFAULT,
           ),
-          padding: (widget.topActions?.isNotEmpty ?? false)
-              ? LunaUI.MARGIN_DEFAULT.copyWith(top: 0.0)
-              : LunaUI.MARGIN_DEFAULT,
         ),
         top: false,
       ),

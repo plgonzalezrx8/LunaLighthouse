@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:luna_lighthouse/widgets/ui/layout.dart';
 
 class LunaCustomScrollView extends StatelessWidget {
   final ScrollController controller;
@@ -12,14 +13,16 @@ class LunaCustomScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: controller,
-      interactive: true,
-      child: CustomScrollView(
+    return LunaContentWidth(
+      child: Scrollbar(
         controller: controller,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        slivers: slivers,
-        physics: const AlwaysScrollableScrollPhysics(),
+        interactive: true,
+        child: CustomScrollView(
+          controller: controller,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          slivers: slivers,
+          physics: const AlwaysScrollableScrollPhysics(),
+        ),
       ),
     );
   }

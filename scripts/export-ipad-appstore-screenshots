@@ -1,0 +1,143 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Normalize iPad visual QA captures into App Store Connect's 13-inch iPad size.
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+INPUT_DIR="$ROOT_DIR/app-store-assets/screenshots/ipad-visual-qa/raw"
+OUTPUT_DIR="$ROOT_DIR/app-store-assets/screenshots/appstore-ipad-13-2048x2732"
+TARGET_W=2048
+TARGET_H=2732
+PAD_COLOR="000000"
+
+usage() {
+  cat <<USAGE
+Usage: scripts/export-ipad-appstore-screenshots [options] [input-dir] [output-dir]
+
+Options:
+  --input-dir <path>    Directory of source PNG screenshots.
+  --output-dir <path>   Directory for App Store-ready PNG exports.
+  --target <WxH>        Target portrait size. Default: ${TARGET_W}x${TARGET_H}.
+  --pad-color <hex>     Background color used when padding. Default: ${PAD_COLOR}.
+  -h, --help            Show this help.
+
+The default target is Apple's current 13-inch iPad portrait screenshot size.
+Source images are scaled to fit, padded as needed, and never modified in place.
+USAGE
+}
+
+fail() {
+  echo "[export-ipad-appstore-screenshots] $1" >&2
+  exit 1
+}
+
+require_cmd() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    fail "$1 is required"
+  fi
+}
+
+parse_target() {
+  local target="$1"
+  if [[ ! "$target" =~ ^[0-9]+x[0-9]+$ ]]; then
+    fail "target must use WxH format, got: $target"
+  fi
+  TARGET_W="${target%x*}"
+  TARGET_H="${target#*x}"
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --input-dir)
+      [[ $# -ge 2 ]] || fail "--input-dir requires a value"
+      INPUT_DIR="$2"
+      shift 2
+      ;;
+    --output-dir)
+      [[ $# -ge 2 ]] || fail "--output-dir requires a value"
+      OUTPUT_DIR="$2"
+      shift 2
+      ;;
+    --target)
+      [[ $# -ge 2 ]] || fail "--target requires a value"
+      parse_target "$2"
+      shift 2
+      ;;
+    --pad-color)
+      [[ $# -ge 2 ]] || fail "--pad-color requires a value"
+      PAD_COLOR="${2#\#}"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    -*)
+      fail "unknown option: $1"
+      ;;
+    *)
+      if [[ "$INPUT_DIR" == "$ROOT_DIR/app-store-assets/screenshots/ipad-visual-qa/raw" ]]; then
+        INPUT_DIR="$1"
+      elif [[ "$OUTPUT_DIR" == "$ROOT_DIR/app-store-assets/screenshots/appstore-ipad-13-2048x2732" ]]; then
+        OUTPUT_DIR="$1"
+      else
+        fail "unexpected argument: $1"
+      fi
+      shift
+      ;;
+  esac
+done
+
+require_cmd sips
+require_cmd python3
+
+[[ -d "$INPUT_DIR" ]] || fail "input directory does not exist: $INPUT_DIR"
+mkdir -p "$OUTPUT_DIR"
+
+SOURCES=()
+while IFS= read -r src; do
+  SOURCES+=("$src")
+done < <(find "$INPUT_DIR" -maxdepth 1 -type f -name '*.png' | sort)
+if [[ "${#SOURCES[@]}" -eq 0 ]]; then
+  fail "no PNG screenshots found in $INPUT_DIR"
+fi
+
+converted=0
+for src in "${SOURCES[@]}"; do
+  name="$(basename "$src")"
+  dest="$OUTPUT_DIR/$name"
+  tmp_dir="$(mktemp -d)"
+  scaled="$tmp_dir/$name"
+
+  read -r src_w src_h < <(sips -g pixelWidth -g pixelHeight "$src" 2>/dev/null \
+    | awk '/pixelWidth/ {w=$2} /pixelHeight/ {h=$2} END {print w, h}')
+
+  if [[ -z "${src_w:-}" || -z "${src_h:-}" ]]; then
+    rm -rf "$tmp_dir"
+    fail "could not read image dimensions for $src"
+  fi
+
+  read -r scaled_w scaled_h < <(python3 - "$src_w" "$src_h" "$TARGET_W" "$TARGET_H" <<'PY'
+import sys
+
+src_w, src_h, target_w, target_h = map(int, sys.argv[1:])
+scale = min(target_w / src_w, target_h / src_h)
+print(max(1, round(src_w * scale)), max(1, round(src_h * scale)))
+PY
+)
+
+  sips -s format png -z "$scaled_h" "$scaled_w" "$src" --out "$scaled" >/dev/null
+  sips --padToHeightWidth "$TARGET_H" "$TARGET_W" --padColor "$PAD_COLOR" "$scaled" --out "$dest" >/dev/null 2>/dev/null
+
+  read -r out_w out_h < <(sips -g pixelWidth -g pixelHeight "$dest" 2>/dev/null \
+    | awk '/pixelWidth/ {w=$2} /pixelHeight/ {h=$2} END {print w, h}')
+  rm -rf "$tmp_dir"
+
+  if [[ "$out_w" != "$TARGET_W" || "$out_h" != "$TARGET_H" ]]; then
+    fail "exported $dest at ${out_w}x${out_h}, expected ${TARGET_W}x${TARGET_H}"
+  fi
+
+  echo "[export-ipad-appstore-screenshots] $name: ${src_w}x${src_h} -> ${TARGET_W}x${TARGET_H}"
+  converted=$((converted + 1))
+done
+
+echo "[export-ipad-appstore-screenshots] Exported $converted screenshot(s) to $OUTPUT_DIR"

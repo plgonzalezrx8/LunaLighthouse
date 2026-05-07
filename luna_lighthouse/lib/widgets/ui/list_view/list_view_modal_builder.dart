@@ -36,18 +36,21 @@ class LunaListViewModalBuilder extends StatelessWidget {
             height: appBarHeight,
           ),
         Flexible(
-          child: Scrollbar(
-            controller: ModalScrollController.of(context),
-            interactive: true,
-            child: ListView.builder(
+          child: LunaContentWidth(
+            child: Scrollbar(
               controller: ModalScrollController.of(context),
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              padding: _padding(context),
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: itemCount,
-              itemBuilder: itemBuilder,
-              itemExtent: itemExtent,
-              shrinkWrap: true,
+              interactive: true,
+              child: ListView.builder(
+                controller: ModalScrollController.of(context),
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                padding: _padding(context),
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: itemCount,
+                itemBuilder: itemBuilder,
+                itemExtent: itemExtent,
+                shrinkWrap: true,
+              ),
             ),
           ),
         ),

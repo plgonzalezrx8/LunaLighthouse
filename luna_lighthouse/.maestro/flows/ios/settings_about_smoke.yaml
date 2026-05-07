@@ -8,7 +8,7 @@ tags:
 - launchApp
 - assertVisible: "LunaLighthouse"
 - tapOn: "Go to Settings"
-- assertVisible: "Settings"
+- assertVisible: "Configuration"
 - scrollUntilVisible:
     element: "About"
     direction: DOWN

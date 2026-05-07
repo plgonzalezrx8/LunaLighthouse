@@ -30,13 +30,16 @@ class LunaBottomActionBar extends StatelessWidget {
         bottom: useSafeArea,
         left: useSafeArea,
         right: useSafeArea,
-        child: Padding(
-          child: LunaButtonContainer(
-            children: actions!,
-            padding: EdgeInsets.zero,
-            buttonsPerRow: actionsPerRow,
+        child: LunaContentWidth(
+          maxWidth: LunaLayout.maxNavigationWidth,
+          child: Padding(
+            child: LunaButtonContainer(
+              children: actions!,
+              padding: EdgeInsets.zero,
+              buttonsPerRow: actionsPerRow,
+            ),
+            padding: padding,
           ),
-          padding: padding,
         ),
       ),
       decoration: BoxDecoration(

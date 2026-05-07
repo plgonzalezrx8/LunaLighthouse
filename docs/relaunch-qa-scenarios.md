@@ -12,3 +12,5 @@ Use these checks for beta and production go/no-go decisions.
 8. CI runs from LunaLighthouse-owned workflows without upstream workflow dependencies.
 9. Signed artifacts can be uploaded to Play internal track and TestFlight.
 10. Frozen non-mobile targets do not block mobile release gates.
+11. iPad 13-inch simulator visual QA passes with `scripts/ipad-visual-qa`.
+12. App Store iPad screenshots export at `2048x2732` with `scripts/export-ipad-appstore-screenshots`.
