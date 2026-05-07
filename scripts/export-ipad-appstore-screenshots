@@ -65,6 +65,7 @@ while [[ $# -gt 0 ]]; do
     --pad-color)
       [[ $# -ge 2 ]] || fail "--pad-color requires a value"
       PAD_COLOR="${2#\#}"
+      [[ "$PAD_COLOR" =~ ^[0-9A-Fa-f]{6}$ ]] || fail "--pad-color must be a 6-digit hex value (RRGGBB)"
       shift 2
       ;;
     -h|--help)

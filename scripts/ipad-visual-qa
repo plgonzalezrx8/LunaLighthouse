@@ -186,8 +186,12 @@ LANDSCAPE_DIR="$OUTPUT_DIR/landscape-raw"
 EXPORT_DIR="$ROOT_DIR/app-store-assets/screenshots/appstore-ipad-13-2048x2732"
 mkdir -p "$RAW_DIR" "$LANDSCAPE_DIR"
 
-echo "[ipad-visual-qa] Capturing launch screenshot"
+echo "[ipad-visual-qa] Capturing launch splash screenshot"
+xcrun simctl terminate "$UDID" "$APP_ID" >/dev/null || true
 xcrun simctl launch "$UDID" "$APP_ID" >/dev/null || true
+xcrun simctl io "$UDID" screenshot "$RAW_DIR/06-launch-splash.png"
+
+echo "[ipad-visual-qa] Capturing launch screenshot"
 sleep 2
 xcrun simctl io "$UDID" screenshot "$RAW_DIR/01-launch.png"
 
@@ -313,11 +317,20 @@ YAML
   popd >/dev/null
 fi
 
-if [[ ! -f "$RAW_DIR/02-settings.png" && -f "$RAW_DIR/03-about.png" ]]; then
-  cp "$RAW_DIR/03-about.png" "$RAW_DIR/02-settings.png"
-fi
-if [[ ! -f "$RAW_DIR/06-launch-splash.png" && -f "$RAW_DIR/01-launch.png" ]]; then
-  cp "$RAW_DIR/01-launch.png" "$RAW_DIR/06-launch-splash.png"
+missing_screenshots=()
+for required_screenshot in \
+  01-launch.png \
+  02-settings.png \
+  03-about.png \
+  04-open-source.png \
+  05-coming-soon.png \
+  06-launch-splash.png; do
+  if [[ ! -f "$RAW_DIR/$required_screenshot" ]]; then
+    missing_screenshots+=("$required_screenshot")
+  fi
+done
+if [[ "${#missing_screenshots[@]}" -gt 0 ]]; then
+  fail "missing required screenshot(s): ${missing_screenshots[*]}"
 fi
 
 if [[ "$SKIP_EXPORT" -eq 0 ]]; then

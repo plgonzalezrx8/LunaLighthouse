@@ -21,6 +21,12 @@ class LunaReorderableListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final resolvedPadding = (padding ??
+            MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
+                  vertical: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom,
+                )))
+        .resolve(Directionality.of(context));
+
     return LunaContentWidth(
       child: Scrollbar(
         controller: controller,
@@ -29,10 +35,7 @@ class LunaReorderableListView extends StatelessWidget {
           scrollController: controller,
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           children: children,
-          padding: padding as EdgeInsets? ??
-              MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
-                    vertical: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom,
-                  )) as EdgeInsets?,
+          padding: resolvedPadding,
           physics: physics,
           onReorder: onReorder,
           buildDefaultDragHandles: buildDefaultDragHandles,
