@@ -1,5 +1,5 @@
 name: Build Mobile
-run-name: "Build Mobile Release: ${{ inputs.flavor || github.sha }}"
+run-name: "Build Mobile Release: ${{ inputs.flavor || github.sha }} / ${{ inputs.platform || 'all' }}"
 
 on:
   workflow_dispatch:
@@ -13,6 +13,15 @@ on:
           - edge
           - beta
           - stable
+      platform:
+        description: Platform
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - android
+          - ios
 
 permissions:
   contents: read
@@ -23,7 +32,7 @@ env:
 jobs:
   prepare:
     name: Prepare
-    runs-on: [self-hosted, lunalighthouse, Linux]
+    runs-on: ${{ fromJSON(inputs.platform == 'ios' && '["self-hosted","lunalighthouse","macOS"]' || '["self-hosted","lunalighthouse","Linux"]') }}
     outputs:
       build-number: ${{ steps.build-number.outputs.value }}
       build-flavor: ${{ steps.build-flavor.outputs.value }}
@@ -47,6 +56,7 @@ jobs:
   build-android:
     name: Build Android
     needs: [prepare]
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'android' }}
     runs-on: [self-hosted, lunalighthouse, Linux]
     steps:
       - name: Checkout Repository
@@ -123,7 +133,11 @@ jobs:
   build-ios:
     name: Build iOS
     needs: [prepare]
+    if: ${{ inputs.platform == 'all' || inputs.platform == 'ios' }}
     runs-on: [self-hosted, lunalighthouse, macOS]
+    env:
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -133,11 +147,32 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7.6
-          bundler-cache: false
+      - name: Configure Ruby
+        shell: bash
+        run: |
+          set -euo pipefail
+          if command -v rbenv >/dev/null 2>&1; then
+            RBENV_BIN="$(command -v rbenv)"
+          elif [ -x "/opt/homebrew/bin/rbenv" ]; then
+            RBENV_BIN="/opt/homebrew/bin/rbenv"
+          else
+            RBENV_BIN=""
+          fi
+          if [ -n "$RBENV_BIN" ]; then
+            RBENV_ROOT="${RBENV_ROOT:-$HOME/.rbenv}"
+            echo "$(dirname "$RBENV_BIN")" >> "$GITHUB_PATH"
+            echo "$RBENV_ROOT/shims" >> "$GITHUB_PATH"
+            echo "RBENV_ROOT=$RBENV_ROOT" >> "$GITHUB_ENV"
+            echo "RBENV_VERSION=2.7.6" >> "$GITHUB_ENV"
+            export RBENV_ROOT
+            export RBENV_VERSION=2.7.6
+            export PATH="$(dirname "$RBENV_BIN"):$RBENV_ROOT/shims:$PATH"
+          fi
+          ruby --version
+          if ! bundle _2.4.22_ --version >/dev/null 2>&1; then
+            gem install bundler -v 2.4.22
+          fi
+          bundle _2.4.22_ --version
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -163,13 +198,25 @@ jobs:
 
       - name: Install iOS Fastlane Dependencies
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
-        run: bundle install
+        run: bundle _2.4.22_ install
+
+      - name: Prepare App Store Connect API Key
+        working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
+        shell: bash
+        env:
+          APPLE_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APPLE_STORE_CONNECT_KEY_CONTENT }}
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
+        run: |
+          printf '%s' "$APPLE_STORE_CONNECT_KEY_CONTENT" > "AuthKey_${APPLE_STORE_CONNECT_KEY_ID}.p8"
 
       - name: Build iOS Artifact
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
         env:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_ITC_TEAM_ID: ${{ secrets.APPLE_ITC_TEAM_ID }}
+          APPLE_STORE_CONNECT_ISSUER_ID: ${{ secrets.APPLE_STORE_CONNECT_ISSUER_ID }}
+          APPLE_STORE_CONNECT_KEY_FILEPATH: AuthKey_${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}.p8
+          APPLE_STORE_CONNECT_KEY_ID: ${{ secrets.APPLE_STORE_CONNECT_KEY_ID }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           FASTLANE_USER: ${{ secrets.APPLE_ID }}
           IOS_CODESIGNING_IDENTITY: ${{ secrets.IOS_CODESIGNING_IDENTITY }}
@@ -177,7 +224,9 @@ jobs:
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        run: bundle exec fastlane build_appstore build_number:${{ needs.prepare.outputs.build-number }}
+        run: |
+          export FLUTTER_BIN="$FLUTTER_ROOT/bin/flutter"
+          bundle _2.4.22_ exec fastlane build_appstore build_number:${{ needs.prepare.outputs.build-number }}
 
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v4
@@ -190,4 +239,8 @@ jobs:
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
         env:
           MATCH_KEYCHAIN_NAME: ${{ secrets.MATCH_KEYCHAIN_NAME }}
-        run: bundle exec fastlane keychain_delete || true
+        run: |
+          rm -f AuthKey_*.p8
+          bundle _2.4.22_ exec fastlane keychain_delete || true
+          security default-keychain -d user -s "$HOME/Library/Keychains/login.keychain-db" || true
+          security list-keychains -d user -s "$HOME/Library/Keychains/login.keychain-db" || true

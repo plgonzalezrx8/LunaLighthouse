@@ -25,6 +25,10 @@ Flutter/flutter_export_environment.sh
 ServiceDefinitions.json
 Runner/GeneratedPluginRegistrant.*
 
+# Local Fastlane/App Store signing environment. Do not commit secrets.
+.env
+*.p8
+
 # Exceptions to above rules.
 !default.mode1v3
 !default.mode2v3
