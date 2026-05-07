@@ -1,6 +1,6 @@
 name: luna_lighthouse
 description: Self-Hosted Controller
-version: 11.0.0+1
+version: 1.0.0+1
 publish_to: "none"
 environment:
   sdk: ">=3.0.0 <4.0.0"
