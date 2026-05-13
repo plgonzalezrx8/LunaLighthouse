@@ -23,17 +23,19 @@ class LunaGridViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: controller,
-      interactive: true,
-      child: GridView.builder(
+    return LunaContentWidth(
+      child: Scrollbar(
         controller: controller,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        padding: padding ?? _defaultPadding(context),
-        physics: physics,
-        itemCount: itemCount,
-        gridDelegate: sliverGridDelegate,
-        itemBuilder: itemBuilder,
+        interactive: true,
+        child: GridView.builder(
+          controller: controller,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: padding ?? _defaultPadding(context),
+          physics: physics,
+          itemCount: itemCount,
+          gridDelegate: sliverGridDelegate,
+          itemBuilder: itemBuilder,
+        ),
       ),
     );
   }

@@ -1,0 +1,342 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Build, install, smoke-test, and capture iPad 13-inch visual QA evidence.
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+APP_DIR="$ROOT_DIR/luna_lighthouse"
+APP_ID="app.lunalighthouse.lunalighthouse"
+DEVICE_NAME="LunaLighthouse iPad 13-inch QA"
+DEVICE_UDID="${IPAD_VISUAL_QA_DEVICE_UDID:-}"
+DEVICE_TYPE_ID="${IPAD_VISUAL_QA_DEVICE_TYPE:-}"
+RUNTIME_ID="${IPAD_VISUAL_QA_RUNTIME:-}"
+FLUTTER_BIN="${FLUTTER_BIN:-$HOME/.sdk/flutter/bin/flutter}"
+OUTPUT_DIR="$ROOT_DIR/app-store-assets/screenshots/ipad-visual-qa"
+SKIP_BUILD=0
+SKIP_MAESTRO=0
+SKIP_EXPORT=0
+
+usage() {
+  cat <<USAGE
+Usage: scripts/ipad-visual-qa [options]
+
+Options:
+  --device-name <name>       Simulator name. Default: ${DEVICE_NAME}
+  --device-udid <udid>       Existing simulator UDID to use.
+  --device-type <id>         CoreSimulator device type override.
+  --runtime <id>             CoreSimulator runtime override.
+  --output-dir <path>        Evidence output directory.
+  --skip-build               Reuse the existing simulator build.
+  --skip-maestro             Capture screenshots without running Maestro.
+  --skip-export              Do not invoke scripts/export-ipad-appstore-screenshots.
+  -h, --help                 Show this help.
+
+Environment overrides:
+  FLUTTER_BIN
+  IPAD_VISUAL_QA_DEVICE_UDID
+  IPAD_VISUAL_QA_DEVICE_TYPE
+  IPAD_VISUAL_QA_RUNTIME
+USAGE
+}
+
+fail() {
+  echo "[ipad-visual-qa] $1" >&2
+  exit 1
+}
+
+require_cmd() {
+  if ! command -v "$1" >/dev/null 2>&1; then
+    fail "$1 is required"
+  fi
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --device-name)
+      [[ $# -ge 2 ]] || fail "--device-name requires a value"
+      DEVICE_NAME="$2"
+      shift 2
+      ;;
+    --device-udid)
+      [[ $# -ge 2 ]] || fail "--device-udid requires a value"
+      DEVICE_UDID="$2"
+      shift 2
+      ;;
+    --device-type)
+      [[ $# -ge 2 ]] || fail "--device-type requires a value"
+      DEVICE_TYPE_ID="$2"
+      shift 2
+      ;;
+    --runtime)
+      [[ $# -ge 2 ]] || fail "--runtime requires a value"
+      RUNTIME_ID="$2"
+      shift 2
+      ;;
+    --output-dir)
+      [[ $# -ge 2 ]] || fail "--output-dir requires a value"
+      OUTPUT_DIR="$2"
+      shift 2
+      ;;
+    --skip-build)
+      SKIP_BUILD=1
+      shift
+      ;;
+    --skip-maestro)
+      SKIP_MAESTRO=1
+      shift
+      ;;
+    --skip-export)
+      SKIP_EXPORT=1
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      fail "unknown option: $1"
+      ;;
+  esac
+done
+
+[[ "$(uname -s)" == "Darwin" ]] || fail "iPad visual QA requires macOS"
+[[ -d "$APP_DIR" ]] || fail "missing Flutter app directory: $APP_DIR"
+
+[[ -x "$FLUTTER_BIN" ]] || FLUTTER_BIN="flutter"
+require_cmd "$FLUTTER_BIN"
+require_cmd xcrun
+if [[ "$SKIP_MAESTRO" -eq 0 ]]; then
+  require_cmd maestro
+  export MAESTRO_DRIVER_STARTUP_TIMEOUT="${MAESTRO_DRIVER_STARTUP_TIMEOUT:-300000}"
+fi
+
+find_device_type() {
+  xcrun simctl list devicetypes \
+    | sed -n 's/.*(\(com\.apple\.CoreSimulator\.SimDeviceType\.iPad-Pro-13-inch[^)]*\)).*/\1/p' \
+    | head -n 1
+}
+
+find_runtime() {
+  xcrun simctl list runtimes available \
+    | awk '/iOS/ {print $NF}' \
+    | tail -n 1
+}
+
+find_device_udid() {
+  xcrun simctl list devices available \
+    | sed -n "s/^    ${DEVICE_NAME} (\([-A-F0-9]*\)) (.*/\1/p" \
+    | head -n 1
+}
+
+find_existing_ipad_13_udid() {
+  xcrun simctl list devices available \
+    | sed -n 's/^    iPad Pro 13-inch (M4) (\([-A-F0-9]*\)) (.*/\1/p' \
+    | head -n 1
+}
+
+device_state() {
+  local udid="$1"
+  xcrun simctl list devices available \
+    | sed -n "s/^    .* (${udid}) (\([^)]*\)).*/\1/p" \
+    | head -n 1
+}
+
+if [[ -z "$DEVICE_TYPE_ID" ]]; then
+  DEVICE_TYPE_ID="$(find_device_type)"
+fi
+[[ -n "$DEVICE_TYPE_ID" ]] || fail "no available 13-inch iPad simulator device type found"
+
+if [[ -z "$RUNTIME_ID" ]]; then
+  RUNTIME_ID="$(find_runtime)"
+fi
+[[ -n "$RUNTIME_ID" ]] || fail "no available iOS simulator runtime found"
+
+UDID="$DEVICE_UDID"
+if [[ -z "$UDID" ]]; then
+  UDID="$(find_existing_ipad_13_udid)"
+fi
+if [[ -z "$UDID" ]]; then
+  UDID="$(find_device_udid)"
+fi
+if [[ -z "$UDID" ]]; then
+  echo "[ipad-visual-qa] Creating simulator: $DEVICE_NAME ($DEVICE_TYPE_ID, $RUNTIME_ID)"
+  UDID="$(xcrun simctl create "$DEVICE_NAME" "$DEVICE_TYPE_ID" "$RUNTIME_ID")"
+fi
+
+state="$(device_state "$UDID")"
+if [[ "$state" != "Booted" ]]; then
+  echo "[ipad-visual-qa] Booting simulator $UDID"
+  xcrun simctl boot "$UDID" >/dev/null || true
+  xcrun simctl bootstatus "$UDID" -b
+fi
+
+if [[ "$SKIP_BUILD" -eq 0 ]]; then
+  pushd "$APP_DIR" >/dev/null
+  "$FLUTTER_BIN" build ios --simulator --debug
+  popd >/dev/null
+fi
+
+APP_BUNDLE="$APP_DIR/build/ios/iphonesimulator/Runner.app"
+[[ -d "$APP_BUNDLE" ]] || fail "missing simulator app bundle: $APP_BUNDLE"
+
+echo "[ipad-visual-qa] Installing $APP_BUNDLE"
+xcrun simctl install "$UDID" "$APP_BUNDLE"
+
+RAW_DIR="$OUTPUT_DIR/raw"
+LANDSCAPE_DIR="$OUTPUT_DIR/landscape-raw"
+EXPORT_DIR="$ROOT_DIR/app-store-assets/screenshots/appstore-ipad-13-2048x2732"
+mkdir -p "$RAW_DIR" "$LANDSCAPE_DIR"
+
+echo "[ipad-visual-qa] Capturing launch splash screenshot"
+xcrun simctl terminate "$UDID" "$APP_ID" >/dev/null || true
+xcrun simctl launch "$UDID" "$APP_ID" >/dev/null || true
+xcrun simctl io "$UDID" screenshot "$RAW_DIR/06-launch-splash.png"
+
+echo "[ipad-visual-qa] Capturing launch screenshot"
+sleep 2
+xcrun simctl io "$UDID" screenshot "$RAW_DIR/01-launch.png"
+
+if [[ "$SKIP_MAESTRO" -eq 0 ]]; then
+  pushd "$APP_DIR" >/dev/null
+  tmp_flow="$(mktemp)"
+
+  cat > "$tmp_flow" <<'YAML'
+appId: app.lunalighthouse.lunalighthouse
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- tapOn: "Go to Settings"
+- assertVisible: "Configuration"
+YAML
+  maestro --platform ios --device "$UDID" test "$tmp_flow"
+  xcrun simctl io "$UDID" screenshot "$RAW_DIR/02-settings.png"
+
+  cat > "$tmp_flow" <<'YAML'
+appId: app.lunalighthouse.lunalighthouse
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- tapOn: "Go to Settings"
+- assertVisible: "Configuration"
+- scrollUntilVisible:
+    element: "About"
+    direction: DOWN
+- tapOn: "About"
+- assertVisible: "Version"
+YAML
+  maestro --platform ios --device "$UDID" test "$tmp_flow"
+  xcrun simctl io "$UDID" screenshot "$RAW_DIR/03-about.png"
+
+  cat > "$tmp_flow" <<'YAML'
+appId: app.lunalighthouse.lunalighthouse
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- tapOn: "Go to Settings"
+- assertVisible: "Configuration"
+- scrollUntilVisible:
+    element: "About"
+    direction: DOWN
+- tapOn: "About"
+- assertVisible: "Open Source"
+- tapOn: "Open Source"
+- assertVisible: "Open Source Packages"
+YAML
+  maestro --platform ios --device "$UDID" test "$tmp_flow"
+  xcrun simctl io "$UDID" screenshot "$RAW_DIR/04-open-source.png"
+
+  cat > "$tmp_flow" <<'YAML'
+appId: app.lunalighthouse.lunalighthouse
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- tapOn: "Go to Settings"
+- assertVisible: "Configuration"
+- scrollUntilVisible:
+    element: "Coming Soon"
+    direction: DOWN
+    timeout: 5000
+- tapOn: "Coming Soon"
+- assertVisible: "Cloud Account"
+YAML
+  maestro --platform ios --device "$UDID" test "$tmp_flow"
+  xcrun simctl io "$UDID" screenshot "$RAW_DIR/05-coming-soon.png"
+
+  cat > "$tmp_flow" <<'YAML'
+appId: app.lunalighthouse.lunalighthouse
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- setOrientation: LANDSCAPE_LEFT
+- assertVisible: "LunaLighthouse"
+YAML
+  maestro --platform ios --device "$UDID" test "$tmp_flow"
+  xcrun simctl io "$UDID" screenshot "$LANDSCAPE_DIR/01-launch-landscape.png"
+
+  cat > "$tmp_flow" <<'YAML'
+appId: app.lunalighthouse.lunalighthouse
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- setOrientation: LANDSCAPE_LEFT
+- assertVisible: "LunaLighthouse"
+- tapOn: "Go to Settings"
+- assertVisible: "Configuration"
+YAML
+  maestro --platform ios --device "$UDID" test "$tmp_flow"
+  xcrun simctl io "$UDID" screenshot "$LANDSCAPE_DIR/02-settings-landscape.png"
+
+  cat > "$tmp_flow" <<'YAML'
+appId: app.lunalighthouse.lunalighthouse
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- setOrientation: LANDSCAPE_LEFT
+- assertVisible: "LunaLighthouse"
+- tapOn: "Go to Settings"
+- assertVisible: "Configuration"
+- scrollUntilVisible:
+    element: "Coming Soon"
+    direction: DOWN
+    timeout: 5000
+- tapOn: "Coming Soon"
+- assertVisible: "Cloud Account"
+YAML
+  maestro --platform ios --device "$UDID" test "$tmp_flow"
+  xcrun simctl io "$UDID" screenshot "$LANDSCAPE_DIR/05-coming-soon-landscape.png"
+
+  cat > "$tmp_flow" <<'YAML'
+appId: app.lunalighthouse.lunalighthouse
+---
+- launchApp
+- setOrientation: PORTRAIT
+- assertVisible: "LunaLighthouse"
+YAML
+  maestro --platform ios --device "$UDID" test "$tmp_flow"
+
+  rm -f "$tmp_flow"
+  popd >/dev/null
+fi
+
+missing_screenshots=()
+for required_screenshot in \
+  01-launch.png \
+  02-settings.png \
+  03-about.png \
+  04-open-source.png \
+  05-coming-soon.png \
+  06-launch-splash.png; do
+  if [[ ! -f "$RAW_DIR/$required_screenshot" ]]; then
+    missing_screenshots+=("$required_screenshot")
+  fi
+done
+if [[ "${#missing_screenshots[@]}" -gt 0 ]]; then
+  fail "missing required screenshot(s): ${missing_screenshots[*]}"
+fi
+
+if [[ "$SKIP_EXPORT" -eq 0 ]]; then
+  "$ROOT_DIR/scripts/export-ipad-appstore-screenshots" --input-dir "$RAW_DIR" --output-dir "$EXPORT_DIR"
+fi
+
+echo "[ipad-visual-qa] Raw evidence: $RAW_DIR"
+echo "[ipad-visual-qa] Landscape evidence: $LANDSCAPE_DIR"
+echo "[ipad-visual-qa] App Store exports: $EXPORT_DIR"

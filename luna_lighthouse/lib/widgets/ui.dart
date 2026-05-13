@@ -22,6 +22,7 @@ export 'ui/highlighted_node.dart';
 export 'ui/icons.dart';
 export 'ui/input_bar.dart';
 export 'ui/linear_indicator.dart';
+export 'ui/layout.dart';
 export 'ui/list_tile.dart';
 export 'ui/list_view.dart';
 export 'ui/loader.dart';
