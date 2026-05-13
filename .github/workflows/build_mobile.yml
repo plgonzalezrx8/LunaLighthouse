@@ -75,12 +75,6 @@ jobs:
           channel: stable
           flutter-version: 3.29.3
 
-      - name: Prepare Android Signing Files
-        shell: bash
-        run: |
-          echo "${{ secrets.KEY_JKS }}" | base64 --decode > "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.jks"
-          echo "${{ secrets.KEY_PROPERTIES }}" | base64 --decode > "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.properties"
-
       - name: Fetch Dependencies
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}
         run: flutter pub get
@@ -95,6 +89,12 @@ jobs:
       - name: Install Android Fastlane Dependencies
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/android
         run: bundle install
+
+      - name: Prepare Android Signing Files
+        shell: bash
+        run: |
+          echo "${{ secrets.KEY_JKS }}" | base64 --decode > "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.jks"
+          echo "${{ secrets.KEY_PROPERTIES }}" | base64 --decode > "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.properties"
 
       - name: Build Android Artifacts
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/android
@@ -135,11 +135,6 @@ jobs:
           channel: stable
           flutter-version: 3.29.3
 
-      - name: Setup Match SSH Key
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
-
       - name: Fetch Dependencies
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}
         run: flutter pub get
@@ -154,6 +149,11 @@ jobs:
       - name: Install iOS Fastlane Dependencies
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
         run: bundle install
+
+      - name: Setup Match SSH Key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.MATCH_SSH_PRIVATE_KEY }}
 
       - name: Build iOS Artifact
         working-directory: ${{ github.workspace }}/${{ env.APP_DIR }}/ios
