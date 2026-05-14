@@ -102,6 +102,13 @@ jobs:
           bundle exec fastlane build_aab build_number:${{ needs.prepare.outputs.build-number }}
           bundle exec fastlane build_apk build_number:${{ needs.prepare.outputs.build-number }}
 
+      - name: Clean up Android signing files
+        if: always()
+        shell: bash
+        run: |
+          rm -f "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.jks"
+          rm -f "${{ github.workspace }}/${{ env.APP_DIR }}/android/key.properties"
+
       - name: Upload Android Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -168,6 +175,11 @@ jobs:
           MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         run: bundle exec fastlane build_appstore build_number:${{ needs.prepare.outputs.build-number }}
+
+      - name: Clean up Match SSH agent
+        if: always()
+        shell: bash
+        run: ssh-agent -k >/dev/null 2>&1 || true
 
       - name: Upload iOS Artifact
         uses: actions/upload-artifact@v4
