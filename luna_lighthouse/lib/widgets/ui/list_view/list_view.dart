@@ -19,19 +19,21 @@ class LunaListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: controller,
-      interactive: true,
-      child: ListView(
+    return LunaContentWidth(
+      child: Scrollbar(
         controller: controller,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        children: children,
-        itemExtent: itemExtent,
-        padding: padding ??
-            MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
-                  vertical: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom,
-                )),
-        physics: physics,
+        interactive: true,
+        child: ListView(
+          controller: controller,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          children: children,
+          itemExtent: itemExtent,
+          padding: padding ??
+              MediaQuery.of(context).padding.add(EdgeInsets.symmetric(
+                    vertical: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom,
+                  )),
+          physics: physics,
+        ),
       ),
     );
   }

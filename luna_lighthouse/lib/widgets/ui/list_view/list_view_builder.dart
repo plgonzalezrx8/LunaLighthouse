@@ -21,17 +21,19 @@ class LunaListViewBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scrollbar(
-      controller: controller,
-      interactive: true,
-      child: ListView.builder(
+    return LunaContentWidth(
+      child: Scrollbar(
         controller: controller,
-        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        padding: padding ?? _defaultPadding(context),
-        physics: physics,
-        itemCount: itemCount,
-        itemBuilder: itemBuilder,
-        itemExtent: itemExtent,
+        interactive: true,
+        child: ListView.builder(
+          controller: controller,
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: padding ?? _defaultPadding(context),
+          physics: physics,
+          itemCount: itemCount,
+          itemBuilder: itemBuilder,
+          itemExtent: itemExtent,
+        ),
       ),
     );
   }

@@ -16,7 +16,7 @@ LunaLighthouse is a fully featured, open source self-hosted controller focused o
 LunaLighthouse supports multiple application profiles, local backup/restore for configuration continuity, and a mobile-first operational model for iOS/Android.
 
 {% hint style="warning" %}
-For the phase-1 relaunch, hosted cloud account and webhook relay features are temporarily unavailable.
+For the phase-1 relaunch, hosted cloud account and webhook relay features are phase-2/deferred and temporarily unavailable.
 {% endhint %}
 
 {% hint style="info" %}

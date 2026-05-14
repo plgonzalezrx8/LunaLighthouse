@@ -17,8 +17,10 @@ pushd "$APP_DIR" >/dev/null
 # Pull Flutter/Dart dependencies for application and generator tooling.
 flutter pub get
 
-# Pull JS dev tooling dependencies used by release/version scripts.
-npm ci
+# Pull JS dev tooling dependencies used by release/version scripts. The app is
+# nested below the git root, so package lifecycle hooks such as Husky prepare
+# are intentionally skipped here.
+npm ci --ignore-scripts
 
 # Install Android fastlane dependencies.
 pushd android >/dev/null

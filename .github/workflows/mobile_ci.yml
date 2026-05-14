@@ -3,11 +3,11 @@ name: Mobile CI
 on:
   pull_request:
     branches:
-      - main
+      - development
       - master
   push:
     branches:
-      - main
+      - development
       - master
 
 permissions:
@@ -19,7 +19,8 @@ env:
 jobs:
   mobile-analyze:
     name: mobile-analyze
-    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: [self-hosted, lunalighthouse, Linux]
     defaults:
       run:
         working-directory: ${{ env.APP_DIR }}
@@ -64,7 +65,8 @@ jobs:
 
   mobile-generation-check:
     name: mobile-generation-check
-    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: [self-hosted, lunalighthouse, Linux]
     defaults:
       run:
         working-directory: ${{ env.APP_DIR }}
@@ -115,8 +117,8 @@ jobs:
             exit 1
           fi
 
-  mobile-build-android:
-    name: mobile-build-android
+  mobile-test:
+    name: mobile-test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -130,6 +132,66 @@ jobs:
         with:
           distribution: zulu
           java-version: 17
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7.6
+          bundler-cache: false
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.29.3
+
+      - name: Fetch Dependencies
+        run: flutter pub get
+
+      - name: Regenerate Build Artifacts
+        run: |
+          dart run environment_config:generate
+          dart ./scripts/generate_localization.dart
+          dart run build_runner build --delete-conflicting-outputs
+
+      - name: Run Flutter Tests With Coverage
+        run: flutter test --coverage
+
+      - name: Check Flutter Coverage
+        run: ../scripts/check-flutter-coverage coverage/lcov.info 2
+
+      - name: Upload Flutter Coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: flutter-coverage-lcov
+          path: ${{ github.workspace }}/${{ env.APP_DIR }}/coverage/lcov.info
+          if-no-files-found: error
+
+  mobile-build-android:
+    name: mobile-build-android
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: [self-hosted, lunalighthouse, Linux]
+    defaults:
+      run:
+        working-directory: ${{ env.APP_DIR }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v3
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -151,7 +213,8 @@ jobs:
 
   mobile-build-ios:
     name: mobile-build-ios
-    runs-on: macos-latest
+    if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: [self-hosted, lunalighthouse, macOS]
     defaults:
       run:
         working-directory: ${{ env.APP_DIR }}

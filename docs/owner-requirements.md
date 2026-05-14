@@ -19,24 +19,25 @@ You must own and control the following identities and governance surfaces.
 | --- | --- | --- |
 | GitHub repository admin | You (or your org admin group) | Repo URL + admin screenshot |
 | Primary maintainer identity | You | GitHub username |
-| `main` branch protection authority | You | Branch protection JSON or screenshot |
+| `master` branch protection authority | You | Branch protection JSON or screenshot |
 | Domain registrar account for `lunalighthouse.app` | You/org | Registrar account + billing owner |
 | DNS provider account | You/org | DNS provider account + MFA enabled |
 
 ### Required repository governance configuration
 
-1. Branch protection on `main` with required checks:
+1. Branch protection on `master` with required checks:
    - `mobile-analyze`
    - `mobile-generation-check`
+   - `mobile-test`
    - `mobile-build-android`
    - `mobile-build-ios`
 2. Enforce at least 1 PR approval.
 3. Enforce `CODEOWNERS` review behavior.
-4. Disable force pushes to `main`.
+4. Disable force pushes to `master`.
 
 ## 2) Accounts You Must Create and Maintain
 
-These are external systems required to launch and operate LunaLighthouse.
+These are external systems required to launch and operate LunaLighthouse. Source work integrates through `development`; production release controls live on protected `master`.
 
 ### Launch-critical accounts
 
@@ -138,6 +139,9 @@ These names must exist in GitHub repository secrets.
 | `APPLE_ID` | Apple ID email |
 | `APPLE_ITC_TEAM_ID` | App Store Connect team identifier |
 | `APPLE_TEAM_ID` | Apple Developer team identifier |
+| `APPLE_STORE_CONNECT_ISSUER_ID` | App Store Connect API issuer ID |
+| `APPLE_STORE_CONNECT_KEY_ID` | App Store Connect API key ID |
+| `APPLE_STORE_CONNECT_KEY_CONTENT` | Raw contents of the App Store Connect API private key `.p8` file |
 | `IOS_CODESIGNING_IDENTITY` | iOS distribution identity string |
 | `MATCH_KEYCHAIN_NAME` | Fastlane keychain name |
 | `MATCH_KEYCHAIN_PASSWORD` | Fastlane keychain password |
@@ -188,7 +192,7 @@ You must provide and maintain store-ready assets and metadata.
 
 ## 7) Infrastructure and Service Configuration
 
-Phase 1 focuses on mobile runtime only. You still own deferred surfaces.
+Phase 1 focuses on mobile runtime only. You still own phase-2/deferred surfaces.
 
 ### Required now (phase 1)
 

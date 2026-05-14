@@ -59,6 +59,10 @@ Maintainers may not be able to respond to every request directly, but public req
 
 The settings section is intentionally concise to keep the application focused. Detailed setup guidance belongs in the documentation where it can be updated without app-store review delays.
 
+### Where Can I Find The App Version And Open Source Packages?
+
+Open `Settings -> About` in the app. The About screen shows the installed version, build, package identifier, license note, and an Open Source page listing the registered packages and tools used by LunaLighthouse.
+
 ### "X" Won't Connect, Help!
 
 Initial setup can be simple or painful depending on network layout, reverse proxies, service API keys, and local firewall rules. Use the support channels above and include the affected module, app platform, service version, and exported logs when possible.

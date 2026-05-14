@@ -1,0 +1,27 @@
+appId: app.lunalighthouse.lunalighthouse
+name: iOS settings about smoke
+tags:
+  - ios
+  - smoke
+  - settings
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- tapOn: "Go to Settings"
+- assertVisible: "Configuration"
+- scrollUntilVisible:
+    element: "About"
+    direction: DOWN
+- assertVisible: "About"
+- tapOn: "About"
+- assertVisible: "Version"
+- assertVisible: "Build"
+- assertVisible: "Package"
+- assertVisible: "Open Source"
+- tapOn: "Open Source"
+- assertVisible: "Open Source Packages"
+- scrollUntilVisible:
+    element: "Dart"
+    direction: DOWN
+- assertVisible: "Dart"
+- assertVisible: "Flutter"

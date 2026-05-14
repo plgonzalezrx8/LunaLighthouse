@@ -46,49 +46,53 @@ class _State<T> extends State<LunaPagedListView<T>> {
         widget.onRefresh?.call();
         widget.pagingController.refresh();
       }),
-      child: Scrollbar(
-        controller: widget.scrollController,
-        interactive: true,
-        child: PagedListView<int, T>(
-          pagingController: widget.pagingController,
-          scrollController: widget.scrollController,
-          itemExtent: widget.itemExtent,
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          builderDelegate: PagedChildBuilderDelegate<T>(
-            itemBuilder: widget.itemBuilder,
-            firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(
-                onTap: () =>
-                    Future.sync(() => widget.pagingController.refresh())),
-            firstPageProgressIndicatorBuilder: (context) => const LunaLoader(),
-            newPageProgressIndicatorBuilder: (context) => Padding(
-              child: Container(
-                alignment: Alignment.center,
-                height: 48.0,
-                child: const LunaLoader(size: 16.0, useSafeArea: false),
+      child: LunaContentWidth(
+        child: Scrollbar(
+          controller: widget.scrollController,
+          interactive: true,
+          child: PagedListView<int, T>(
+            pagingController: widget.pagingController,
+            scrollController: widget.scrollController,
+            itemExtent: widget.itemExtent,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            builderDelegate: PagedChildBuilderDelegate<T>(
+              itemBuilder: widget.itemBuilder,
+              firstPageErrorIndicatorBuilder: (context) => LunaMessage.error(
+                  onTap: () =>
+                      Future.sync(() => widget.pagingController.refresh())),
+              firstPageProgressIndicatorBuilder: (context) =>
+                  const LunaLoader(),
+              newPageProgressIndicatorBuilder: (context) => Padding(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 48.0,
+                  child: const LunaLoader(size: 16.0, useSafeArea: false),
+                ),
+                padding: const EdgeInsets.only(bottom: 0.0),
               ),
-              padding: const EdgeInsets.only(bottom: 0.0),
+              newPageErrorIndicatorBuilder: (context) => const LunaIconButton(
+                icon: Icons.error_rounded,
+                color: LunaColours.red,
+              ),
+              noMoreItemsIndicatorBuilder: (context) => const LunaIconButton(
+                icon: Icons.check_rounded,
+                color: LunaColours.accent,
+              ),
+              noItemsFoundIndicatorBuilder: (context) => LunaMessage(
+                text: widget.noItemsFoundMessage,
+                buttonText: 'luna_lighthouse.Refresh'.tr(),
+                onTap: () =>
+                    Future.sync(() => widget.pagingController.refresh()),
+              ),
             ),
-            newPageErrorIndicatorBuilder: (context) => const LunaIconButton(
-              icon: Icons.error_rounded,
-              color: LunaColours.red,
-            ),
-            noMoreItemsIndicatorBuilder: (context) => const LunaIconButton(
-              icon: Icons.check_rounded,
-              color: LunaColours.accent,
-            ),
-            noItemsFoundIndicatorBuilder: (context) => LunaMessage(
-              text: widget.noItemsFoundMessage,
-              buttonText: 'luna_lighthouse.Refresh'.tr(),
-              onTap: () => Future.sync(() => widget.pagingController.refresh()),
-            ),
+            padding: widget.padding ??
+                MediaQuery.of(context)
+                    .padding
+                    .copyWith(bottom: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom)
+                    .add(EdgeInsets.only(
+                        top: LunaUI.MARGIN_H_DEFAULT_V_HALF.top)),
+            physics: const AlwaysScrollableScrollPhysics(),
           ),
-          padding: widget.padding ??
-              MediaQuery.of(context)
-                  .padding
-                  .copyWith(bottom: LunaUI.MARGIN_H_DEFAULT_V_HALF.bottom)
-                  .add(
-                      EdgeInsets.only(top: LunaUI.MARGIN_H_DEFAULT_V_HALF.top)),
-          physics: const AlwaysScrollableScrollPhysics(),
         ),
       ),
     );
