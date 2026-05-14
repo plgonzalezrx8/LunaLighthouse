@@ -56,7 +56,9 @@ enum LunaBox<T> {
   }
 
   Future<void> clear() async {
-    _instance.keys.forEach((k) async => await _instance.delete(k));
+    for (final key in _instance.keys.toList()) {
+      await _instance.delete(key);
+    }
   }
 
   Future<Box<T>> _open() async {

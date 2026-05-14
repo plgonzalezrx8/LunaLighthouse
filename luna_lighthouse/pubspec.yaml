@@ -1,6 +1,6 @@
 name: luna_lighthouse
 description: Self-Hosted Controller
-version: 11.0.0+1
+version: 1.0.0+1
 publish_to: "none"
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -86,7 +86,7 @@ flutter_icons:
 flutter_native_splash:
   image: assets/images/branding_full.png
   color: "#012988"
-  ios_content_mode: scaleAspectFill
+  ios_content_mode: scaleAspectFit
   android_12:
     image: assets/icon/icon_adaptive.png
     color: "#012988"

@@ -38,7 +38,7 @@ class LunaDrawer extends StatelessWidget {
       builder: (context, _) => LunaBox.indexers.listenableBuilder(
         builder: (context, _) => Drawer(
           elevation: LunaUI.ELEVATION,
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: LunaColours.drawerSurface,
           child:
               LunaLighthouseDatabase.DRAWER_AUTOMATIC_MANAGE.listenableBuilder(
             builder: (context, _) => Column(
@@ -95,28 +95,40 @@ class LunaDrawer extends StatelessWidget {
     required LunaModule module,
     void Function()? onTap,
   }) {
-    bool currentPage = page == module.key.toLowerCase();
+    final currentPage = page == module.key.toLowerCase();
     return SizedBox(
       height: LunaTextInputBar.defaultAppBarHeight,
       child: InkWell(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              child: Icon(
-                module.icon,
-                color: currentPage ? module.color : LunaColours.white,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: currentPage
+                ? LunaColours.accent.withValues(alpha: 0.16)
+                : Colors.transparent,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: 4.0,
+                height: double.infinity,
+                color: currentPage ? LunaColours.accent : Colors.transparent,
               ),
-              padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL * 1.5,
-            ),
-            Text(
-              module.title,
-              style: TextStyle(
-                color: currentPage ? module.color : LunaColours.white,
-                fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+              Padding(
+                padding: LunaUI.MARGIN_DEFAULT_HORIZONTAL * 1.5,
+                child: Icon(
+                  module.icon,
+                  color: LunaColours.white,
+                ),
               ),
-            ),
-          ],
+              Text(
+                module.title,
+                style: const TextStyle(
+                  color: LunaColours.white,
+                  fontWeight: LunaUI.FONT_WEIGHT_BOLD,
+                ),
+              ),
+            ],
+          ),
         ),
         onTap: onTap ??
             () async {

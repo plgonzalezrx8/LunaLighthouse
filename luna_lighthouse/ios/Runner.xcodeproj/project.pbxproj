@@ -182,7 +182,7 @@
 				TargetAttributes = {
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = VPH33JQH4R;
+						DevelopmentTeam = J3BDZ39H43;
 						LastSwiftMigration = 1100;
 						ProvisioningStyle = Manual;
 					};
@@ -410,7 +410,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = VPH33JQH4R;
+				DEVELOPMENT_TEAM = J3BDZ39H43;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -551,7 +551,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = VPH33JQH4R;
+				DEVELOPMENT_TEAM = J3BDZ39H43;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -588,8 +588,8 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = VPH33JQH4R;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = VPH33JQH4R;
+				DEVELOPMENT_TEAM = J3BDZ39H43;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3BDZ39H43;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

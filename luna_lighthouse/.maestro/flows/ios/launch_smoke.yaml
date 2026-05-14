@@ -1,0 +1,8 @@
+appId: app.lunalighthouse.lunalighthouse
+name: iOS launch smoke
+tags:
+  - ios
+  - smoke
+---
+- launchApp
+- assertVisible: "LunaLighthouse"

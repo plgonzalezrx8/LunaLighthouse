@@ -1,0 +1,25 @@
+appId: app.lunalighthouse.lunalighthouse
+name: iOS settings coming soon smoke
+tags:
+  - ios
+  - smoke
+  - settings
+---
+- launchApp
+- assertVisible: "LunaLighthouse"
+- tapOn: "Go to Settings"
+- assertVisible: "Configuration"
+- scrollUntilVisible:
+    element: "Coming Soon"
+    direction: DOWN
+    timeout: 5000
+- assertVisible: "Coming Soon"
+- tapOn: "Coming Soon"
+- assertVisible: "Cloud Account"
+- assertVisible: "Cloud Sync"
+- assertVisible: "Hosted Push Notifications"
+- scrollUntilVisible:
+    element: "Notification Relay"
+    direction: DOWN
+    timeout: 5000
+- assertVisible: "Notification Relay"

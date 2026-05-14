@@ -2,6 +2,8 @@
 
 This folder contains operational documentation for the mobile-first relaunch.
 
+For engineering handoff and implementation contracts, start in `../DEV-DOCS/`. For active task state, sprint selection, and project sequencing, use Linear first.
+
 ## Governance
 
 - `governance.md`

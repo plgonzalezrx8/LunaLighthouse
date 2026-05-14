@@ -3,11 +3,11 @@ name: Mobile CI
 on:
   pull_request:
     branches:
-      - main
+      - development
       - master
   push:
     branches:
-      - main
+      - development
       - master
 
 jobs:

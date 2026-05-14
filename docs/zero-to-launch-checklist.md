@@ -93,6 +93,9 @@ export MATCH_KEYCHAIN_NAME=lunalighthouse-signing
 export MATCH_KEYCHAIN_PASSWORD=<KEYCHAIN_PASSWORD>
 export MATCH_PASSWORD=<MATCH_ENCRYPTION_PASSWORD>
 export FASTLANE_USER=<APPLE_ID_EMAIL>
+export APPLE_STORE_CONNECT_ISSUER_ID=<APP_STORE_CONNECT_ISSUER_ID>
+export APPLE_STORE_CONNECT_KEY_ID=<APP_STORE_CONNECT_KEY_ID>
+export APPLE_STORE_CONNECT_KEY_FILEPATH=/secure/path/AuthKey_<APP_STORE_CONNECT_KEY_ID>.p8
 
 ssh-keygen -t ed25519 -f ~/.ssh/lunalighthouse_match -C "lunalighthouse-match"
 eval "$(ssh-agent -s)"
@@ -108,6 +111,10 @@ bundle exec fastlane build_appstore build_number:1000000001
 Manual:
 - Add `~/.ssh/lunalighthouse_match.pub` as write-enabled deploy key on `<ORG>/lunalighthouse-match`.
 - Create App Store Connect app record for bundle ID `app.lunalighthouse.lunalighthouse`.
+- Create an App Store Connect API key with App Manager access or narrower release-automation permissions where possible.
+- Store the downloaded `AuthKey_<KEY_ID>.p8` file in the secret vault; Apple only lets you download it once.
+- Record the API key issuer ID and key ID for `APPLE_STORE_CONNECT_ISSUER_ID` and `APPLE_STORE_CONNECT_KEY_ID`.
+- For GitHub Actions, store the raw `.p8` file contents as `APPLE_STORE_CONNECT_KEY_CONTENT`.
 
 ## Day 5 — Domains + Well-Known Files
 
@@ -162,6 +169,9 @@ gh secret set KEY_PROPERTIES < /tmp/KEY_PROPERTIES.b64
 gh secret set APPLE_ID --body "<APPLE_ID_EMAIL>"
 gh secret set APPLE_ITC_TEAM_ID --body "<APPLE_ITC_TEAM_ID>"
 gh secret set APPLE_TEAM_ID --body "<APPLE_TEAM_ID>"
+gh secret set APPLE_STORE_CONNECT_ISSUER_ID --body "<APP_STORE_CONNECT_ISSUER_ID>"
+gh secret set APPLE_STORE_CONNECT_KEY_ID --body "<APP_STORE_CONNECT_KEY_ID>"
+gh secret set APPLE_STORE_CONNECT_KEY_CONTENT < /secure/path/AuthKey_<APP_STORE_CONNECT_KEY_ID>.p8
 gh secret set IOS_CODESIGNING_IDENTITY --body "Apple Distribution: <TEAM NAME> (<TEAM_ID>)"
 gh secret set MATCH_KEYCHAIN_NAME --body "lunalighthouse-signing"
 gh secret set MATCH_KEYCHAIN_PASSWORD --body "<KEYCHAIN_PASSWORD>"
@@ -170,15 +180,16 @@ gh secret set MATCH_GIT_URL --body "git@github.com:<ORG>/lunalighthouse-match.gi
 gh secret set MATCH_SSH_PRIVATE_KEY < ~/.ssh/lunalighthouse_match
 ```
 
-Protect `main`:
+Protect `master`:
 
 ```bash
 gh api \
   -X PUT \
-  repos/<ORG>/<REPO>/branches/main/protection \
+  repos/<ORG>/<REPO>/branches/master/protection \
   -f required_status_checks.strict=true \
   -F required_status_checks.contexts[]='mobile-analyze' \
   -F required_status_checks.contexts[]='mobile-generation-check' \
+  -F required_status_checks.contexts[]='mobile-test' \
   -F required_status_checks.contexts[]='mobile-build-android' \
   -F required_status_checks.contexts[]='mobile-build-ios' \
   -f enforce_admins=true \
@@ -199,10 +210,28 @@ gh run list --limit 20
 gh run watch
 ```
 
+Required before this day is considered complete: Mobile CI must pass `mobile-test` in addition to analyze/generation/build jobs.
+
+Evidence to attach to the release dry run:
+
+- `Mobile CI` run URL showing green `mobile-analyze`, `mobile-generation-check`, `mobile-test`, `mobile-build-android`, and `mobile-build-ios`.
+- `mobile-test` artifact named `flutter-coverage-lcov`, containing `luna_lighthouse/coverage/lcov.info`.
+- Local output from `scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2`.
+- `Build Mobile` dry-run URL showing `Prepare`, `Build Android`, and `Build iOS` job outcomes for the selected flavor.
+
+Required signing secret names must match `.github/workflows/build_mobile.yml` exactly:
+
+- Android: `KEY_JKS`, `KEY_PROPERTIES`
+- iOS: `MATCH_SSH_PRIVATE_KEY`, `APPLE_ID`, `APPLE_ITC_TEAM_ID`, `APPLE_TEAM_ID`, `APPLE_STORE_CONNECT_ISSUER_ID`, `APPLE_STORE_CONNECT_KEY_ID`, `APPLE_STORE_CONNECT_KEY_CONTENT`, `IOS_CODESIGNING_IDENTITY`, `MATCH_GIT_URL`, `MATCH_KEYCHAIN_NAME`, `MATCH_KEYCHAIN_PASSWORD`, `MATCH_PASSWORD`
+
 ## Day 9 — Internal QA + Internal Store Uploads
 
 ```bash
+cd /path/to/LunaLighthouse/luna_lighthouse
+flutter test --coverage
+
 cd /path/to/LunaLighthouse
+scripts/check-flutter-coverage luna_lighthouse/coverage/lcov.info 2
 ./scripts/mobile-build-check
 ```
 
@@ -224,7 +253,9 @@ Manual:
 cd /path/to/LunaLighthouse
 
 # Repeat per fix
-git checkout -b codex/revive-lunalighthouse/hotfix-<topic>
+git checkout development
+git pull --ff-only
+git checkout -b features/hotfix-<topic>
 # implement fix
 git add .
 git commit -m "fix(mobile): <summary>"
